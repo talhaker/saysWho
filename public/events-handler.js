@@ -5,8 +5,8 @@ This block manages the quote and user repositories
 
 class EventsHandler {
     constructor(QuotesRepository, QuotesRenderer) {
-        this.QuotesRepository = QuotesRepository;
-        this.QuotesRenderer = QuotesRenderer;
+        this.quotesRepository = QuotesRepository;
+        this.quotesRenderer = QuotesRenderer;
 
 
 
@@ -18,10 +18,8 @@ class EventsHandler {
 
     registerNextQuote() {
         // on page-Quotes  show the next  Quote
-
-        let self = this;
         $('#next').on('click', () => {
-            self.quotesRepository.getQuotes();
+            this.quotesRepository.getQuotes();
 
         });
     }

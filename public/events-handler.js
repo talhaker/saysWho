@@ -9,19 +9,24 @@ class EventsHandler {
         this.QuotesRenderer = QuotesRenderer;
 
 
+
         // this.$posts = $(".posts");
     }
     registerOnLoadPage() {
         //call to all  Quotes user  
     }
 
-    registerNextQuotes() {
+    registerNextQuote() {
         // on page-Quotes  show the next  Quote
 
-        $('#next').on('click', () => {});
+        let self = this;
+        $('#next').on('click', () => {
+            self.quotesRepository.getQuotes();
+
+        });
     }
 
-    registerPreviousQuotes() {
+    registerPreviousQuote() {
         // on page-Quotes  show the previous  Quote
         $('#previous').on('click', () => {});
     }

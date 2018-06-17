@@ -1,0 +1,32 @@
+.home-page {
+    padding: 20px;
+    margin: 20px;
+    background-color: #B01513;
+    font-size: 20px;
+}
+
+.myQuote {
+    padding: 5px;
+    /* background-color: blue; */
+    text-align: center;
+}
+
+.title {
+    padding: 5px;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.login {
+    padding: 5px;
+    text-align: center;
+    /* background-color: green; */
+}
+
+.symbol {
+    font-size: 25px !important;
+    border: solid black;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: aliceblue
+}

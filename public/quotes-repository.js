@@ -8,7 +8,8 @@ so we need a bit more than usual!
  * Class responsible for storing and manipulating quotes and user data, in-memory
  */
 const APP_API_TOKEN = "effa3280e38d5dbf9b31ea6aca416fd1";
-const APP_USER_LOGIN = "taltal.haker@gmail.com";
+const APP_USER_EMAIL = "taltal.haker@gmail.com";
+const APP_USER_LOGIN = "talhaker@gmail.com";
 const APP_USER_PWD = "TelAviv62";
 const APP_API_URL = 'https://favqs.com/api/';
 class QuotesRepository {
@@ -47,15 +48,18 @@ class QuotesRepository {
         //     method: 'POST',
         //     dataType: 'json',
         //     data: {
-        //         "user": {
-        //             "login": APP_USER_LOGIN,
-        //             "password": APP_USER_PWD
+        //         user: {
+        //             login: APP_USER_LOGIN,
+        //             password: APP_USER_PWD
         //         }
         //     },
         //     success: function(data) {
         //         //                    self.sessionToken = data.User - Token);
         //         console.log('session token = ' + data);
 
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         console.log(textStatus);
         //     }
         // });
 
@@ -79,15 +83,19 @@ class QuotesRepository {
         $.ajax({
             url: APP_API_URL + 'quotes',
             headers: {
-                'Authorization': 'Token token=' + this.sessionToken,
                 'Authorization': 'Token token=' + APP_API_TOKEN,
+                'User-Token': this.sessionToken,
                 'Content-Type': 'application/json'
             },
             method: 'GET',
             dataType: 'json',
             success: function(data) {
                 self.returnedQuotes = data.quotes;
-                console.log('succes: ' + self.returnedQuotes);
+                console.log('succes: ');
+                for (let i = 0; i < data.quotes.length; i++) {
+                    console.log(self.returnedQuotes[i].author + ' :  ' + self.returnedQuotes[i].body);
+                    console.log(self.returnedQuotes[i].id + ' :  ' + self.returnedQuotes[i].tags);
+                }
             }
         });
 

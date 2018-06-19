@@ -104,7 +104,7 @@ app.post('/quotes', (req, res) => {
                  doc.quotes=temp;
                 //  doc.save();
                  res.send(Result);
-                 console.log(Result+"   meir")
+                 console.log(Result)
                    });
  
            });

@@ -122,6 +122,7 @@ class QuotesRepository {
             api_id: String,
             api_tags: [String]
         */ 
+       //  data: JSON.stringify(newQuote),
        let newQuote={
         quote_text:quoteBody,
         quote_id: quoteId,

@@ -10,7 +10,8 @@ let quotesRepository = new QuotesRepository();
 let quotesRenderer = new QuotesRenderer();
 let eventsHandler = new EventsHandler(quotesRepository, quotesRenderer);
 
-eventsHandler.registerOnLoadPage();
+eventsHandler.registerUserLogin();
+eventsHandler.registerGetInspirationBook();
 eventsHandler.registerNextQuote();
 eventsHandler.registerPreviousQuote();
 

@@ -4,10 +4,11 @@ Our Setup -
 we are going to send requests to favqs (Fav Quotes) API 
 so we need a bit more than usual!
 =======================================================*/
-let bodyParser = require('body-parser');
-let express = require('express');
-let mongoose = require('mongoose');
-let ObjectID = require('mongodb').ObjectID;
+const bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const ObjectID = require('mongodb').ObjectID;
 mongoose.Promise = global.Promise;
 
 /*=====================================================
@@ -25,22 +26,131 @@ mongoose.connect(myConnection, { useMongoClient: true })
     .then(() => {
         console.log('DB connection established!');
         // Only generate dummy data on the first time
-        generateDummyData();
+        //generateDummyData();
     })
     .catch((error) => console.error(error));
 
 
 /*=====================================================
-Express setup
+Express & express handlebars setup
 =======================================================*/
 let app = express();
-app.use(express.static('public'));
+//app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Dummy data to populate the database
 
+
+/*=====================================================
+Here we need to create the different server routes
+These will define your API:
+=======================================================*/
+
+/* 1) Signup/Login                                     */
+app.post('/login', (req, res) => {
+    User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
+        if (err) {
+            throw err;
+        }
+        if (users.length > 0) {
+            // user already exists - return it
+            res.send(users[0]);
+        }
+        // User doesn't exist yet - create it
+        let newUser = new User({
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email
+        });
+        newUser.save((err, user) => {
+            if (err) {
+                throw err;
+            }
+            res.send(user);
+        });
+    })
+});
+
+/* 2) Get user's quotes and their related data         */
+app.get('/book', (req, res) => {
+    User.findOne({ email: req.body.email }).populate('quotes', 'quotes -_id').exec(function(err, quotes) {
+        if (err) {
+            throw err;
+        }
+        res.send(quotes);
+    });
+});
+
+/* 3) Save a quote                                     */
+// app.post('/posts', (req, res) => {
+//   Post.create({
+//     title: req.body.title,
+//     text: req.body.text,
+//     username: req.body.username,
+//     time: req.body.time,
+//     comments: []
+//   }, (err, postResult) => {
+//     if (err) throw err;
+//     res.send(postResult);
+//   });
+// });
+
+/* 4) Delete a quote                                   */
+// app.delete('/posts/:id', (req, res) => {
+//   var id = req.params.id;
+//   // Check if the ID is a valid mongoose id
+//   if (!ObjectID.isValid(id)) {
+//     return res.status(400).send('Id not in the correct format');
+//   }
+//   // delete the post from the DB collection
+//   Post.findByIdAndRemove(id, (err, deletedPost) => {
+//     if (err) throw err;
+//     res.json(deletedPost);
+//   });
+// });
+
+/* 5) Add tag(s) to an existing quote                  */
+// app.post('/posts/:id/comments', (req, res) => {
+//     var id = req.params.id;
+//     // Check if the ID is a valid mongoose id
+//     if (!ObjectID.isValid(id)) {
+//         return res.status(400).send('Id not in the correct format');
+//     }
+//     // update the comments array in the DB
+//     Post.findByIdAndUpdate(id, { $push: { comments: req.body } }, { new: true }, (err, updatedPost) => {
+//         if (err) throw err;
+//         res.send(updatedPost);
+//     });
+// });
+
+/* 6) Add note to an existing quote                    */
+
+/* 7) Update note to an existing quote                 */
+// app.put('/posts/:postId', (req, res) => {
+//     var id = req.params.postId;
+//     // Check if the ID is a valid mongoose id
+//     if (!ObjectID.isValid(id)) {
+//         return res.status(400).send('Id not in the correct format');
+//     }
+//     // update the post in the DB collection
+//     Post.findByIdAndUpdate(id, { $set: { text: req.body.text } }, { new: true }, (err, updatedPost) => {
+//         if (err) throw err;
+//         console.log(updatedPost);
+//         res.json(updatedPost);
+//     });
+// });
+
+
+
+/*=====================================================
+PORT
+=======================================================*/
+const SERVER_PORT = process.env.PORT || 8080;
+app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
+
+// Dummy data to populate the database
 let generateDummyData = () => {
     let quote1 = new Quote({
         text: "Man always dies before he is fully born.",
@@ -177,108 +287,6 @@ let generateDummyData = () => {
 
     console.log('Dummy data generated!');
 }
-
-
-
-/*=====================================================
-Here we need to create the different server routes
-These will define your API:
-=======================================================*/
-/* 1) Signup/Login                                     */
-app.post('/login', (req, res) => {
-    User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
-        if (err) throw err;
-        if (users.length > 0) {
-            // user already exists - return it
-            res.send(users[0]);
-        }
-        // User doesn't exist yet - create it
-        let user = new User({
-            name: req.body.name,
-            password: req.body.password,
-            email: req.body.email
-        });
-        user.save((err, user) => {
-            if (err) throw err;
-            res.send(user);
-        });
-    })
-});
-
-/* 2) Get user's quotes and their related data         */
-// app.get('/posts', (req, res) => {
-//   Post.find({}, (err, postResult) => {
-//     if (err) throw err;
-//     res.send(postResult);
-//   });
-// });
-
-/* 3) Save a quote                                     */
-// app.post('/posts', (req, res) => {
-//   Post.create({
-//     title: req.body.title,
-//     text: req.body.text,
-//     username: req.body.username,
-//     time: req.body.time,
-//     comments: []
-//   }, (err, postResult) => {
-//     if (err) throw err;
-//     res.send(postResult);
-//   });
-// });
-
-/* 4) Delete a quote                                   */
-// app.delete('/posts/:id', (req, res) => {
-//   var id = req.params.id;
-//   // Check if the ID is a valid mongoose id
-//   if (!ObjectID.isValid(id)) {
-//     return res.status(400).send('Id not in the correct format');
-//   }
-//   // delete the post from the DB collection
-//   Post.findByIdAndRemove(id, (err, deletedPost) => {
-//     if (err) throw err;
-//     res.json(deletedPost);
-//   });
-// });
-
-/* 5) Add tag(s) to an existing quote                  */
-// app.post('/posts/:id/comments', (req, res) => {
-//     var id = req.params.id;
-//     // Check if the ID is a valid mongoose id
-//     if (!ObjectID.isValid(id)) {
-//         return res.status(400).send('Id not in the correct format');
-//     }
-//     // update the comments array in the DB
-//     Post.findByIdAndUpdate(id, { $push: { comments: req.body } }, { new: true }, (err, updatedPost) => {
-//         if (err) throw err;
-//         res.send(updatedPost);
-//     });
-// });
-
-/* 6) Add note to an existing quote                    */
-
-/* 7) Update note to an existing quote                 */
-// app.put('/posts/:postId', (req, res) => {
-//     var id = req.params.postId;
-//     // Check if the ID is a valid mongoose id
-//     if (!ObjectID.isValid(id)) {
-//         return res.status(400).send('Id not in the correct format');
-//     }
-//     // update the post in the DB collection
-//     Post.findByIdAndUpdate(id, { $set: { text: req.body.text } }, { new: true }, (err, updatedPost) => {
-//         if (err) throw err;
-//         console.log(updatedPost);
-//         res.json(updatedPost);
-//     });
-// });
-
-
-
-/*=====================================================
-PORT
-=======================================================*/
-const SERVER_PORT = process.env.PORT || 8080;
-app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
 
 
 //

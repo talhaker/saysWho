@@ -7,17 +7,50 @@ class EventsHandler {
     constructor(QuotesRepository, QuotesRenderer) {
         this.quotesRepository = QuotesRepository;
         this.quotesRenderer = QuotesRenderer;
+        this.userLoginData = {
+            name: "",
+            password: "",
+            email: ""
+        };
 
 
 
         // this.$posts = $(".posts");
     }
-    registerOnLoadPage() {
-        //call to all  Quotes user  
+
+    registerUserLogin() {
+        // Get all user's quotes
+        $('#login').on('click', () => {
+            let $name = $('#name');
+            let $email = $('#email');
+            let $password = $('#password');
+            if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
+                alert('Please enter name, email and password!');
+            } else {
+                this.quotesRepository.addPost($inputText.val(), $inputTitle.val(), $inputUser.val()).then(() => {
+                    this.quotesRenderer.renderPosts(this.postsRepository.posts);
+                }).catch(() => { console.log('catch- error in adding post function'); });
+                $inputText.val('');
+                $inputTitle.val('');
+                $inputUser.val('');
+            }
+        });
+    }
+
+    registerGetInspirationBook() {
+        // Get all user's quotes
+        $('#book').on('click', () => {
+            if (this.userLoginData.email === "") {
+                alert('To see your inspirational book, lease log into your account');
+                return;
+            }
+            this.quotesRepository.getUserQuotes();
+
+        });
     }
 
     registerNextQuote() {
-        // on page-Quotes  show the next  Quote
+        // on page-Quotes  show the next quote
         $('#next').on('click', () => {
             this.quotesRepository.getQuotes();
 

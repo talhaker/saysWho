@@ -16,6 +16,7 @@ class QuotesRepository {
     constructor() {
         this.quotes = [];
         this.user = {
+            id: "",
             name: "",
             email: "",
             password: ""
@@ -101,21 +102,48 @@ class QuotesRepository {
 
     }
 
+    // Login
+    userLogin(name, email, password) {
+        let self = this;
+        return $.ajax({
+            method: 'POST',
+            url: 'login',
+            data: {
+                name: name,
+                email: email,
+                password: password
+            },
+            success: (data) => {
+                // Update user parameters
+                self.user = {
+                    id: data._id,
+                    name: data.name,
+                    email: data.email,
+                    password: data.password
+                };
+
+                console.log(self.user);
+                this.getUserQuotes(data.email);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('userLogin(): ' + textStatus);
+            }
+        });
+    }
 
     // request all the posts from the DB
     getUserQuotes() {
-        // return $.ajax({
-        //     method: 'Get',
-        //     url: 'inspiration',
-        //     success: (inspiration) => {
-        //         // add the quotes
-        //         this.quotes = inspirtion.quotes;
-        //         this.users = inspirtion.users;
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.log(textStatus);
-        //     }
-        // });
+        return $.ajax({
+            method: 'GET',
+            url: 'book',
+            success: (quotes) => {
+                // add the quotes
+                this.quotes = quotes;
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
     }
 
     saveQuote(quoteId, tags, notes) {

@@ -47,18 +47,108 @@ These will define your API:
 // });
 
 /* 2) Save a quote                                     */
-// app.post('/posts', (req, res) => {
-//   Post.create({
-//     title: req.body.title,
-//     text: req.body.text,
-//     username: req.body.username,
-//     time: req.body.time,
-//     comments: []
-//   }, (err, postResult) => {
+//   app.post('/quotes', (req, res) => {
+//     Quote.create({
+//     text: req.body.quote_text,
+//     author: req.body.quote_author,
+//     api_id: req.body.quote_id,
+//     api_tags: req.body.quote_tags
+//   }, (err, Result) => {
 //     if (err) throw err;
-//     res.send(postResult);
+//     // console.log(Result)
+//     User.create({
+//         name:"myName",
+//         pass:"myPass",
+//         email:"myEmail",
+//         quotes:[{
+//             quote:Result.id ,
+//             tags: req.body.quote_tags,
+//             notes: []
+//         }]
+//     })
+//     res.send(Result);
 //   });
 // });
+
+        
+app.post('/quotes', (req, res) => {
+    let apiId=req.body.quote_id;
+    let userId=req.body.user_id;
+    // let apiId=49980;
+    // let userId="5b2830a0c467cf187457a874"; /// is uesr id 
+    console.log(req.body.user_id)
+    //  console.log( " req.body "+req.body)
+     Quote.find({api_id:apiId}, function (err, dataQuote) {
+
+        
+        if(dataQuote.length===0)//if new
+        {
+           
+            // console.log("new doc "+doc.quote_tags)
+            console.log("new qoute")
+            Quote.create({
+             text: req.body.quote_text,
+             author: req.body.quote_author,
+             api_id: req.body.quote_id,
+             api_tags: req.body.quote_tags
+           }, (err, Result) => {
+             if (err) throw err;
+                 User.findById(userId, function (err, doc) {
+             let new_quote={
+                 quote:Result.id,
+                 notes:[],
+                 tags:req.body.quote_tags
+             }
+             var temp=doc.quotes;
+                 temp.push(new_quote)
+                 doc.quotes=temp;
+                //  doc.save();
+                 res.send(Result);
+                 console.log(Result+"   meir")
+                   });
+ 
+           });
+           
+        }
+        else    //if Exists
+        {
+         console.log("Exists")
+              User.findById(userId, function (err, doc) {
+          let new_quote={
+              quote:dataQuote[0]._id,
+              notes:dataQuote[0].quote_tags,
+              tags:[]
+          }
+          var temp=doc.quotes;
+              temp.push(new_quote)
+              doc.quotes=temp;
+            //  doc.save();
+             res.send(dataQuote[0]);
+
+                  });
+        }
+
+   })
+});
+
+
+
+//get qoute from user
+app.post('/quotes/get_all', function (req, res) {
+    User.
+    findOne({ name: "myName" }).select('quotes').
+    populate('quote'). // 
+    exec(function (err, user) {
+      if (err) return handleError(err);
+  
+      console.log('The user ', user);
+
+    });
+    res.send('Hello World!');
+  });
+
+
+
 
 /* 3) Delete a quote                                   */
 // app.delete('/posts/:id', (req, res) => {

@@ -18,6 +18,7 @@ let QuoteSchema = new Schema({
     api_tags: [String]
 });
 
-
 let Quote = mongoose.model('quote', QuoteSchema);
 module.exports = Quote;
+
+//

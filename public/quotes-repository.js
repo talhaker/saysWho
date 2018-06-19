@@ -127,7 +127,7 @@ class QuotesRepository {
         quote_id: quoteId,
         quote_tags: tags[0],
         quote_author: author,
-        user_id: self.user.id
+        user: self.user.id
        }
        
         return $.ajax({

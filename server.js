@@ -73,10 +73,10 @@ These will define your API:
         
 app.post('/quotes', (req, res) => {
     let apiId=req.body.quote_id;
-    let userId=req.body.user_id;
+    let userId=req.body.user;
     // let apiId=49980;
     // let userId="5b2830a0c467cf187457a874"; /// is uesr id 
-    console.log(req.body.user_id)
+    console.log(req.body.quote_tags)
     //  console.log( " req.body "+req.body)
      Quote.find({api_id:apiId}, function (err, dataQuote) {
 

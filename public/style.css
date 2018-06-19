@@ -3,46 +3,40 @@
     width: 1000px;
     height: 768px;
     position: center;
+    padding-top: 60px;
 }
+
+
 .navbar{
-    background-color: seagreen;
-    /* position: inherit; */
-    width: 800px;
-    /* margin: 0 auto; */
+    background-color: sienna;
+    width: 1000px;
+    height: 100px;
 }
-.nav-title1{
-    text-align: center;
-}
-.nav-title2{
+.navbar-text1{
     text-align: center;
     font-style: italic;
+    color: black;
 }
-.notebook-icon-frame{
-    background-color: white;
-    max-width: 100px;
-    height: 100px;
-    /* display: inline-block; */
-    /* border: 1px solid blue; */
-}
-.login-icon-frame{
-    background-color: white;
-    max-width: 100px;
-    height: 100px;
-    /* display: inline-block;
-    border: 1px solid blue;    */
+.navbar-text2{
+    text-align: center;
+    font-style: italic;
+    font-style: italic;
+    color: black;
 }
 .notebook-icon{
-    max-width: 50px;
-    /* height: 50px; */
+    max-width: 40px;
+    height: 40px;
     margin: 0;
     display: inline;
 }
 .login-icon{
-    max-width: 50px;
-    /* height: 50px; */
+    max-width: 40px;
+    height: 40px;
     margin: 0;
     display: inline;
 }
+
+
 section{
     /* position: inherit;
     width: 800px;
@@ -61,12 +55,15 @@ section{
     /* float:left;     */
 }
 .fotter{
-    /* padding: 5px;
-    background-color: slateblue;
-    position: inherit;
-    width: 800px;
-    margin: 0; */
-
+    position: fixed;
+    height: 100px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.footer-copyright{
+    background-color: lightblue;
 }
 .save-icon{
     max-width: 100px;

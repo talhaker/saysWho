@@ -20,5 +20,3 @@ let QuoteSchema = new Schema({
 
 let Quote = mongoose.model('quote', QuoteSchema);
 module.exports = Quote;
-
-//

@@ -1,86 +1,104 @@
-.container{
+.container {
     background-color: lightblue;
     width: 1000px;
     height: 768px;
     position: center;
 }
-.navbar{
+
+.navbar {
     background-color: seagreen;
     /* position: inherit; */
     width: 800px;
     /* margin: 0 auto; */
 }
-.nav-title1{
+
+.nav-title1 {
     text-align: center;
 }
-.nav-title2{
+
+.nav-title2 {
     text-align: center;
     font-style: italic;
 }
-.notebook-icon-frame{
+
+.notebook-icon-frame {
     background-color: white;
     max-width: 100px;
     height: 100px;
     /* display: inline-block; */
     /* border: 1px solid blue; */
 }
-.login-icon-frame{
+
+.login-icon-frame {
     background-color: white;
     max-width: 100px;
     height: 100px;
     /* display: inline-block;
     border: 1px solid blue;    */
 }
-.notebook-icon{
+
+.notebook-icon {
     max-width: 50px;
     /* height: 50px; */
     margin: 0;
     display: inline;
 }
-.login-icon{
+
+.login-icon {
     max-width: 50px;
     /* height: 50px; */
     margin: 0;
     display: inline;
 }
-section{
-    /* position: inherit;
+
+
+/* section{
+    position: inherit;
     width: 800px;
-    margin: 0 auto; */
-}
-.vitruvian-man-background{
+    margin: 0 auto;
+} */
+
+.vitruvian-man-background {
     background-image: url(/Images/Vitruvian-Man.png);
     background-size: cover;
 }
-.intro{
+
+.intro {
     background-color: saddlebrown;
     text-align: center;
     /* float:left; */
 }
-.left-div-icons{
-    /* float:left;     */
-}
-.fotter{
-    /* padding: 5px;
+
+
+/* .left-div-icons {
+    float:left;    
+} */
+
+
+/* .fotter {
+    padding: 5px;
     background-color: slateblue;
     position: inherit;
     width: 800px;
-    margin: 0; */
+    margin: 0;
+} */
 
-}
-.save-icon{
+.save-icon {
     max-width: 100px;
     height: 100px;
 }
-.tag-icon{
+
+.tag-icon {
     max-width: 100px;
     height: 100px;
 }
-.share-icon{
+
+.share-icon {
     max-width: 100px;
     height: 100px;
 }
-.arrow-right{
+
+.arrow-right {
     max-width: 100px;
     height: 100px;
 }

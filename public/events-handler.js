@@ -27,12 +27,13 @@ class EventsHandler {
             if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
                 alert('Please enter name, email and password!');
             } else {
-                this.quotesRepository.addPost($inputText.val(), $inputTitle.val(), $inputUser.val()).then(() => {
+                this.quotesRepository.userLogin($name.val(), $email.val(), $password.val()).then(() => {
+                    console.log('User ' + $name + ' successfully logged in');
                     this.quotesRenderer.renderPosts(this.postsRepository.posts);
-                }).catch(() => { console.log('catch- error in adding post function'); });
-                $inputText.val('');
-                $inputTitle.val('');
-                $inputUser.val('');
+                }).catch(() => { console.log('catch - error adding user ' + $name); });
+                $name.val('');
+                $email.val('');
+                $password.val('');
             }
         });
     }

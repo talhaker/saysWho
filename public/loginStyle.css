@@ -1,0 +1,31 @@
+.container{
+    background-color: gold;
+}
+.row{
+    /* background-color: dimgray; */
+}
+.home-page {
+    padding: 20px;
+    margin: 20px;
+    background-color: #B01513;
+    font-size: 20px;
+}
+.header-page{
+    background-color: darksalmon;
+}
+.myQuote {
+    padding: 5px;
+    background-color: blue;
+    text-align: center;
+}
+
+.title {
+    padding: 5px;
+    text-align: center;
+    background-color: aqua;
+}
+
+.fotter{
+    padding: 5px;
+    background-color: slateblue;
+}

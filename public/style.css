@@ -4,11 +4,11 @@
     height: 768px;
     position: center;
 }
-.navigation-bar{
+.navbar{
     background-color: seagreen;
-    position: inherit;
+    /* position: inherit; */
     width: 800px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 .nav-title1{
     text-align: center;
@@ -21,15 +21,15 @@
     background-color: white;
     max-width: 100px;
     height: 100px;
-    display: inline-block;
-    border: 1px solid blue;
+    /* display: inline-block; */
+    /* border: 1px solid blue; */
 }
 .login-icon-frame{
     background-color: white;
     max-width: 100px;
     height: 100px;
-    display: inline-block;
-    border: 1px solid blue;   
+    /* display: inline-block;
+    border: 1px solid blue;    */
 }
 .notebook-icon{
     max-width: 50px;
@@ -44,9 +44,9 @@
     display: inline;
 }
 section{
-    position: inherit;
+    /* position: inherit;
     width: 800px;
-    margin: 0 auto;
+    margin: 0 auto; */
 }
 .vitruvian-man-background{
     background-image: url(/Images/Vitruvian-Man.png);
@@ -55,17 +55,17 @@ section{
 .intro{
     background-color: saddlebrown;
     text-align: center;
-    float:left;
+    /* float:left; */
 }
 .left-div-icons{
-    float:left;    
+    /* float:left;     */
 }
 .fotter{
-    padding: 5px;
+    /* padding: 5px;
     background-color: slateblue;
     position: inherit;
     width: 800px;
-    margin: 0;
+    margin: 0; */
 
 }
 .save-icon{

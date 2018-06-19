@@ -11,7 +11,7 @@ the favqs API. only one copy kept in DB
 //to define the relationship between posts and comments
 
 
-let QuotesSchema = new Schema({
+let QuoteSchema = new Schema({
     text: String,
     author: String,
     api_id: String,
@@ -19,5 +19,5 @@ let QuotesSchema = new Schema({
 });
 
 
-let Quote = mongoose.model('quote', QuotesSchema);
+let Quote = mongoose.model('quote', QuoteSchema);
 module.exports = Quote;

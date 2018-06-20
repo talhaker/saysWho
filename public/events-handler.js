@@ -17,7 +17,7 @@ class EventsHandler {
     }
     registerOnLoadPage() {
         //call to all  Quotes user  
-        this.quotesRepository.getQuotes();
+        // this.quotesRepository.getQuotes();
     }
 
     registerNextQuote() {
@@ -43,6 +43,31 @@ class EventsHandler {
         });
     }
 
+    registerFindQuoteFromApi() {
+                // $('#findQuote').on('change', () => {
+                //     alert($('#findQuote').val());
+                // })
+                $('#find').on('click', () => { 
+                    var toFind='';
+                    let findby=$('#findBy').val();  ///tag,filter,author
+                    
+                    switch($('#findQuote').val()) {
+                        case "filter":// /?filter=funny
+                        toFind="/?filter="+findby; 
+                            break;
+                        case "tag":
+                        toFind="/?filter="+findby+"&type=tag" ; 
+                            break;
+                        default:  //author
+                        toFind="/?filter="+findby+"&type=author" ; 
+                    } 
+                    debugger
+                    this.quotesRepository.getQuotes(toFind);
+                    //alert(toFind)
+                })
+                
+
+    }
     registerAddQuote() {
         $('#save').on('click', () => {
 

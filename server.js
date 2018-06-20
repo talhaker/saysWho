@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let mongoose = require('mongoose');
 let ObjectID = require('mongodb').ObjectID;
+let path = require('path');
 mongoose.Promise = global.Promise;
 
 /*=====================================================
@@ -32,7 +33,9 @@ let app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 /*=====================================================
 Here we need to create the different server routes
@@ -46,45 +49,30 @@ These will define your API:
 //   });
 // });
 
-/* 2) Save a quote                                     */
-//   app.post('/quotes', (req, res) => {
-//     Quote.create({
-//     text: req.body.quote_text,
-//     author: req.body.quote_author,
-//     api_id: req.body.quote_id,
-//     api_tags: req.body.quote_tags
-//   }, (err, Result) => {
-//     if (err) throw err;
-//     // console.log(Result)
-//     User.create({
-//         name:"myName",
-//         pass:"myPass",
-//         email:"myEmail",
-//         quotes:[{
-//             quote:Result.id ,
-//             tags: req.body.quote_tags,
-//             notes: []
-//         }]
-//     })
-//     res.send(Result);
-//   });
+          /* 2) Save a quote                              */
+         /*
+        User.create({
+        name:"myName",
+        password:"myPass",
+        email:"myEmail",
+        quotes:[]
+        });
+      */    
+//   app.get('/', () => {  
+//       console.log("meir")
 // });
+// app.get("", ()=> {
+//     console.log(req.body) // populated!
+//     res.send(200, req.body);
+//   });
 
         
-app.post('/quotes', (req, res) => {
+app.post('/quotes2', (req, res) => {
     let apiId=req.body.quote_id;
     let userId=req.body.user;
-    // let apiId=49980;
-    // let userId="5b2830a0c467cf187457a874"; /// is uesr id 
-    console.log(req.body.quote_tags)
-    //  console.log( " req.body "+req.body)
      Quote.find({api_id:apiId}, function (err, dataQuote) {
-
-        
         if(dataQuote.length===0)//if new
         {
-           
-            // console.log("new doc "+doc.quote_tags)
             console.log("new qoute")
             Quote.create({
              text: req.body.quote_text,
@@ -134,10 +122,10 @@ app.post('/quotes', (req, res) => {
 
 
 //get qoute from user
-app.post('/quotes/get_all', function (req, res) {
+app.post('/quotes1', function (req, res) {
     User.
-    findOne({ name: "myName" }).select('quotes').
-    populate('quote'). // 
+    findOne({ name: "myName" }).
+    populate(). // 
     exec(function (err, user) {
       if (err) return handleError(err);
   
@@ -195,6 +183,9 @@ app.post('/quotes/get_all', function (req, res) {
 //     });
 // });
 
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public', 'index.html'));
+// })
 
 
 /*=====================================================
@@ -203,5 +194,3 @@ PORT
 const SERVER_PORT = process.env.PORT || 8080;
 app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
 
-
-//

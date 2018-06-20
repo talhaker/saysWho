@@ -19,3 +19,6 @@ eventsHandler.registerRemoveQuote();
 
 eventsHandler.registerAddNote();
 eventsHandler.registerRemoveNote();
+eventsHandler.registerFindQuoteFromApi() ;
+
+

@@ -18,7 +18,7 @@ class QuotesRepository {
              name: "",
              email: "",
              password: "",
-             id:"5b2830a0c467cf187457a874"
+             id:"5b296b53571da13b783101f0"
         };
         this.returnedQuotes = [];
         /* 
@@ -75,12 +75,13 @@ class QuotesRepository {
     */
 
 //// tag = /?filter=funny&type=tag
+///       "/?filter=funny&type=tag"
 //   author = /?filter=Mark+Twain&type=author
-    getQuotes() {
+    getQuotes(toFind) {
 
         let self = this;
         $.ajax({
-            url: APP_API_URL + 'quotes',
+            url: APP_API_URL + 'quotes'+toFind,
             headers: {
                 'Authorization': 'Token token=' + this.sessionToken,
                 'Authorization': 'Token token=' + APP_API_TOKEN,
@@ -90,6 +91,7 @@ class QuotesRepository {
             dataType: 'json',
             success: function(data) {
                 self.returnedQuotes = data.quotes;
+                $('#QuoteText').text(data.quotes[0].body);
                 console.log('succes: ' + self.returnedQuotes);
             }
         });
@@ -126,7 +128,7 @@ class QuotesRepository {
        let newQuote={
         quote_text:quoteBody,
         quote_id: quoteId,
-        quote_tags: tags[0],
+        quote_tags: tags,
         quote_author: author,
         user: self.user.id
        }
@@ -138,7 +140,7 @@ class QuotesRepository {
             dataType: 'json',
             success: (data_Quote) => {
                 // Push quote if not already in array
-                debugger
+                
                 self.quotes.push(data_Quote);
                 console.log("add qoute")
 

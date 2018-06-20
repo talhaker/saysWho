@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let mongoose = require('mongoose');
 let ObjectID = require('mongodb').ObjectID;
+let path = require('path');
 mongoose.Promise = global.Promise;
 
 /*=====================================================
@@ -37,7 +38,9 @@ let app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // Dummy data to populate the database
 
@@ -213,19 +216,94 @@ app.post('/login', (req, res) => {
 //   });
 // });
 
-/* 3) Save a quote                                     */
-// app.post('/posts', (req, res) => {
-//   Post.create({
-//     title: req.body.title,
-//     text: req.body.text,
-//     username: req.body.username,
-//     time: req.body.time,
-//     comments: []
-//   }, (err, postResult) => {
-//     if (err) throw err;
-//     res.send(postResult);
-//   });
+/* 2) Save a quote                              */
+         /*
+        User.create({
+        name:"myName",
+        password:"myPass",
+        email:"myEmail",
+        quotes:[]
+        });
+      */    
+//   app.get('/', () => {  
+//       console.log("meir")
 // });
+// app.get("", ()=> {
+//     console.log(req.body) // populated!
+//     res.send(200, req.body);
+//   });
+
+        
+app.post('/quotes2', (req, res) => {
+    let apiId=req.body.quote_id;
+    let userId=req.body.user;
+     Quote.find({api_id:apiId}, function (err, dataQuote) {
+        if(dataQuote.length===0)//if new
+        {
+            console.log("new qoute")
+            Quote.create({
+             text: req.body.quote_text,
+             author: req.body.quote_author,
+             api_id: req.body.quote_id,
+             api_tags: req.body.quote_tags
+           }, (err, Result) => {
+             if (err) throw err;
+                 User.findById(userId, function (err, doc) {
+             let new_quote={
+                 quote:Result.id,
+                 notes:[],
+                 tags:req.body.quote_tags
+             }
+             var temp=doc.quotes;
+                 temp.push(new_quote)
+                 doc.quotes=temp;
+                //  doc.save();
+                 res.send(Result);
+                 console.log(Result)
+                   });
+ 
+           });
+           
+        }
+        else    //if Exists
+        {
+         console.log("Exists")
+              User.findById(userId, function (err, doc) {
+          let new_quote={
+              quote:dataQuote[0]._id,
+              notes:dataQuote[0].quote_tags,
+              tags:[]
+          }
+          var temp=doc.quotes;
+              temp.push(new_quote)
+              doc.quotes=temp;
+            //  doc.save();
+             res.send(dataQuote[0]);
+
+                  });
+        }
+
+   })
+});
+
+
+
+//get qoute from user
+app.post('/quotes1', function (req, res) {
+    User.
+    findOne({ name: "myName" }).
+    populate(). // 
+    exec(function (err, user) {
+      if (err) return handleError(err);
+  
+      console.log('The user ', user);
+
+    });
+    res.send('Hello World!');
+  });
+
+
+
 
 /* 4) Delete a quote                                   */
 // app.delete('/posts/:id', (req, res) => {
@@ -272,6 +350,9 @@ app.post('/login', (req, res) => {
 //     });
 // });
 
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public', 'index.html'));
+// })
 
 
 /*=====================================================
@@ -280,5 +361,3 @@ PORT
 const SERVER_PORT = process.env.PORT || 8080;
 app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
 
-
-//

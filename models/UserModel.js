@@ -2,6 +2,8 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+let Quote = require('./QuoteModel');
+
 /*=====================================================
 QuoteItemSchema contains the user-specific data, related
 to the quote. It is a sub-doc of the UserSchema

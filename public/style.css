@@ -1,30 +1,62 @@
-.home-page {
-    padding: 20px;
-    margin: 20px;
-    background-color: #B01513;
-    font-size: 20px;
+.container{
+    background-color: lightblue;
+    width: 1000px;
+    height: 768px;
+    position: center;
+    padding-top: 60px;
 }
 
-.myQuote {
-    padding: 5px;
-    /* background-color: blue; */
+
+.navbar{
+    background-color: sienna;
+    width: 1000px;
+    height: 100px;
+}
+.navbar-text1{
     text-align: center;
+    font-style: italic;
+    color: black;
+}
+.navbar-text2{
+    text-align: center;
+    font-style: italic;
+    font-style: italic;
+    color: black;
 }
 
-.title {
-    padding: 5px;
-    text-align: center;
-    /* background-color: aqua; */
+.notebook-icon{
+    max-width: 40px;
+    height: 40px;
+    margin: 0;
+    display: inline;
 }
+
 #QuoteText{
     color:white;
     font-size: 25px
 }
 
-.login {
-    padding: 5px;
+.login-icon{
+    max-width: 40px;
+    height: 40px;
+    margin: 0;
+    display: inline;
+}
+
+
+section{
+    /* position: inherit;
+    width: 800px;
+    margin: 0 auto; */
+}
+.vitruvian-man-background{
+    background-image: url(/Images/Vitruvian-Man.png);
+    background-size: cover;
+}
+.intro{
+    background-color: saddlebrown;
     text-align: center;
-    /* background-color: green; */
+    /* float:left; */
 }
 
 .symbol {
@@ -46,4 +78,35 @@
 }
 .previousandnext{
     text-align: center;
+}
+
+.left-div-icons{
+    /* float:left;     */
+}
+.fotter{
+    position: fixed;
+    height: 100px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.footer-copyright{
+    background-color: lightblue;
+}
+.save-icon{
+    max-width: 100px;
+    height: 100px;
+}
+.tag-icon{
+    max-width: 100px;
+    height: 100px;
+}
+.share-icon{
+    max-width: 100px;
+    height: 100px;
+}
+.arrow-right{
+    max-width: 100px;
+    height: 100px;
 }

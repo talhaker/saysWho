@@ -10,37 +10,63 @@
 
 <body>
     <div class="container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="inspirationBook.html">
-                        <img class="notebook-icon" alt="notebook-Icon" src="/Images/notebook-Icon.png">
-                    </a>
-                    <h3 class="navbar-text1">SaysWho?</h3>
-                    <h3 class="navbar-text2">“Finding my inspiration”</h3>
-                    <a class="navbar-brand" href="#">
-                            <img class="login-icon" alt="login-icon" src="/Images/login-icon.png">
-                    </a>
-                </div>
+        <div class="row">
+            <div class="col-md-4">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <h3 class="navbar-text1">SaysWho?</h3>
+                            <h3 class="navbar-text2">“Finding my inspiration”</h3>
+                            <a class="navbar-brand" href="inspirationBook.html">
+                                <img class="notebook-icon" alt="notebook-Icon" src="/Images/notebook-Icon.png">
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://www.jquery2dotnet.com">Sign Up</a></li>
+                                <li class="dropdown">
+                                    <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown"><a class="navbar-brand" href="#">
+                                            <img class="login-icon" alt="login-icon" src="/Images/login-icon.png"></a></a>
+                                    <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                                        <li>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                                    <div class="form-group">
+                                                    <label class="sr-only" for="emailInput">Email address</label>
+                                                    <input type="email" class="form-control" id="emailInput" placeholder="Email address" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <label class="sr-only" for="passwordInput">Password</label>
+                                                    <input type="password" class="form-control" id="passwordInput" placeholder="Password" required>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                    <label>
+                                                    <input type="checkbox"> Remember me
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                        <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
+                                        <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </div>
+                    </div>
+                </nav>
             </div>
-        </nav>
-                  
-        <!-- <div class="raw"> -->
-            <!-- <div class="navbar navbar-light col-md-4" role="navigation"><br>
-                <div class="notebook-icon-frame">
-                    <input class="notebook-icon" type="image" src="/Images/notebook-Icon.png" alt="notebook Icon"></input>
-                </div>
-                <div class="titles">
-                    <h1 class="nav-title1">SaysWho?</h1>
-                    <h1 class="nav-title2">“Finding my inspiration”</h1>
-                </div>
-                <div class="login-icon-frame">
-                    <input class="login-icon" type="image" src="/Images/login-icon.png" alt="login icon"></input>
-                </div>
-            </div> -->
         </div>
         <section>
-            <div class="vitruvian-man-background">
+            <!-- <div class="vitruvian-man-background">
                 <div class="intro">
                     <h4>saysWho? Helps you collect and manage inspirational quotes at the touch of a button.
                     You may than save them in your personal Inspiration Book, and refer to them at any time.
@@ -52,7 +78,7 @@
                 <input class="save-icon" type="image" src="/Images/save-icon.png" alt="save icon"><br>
                 <input class="tag-icon" type="image" src="/Images/tag-icon.png" alt="tag icon"></button><br>
                 <input class="share-icon" type="image" src="/Images/share-icon.png" alt="share icon"></button><br>
-            </div>
+            </div> -->
         </section>
         <!-- Footer -->
     <footer class="page-footer font-small blue pt-4 mt-4">

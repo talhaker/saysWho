@@ -49,50 +49,43 @@ These will define your API:
 //   });
 // });
 
-          /* 2) Save a quote                              */
-         /*
-        User.create({
-        name:"myName",
-        password:"myPass",
-        email:"myEmail",
-        quotes:[]
-        });
-      */    
-//   app.get('/', () => {  
-//       console.log("meir")
-// });
-// app.get("", ()=> {
-//     console.log(req.body) // populated!
-//     res.send(200, req.body);
-//   });
-
+          /* 2) Save a quote         quote_note:note,
+        user_tag:myTags                       */
         
-app.post('/quotes2', (req, res) => {
+app.post('/save_quote', (req, res) => {
     let apiId=req.body.quote_id;
     let userId=req.body.user;
+    let myTags=req.body.user_tag;
+
+
      Quote.find({api_id:apiId}, function (err, dataQuote) {
+     
+        console.log( "meir  "+dataQuote)
+        console.log( "aaaaaaaaaaaaaaaaaaaaa")
         if(dataQuote.length===0)//if new
         {
             console.log("new qoute")
-            Quote.create({
+             Quote.create({
              text: req.body.quote_text,
              author: req.body.quote_author,
              api_id: req.body.quote_id,
              api_tags: req.body.quote_tags
            }, (err, Result) => {
              if (err) throw err;
-                 User.findById(userId, function (err, doc) {
+                 User.findById(userId, function (err, _user) {
              let new_quote={
                  quote:Result.id,
-                 notes:[],
-                 tags:req.body.quote_tags
+                 notes:req.body.user_note,
+                 tags:myTags
              }
-             var temp=doc.quotes;
+             var temp=_user.quotes;
                  temp.push(new_quote)
-                 doc.quotes=temp;
-                //  doc.save();
-                 res.send(Result);
-                 console.log(Result)
+                 _user.quotes=temp;
+                 console.log("quote  "+Result.id) 
+                 console.log("user  "+_user.id)
+                 _user.save();
+                 res.send(User);
+               
                    });
  
            });
@@ -101,17 +94,32 @@ app.post('/quotes2', (req, res) => {
         else    //if Exists
         {
          console.log("Exists")
-              User.findById(userId, function (err, doc) {
+              User.findById(userId, function (err, _user) {
           let new_quote={
               quote:dataQuote[0]._id,
-              notes:dataQuote[0].quote_tags,
-              tags:[]
-          }
-          var temp=doc.quotes;
-              temp.push(new_quote)
-              doc.quotes=temp;
-            //  doc.save();
-             res.send(dataQuote[0]);
+              notes:req.body.user_note,
+              tags:dataQuote[0].api_tags
+                 }
+
+                 console.log(new_quote)
+          console.log(_user)
+         // _user.quotes.tags.push(req.body.user_tag[0])
+
+          let temp=new_quote.tags;
+              temp.push(req.body.user_tag[0])
+              _user.quotes.tags=temp
+
+           var temp1=_user.quotes;
+              temp1.push(new_quote)
+              _user.quotes=temp1;
+
+
+              
+
+              console.log("quote  "+dataQuote[0]._id) 
+              console.log("user  "+_user.id)
+              _user.save();
+              res.send(new_quote);
 
                   });
         }

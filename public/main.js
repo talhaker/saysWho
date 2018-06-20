@@ -22,3 +22,7 @@ eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi() ;
 
 
+$('#searchResults').on('click', () => {
+
+window.location = "searchResults.html";
+  });

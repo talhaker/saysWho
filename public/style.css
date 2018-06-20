@@ -1,21 +1,16 @@
 .home-page {
     padding: 20px;
     margin: 20px;
-    background-color: #B01513;
+    background-color: lightblue;
+
     font-size: 20px;
 }
 
-.myQuote {
-    padding: 5px;
-    /* background-color: blue; */
-    text-align: center;
-}
 
-.title {
-    padding: 5px;
-    text-align: center;
-    /* background-color: aqua; */
-}
+
+
+/* searchResults  */
+
 #QuoteText{
     color:white;
     font-size: 25px
@@ -37,7 +32,6 @@
 .borderQuote{
 
     /* height: 200px; */
-    border: 2px solid green;
     color:white;
     font-size: 30px
 
@@ -47,3 +41,34 @@
 .previousandnext{
     text-align: center;
 }
+
+
+
+/*index  meir*/
+.header-page{
+    background-color: #B01513;
+
+}
+.myQuote {
+    padding: 5px;
+    /* background-color: blue; */
+    text-align: center;
+}
+.title-page {
+    padding: 5px;
+    text-align: center;
+
+    /* background-color: aqua; */
+}
+#findQuote{
+    height: 34px;
+    border-radius: 5px;
+}
+.btnShow{
+    margin-top: 30px;
+}
+.text-center{
+    background-color: lightblue
+}
+
+/* end index  meir*/

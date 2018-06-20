@@ -12,9 +12,26 @@
 
 <body>
     <div class="container">
+
+        <!-- this is fixed general nav bar -->
+        <nav class="navbar navbar-dark indigo">
+                <span class="navbar-text white-text">
+                    <h2>SaysWho?</h2>
+                </span>
+                <span class="navbar-text white-text">
+                    <h2>“Finding my inspiration”</h2>
+                </span>
+                <!-- clickable icon to move to inspirationBook.html -->
+                <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
+                <!-- clickable icon collpase sign-in form -->
+                <!-- need to copy the code for collapse sign-in form searchResults.html-->
+                <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+        </nav>
+        <!-- closing nav bar -->
+
+        <!-- findQuote row -->
         <div class="row"><br><br><br>
-            <div class="col-md-6 col-md-offset-3 home-page">
-                   
+            <div class="col-md-6 col-md-offset-3 home-page">  
                 <div class="row findQuote">
                         <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
                                 <option value="tag">tag</option>
@@ -25,116 +42,33 @@
                        <button type="button" id="find" class="btn btn-info col-2">find</button>
 
                 </div>
-                <div class="row header-page">
-                    <div class="col-xs-2 myQuote"><i class="symbol fa fa-book"></i>
-                        <br><br><br><br><button type="button" id="previous" class="btn btn-primary">previous</button>
-                    </div>
-                    <div class="col-xs-8 title">SaysWho? <br>“Finding my inspiration” 
-                      <br><br>
-                    <div class="borderQuote">
-                        “ <span id="QuoteText"></span> ”
-                    </div>
-                    </div>
-                    <div class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
-                    <br> <br><br><br><br><button type="button" id="next" class="btn btn-info">next</button>
-                </div>
-
-<br>
-                <div class="row previousandnext">
-                    <button type="button" id="save" class="btn btn-info">save</button>
-                </div>
             </div>
-        </nav>
-                  
-        <!-- <div class="raw"> -->
-            <!-- <div class="navbar navbar-light col-md-4" role="navigation"><br>
-                <div class="notebook-icon-frame">
-                    <input class="notebook-icon" type="image" src="/Images/notebook-Icon.png" alt="notebook Icon"></input>
-                </div>
-                <div class="titles">
-                    <h1 class="nav-title1">SaysWho?</h1>
-                    <h1 class="nav-title2">“Finding my inspiration”</h1>
-                </div>
-                <div class="login-icon-frame">
-                    <input class="login-icon" type="image" src="/Images/login-icon.png" alt="login icon"></input>
-                </div>
-            </div> -->
         </div>
+        <!-- closing findQuote row test -->
+        
         <section>
+            <!-- below the background div image of Vitruvian-Man -->
             <div class="vitruvian-man-background">
-                <div class="intro">
-                    <h4>saysWho? Helps you collect and manage inspirational quotes at the touch of a button.
-                    You may than save them in your personal Inspiration Book, and refer to them at any time.
-                    Hit “Next” for instructions…</h4>
-                    <input class="arrow-right" type="image" src="/Images/long-arrow-right.png" alt="long arrow right icon"><br>
+                <!-- below popup introduction div-->
+                <div class"intro-popup">
+                    <a class="trigger_popup_fricc">Tell About SaysWho? App</a>
+                    <div class="hover_bkgr_fricc" style="display: block;">
+                        <span class="helper"></span>
+                        <div>
+                            <div class="popupCloseButton">Close</div>
+                            <h5>saysWho? Helps you collect and manage inspirational quotes at the touch of a button. You may than save them in your personal Inspiration Book, and refer to them at any time. Hit “Next” for instructions<br>
+                            To search for quotes, you may enter one of more tags/author names – followed by the “Search” button. Omitting the search criteria returns a random “surprise” quote<br>
+                            Alternatively, you may explore the Vitruvian Man – for a fun and intuitive way to search for quotes</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="left-div-icons">
-                <input class="save-icon" type="image" src="/Images/save-icon.png" alt="save icon"><br>
-                <input class="tag-icon" type="image" src="/Images/tag-icon.png" alt="tag icon"></button><br>
-                <input class="share-icon" type="image" src="/Images/share-icon.png" alt="share icon"></button><br>
-            </div>
+            <!-- closing background div image of Vitruvian-Man -->
         </section>
-        <!-- Footer -->
-    <footer class="page-footer font-small blue pt-4 mt-4">
 
-        <!-- Footer Links -->
-        <div class="container-fluid text-center text-md-left">
-      
-          <!-- Grid row -->
-          <div class="row">
-      
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3">
-      
-              <!-- Content -->
-              <h5 class="text-uppercase">Footer Content</h5>
-              <p>Here you can use rows and columns here to organize your footer content.</p>
-      
-            </div>
-            <!-- Grid column -->
-      
-            <hr class="clearfix w-100 d-md-none pb-3">
-      
-            <!-- Grid column -->
-            <div class="col-md-6 mb-md-0 mb-3">
-      
-              <!-- Links -->
-              <h5 class="text-uppercase">Links</h5>
-      
-              <ul class="list-unstyled">
-                <li>
-                  <a href="#!">Link 1</a>
-                </li>
-                <li>
-                  <a href="#!">Link 2</a>
-                </li>
-                <li>
-                  <a href="#!">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!">Link 4</a>
-                </li>
-              </ul>
-      
-            </div>
-            <!-- Grid column -->
-      
-          </div>
-          <!-- Grid row -->
-      
-        </div>
-        <!-- Footer Links -->
-      
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-          <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
-      
-      </footer>
-      <!-- Footer -->
+
     </div>
+
     <script src="bootstrap/dist/jsbootstrap.min.js"></script>
 
     <script src="jquery/dist/jquery.js"></script>

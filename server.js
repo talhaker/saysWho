@@ -101,10 +101,6 @@ app.post('/save_quote', (req, res) => {
               tags:dataQuote[0].api_tags
                  }
 
-                 console.log(new_quote)
-          console.log(_user)
-         // _user.quotes.tags.push(req.body.user_tag[0])
-
           let temp=new_quote.tags;
               temp.push(req.body.user_tag[0])
               _user.quotes.tags=temp
@@ -112,10 +108,7 @@ app.post('/save_quote', (req, res) => {
            var temp1=_user.quotes;
               temp1.push(new_quote)
               _user.quotes=temp1;
-
-
               
-
               console.log("quote  "+dataQuote[0]._id) 
               console.log("user  "+_user.id)
               _user.save();

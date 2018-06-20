@@ -5,43 +5,85 @@ This block manages the quote and user repositories
 
 class EventsHandler {
     constructor(QuotesRepository, QuotesRenderer) {
-        this.QuotesRepository = QuotesRepository;
-        this.QuotesRenderer = QuotesRenderer;
+        this.quotesRepository = QuotesRepository;
+        this.quotesRenderer = QuotesRenderer;
+        this.indexReturnedQuote=0;
+        this.indexQuote=0
+     
+
 
 
         // this.$posts = $(".posts");
     }
     registerOnLoadPage() {
         //call to all  Quotes user  
+        // this.quotesRepository.getQuotes();
     }
 
-    registerNextQuotes() {
+    registerNextQuote() {
         // on page-Quotes  show the next  Quote
+        $('#next').on('click', () => {
+            if(this.indexReturnedQuote>=this.quotesRepository.returnedQuotes.length-1)
+             this.indexReturnedQuote=0;
+             else
+             this.indexReturnedQuote++
+        this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
 
-        $('#next').on('click', () => {});
+        });
     }
 
-    registerPreviousQuotes() {
+    registerPreviousQuote() {
         // on page-Quotes  show the previous  Quote
-        $('#previous').on('click', () => {});
+        $('#previous').on('click', () => {   
+            if(this.indexReturnedQuote<=0)
+            this.indexReturnedQuote=this.quotesRepository.returnedQuotes.length-1;
+            else
+            this.indexReturnedQuote--;  
+            this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
+        });
     }
 
+    registerFindQuoteFromApi() {
+                // $('#findQuote').on('change', () => {
+                //     alert($('#findQuote').val());
+                // })
+                $('#find').on('click', () => { 
+                    var toFind='';
+                    let findby=$('#findBy').val();  ///tag,filter,author
+                    
+                    switch($('#findQuote').val()) {
+                        case "filter":// /?filter=funny
+                        toFind="/?filter="+findby; 
+                            break;
+                        case "tag":
+                        toFind="/?filter="+findby+"&type=tag" ; 
+                            break;
+                        default:  //author
+                        toFind="/?filter="+findby+"&type=author" ; 
+                    } 
+                    debugger
+                    this.quotesRepository.getQuotes(toFind);
+                    //alert(toFind)
+                })
+                
+
+    }
     registerAddQuote() {
-        // $('#addpost').on('click', () => {
-        //     let $inputText = $('#postText');
-        //     let $inputTitle = $('#postTitle');
-        //     let $inputUser = $('#postUser');
-        //     if ($inputText.val() === '' || $inputTitle.val() === '' || $inputUser.val() === '') {
-        //         alert('Please enter text, username and title!');
-        //     } else {
-        //         this.postsRepository.addPost($inputText.val(), $inputTitle.val(), $inputUser.val()).then(() => {
-        //             this.postsRenderer.renderPosts(this.postsRepository.posts);
-        //         }).catch(() => { console.log('catch- error in adding post function'); });
-        //         $inputText.val('');
-        //         $inputTitle.val('');
-        //         $inputUser.val('');
-        //     }
-        // });
+        $('#save').on('click', () => {
+
+
+            let indexReturnedQuote= this.indexReturnedQuote;
+            let quoteBody =this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
+            let quoteId=this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
+            let tags=this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
+            let author=this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
+                                                                           //userId
+            this.quotesRepository.saveQuote(quoteBody,quoteId,tags,author,"5b2830a0c467cf187457a874").then(() => {
+                  console.log("good job")
+                 }).catch(() => { console.log('catch- error in adding Quote function'); });
+ 
+            
+        });
 
     }
 
@@ -51,6 +93,21 @@ class EventsHandler {
 
 
     registerAddTags() {
+        $('#save2').on('click', () => {
+
+
+            let indexReturnedQuote= this.indexReturnedQuote;
+            let quoteBody =this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
+            let quoteId=this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
+            let tags=this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
+            let author=this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
+                                                                           //userId
+            this.quotesRepository.saveQuote(quoteBody,quoteId,tags,author,"5b2830a0c467cf187457a874").then(() => {
+                  console.log("good job")
+                 }).catch(() => { console.log('catch- error in adding Quote function'); });
+ 
+            
+        });
 
     }
 

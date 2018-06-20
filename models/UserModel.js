@@ -1,12 +1,15 @@
 "use strict";
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+
+let Quote = require('./QuoteModel');
 
 /*=====================================================
 QuoteItemSchema contains the user-specific data, related
 to the quote. It is a sub-doc of the UserSchema
 =======================================================*/
-let QuoteItemSchema = new mongoose.Schema({
-    quote: [{ type: Schema.Types.ObjectId, ref: "quote" }],
+let QuoteItemSchema = new Schema({
+    quote: { type: Schema.Types.ObjectId, ref: "quote" },
     tags: [String],
     notes: [String]
 });
@@ -15,7 +18,7 @@ let QuoteItemSchema = new mongoose.Schema({
 UserSchema contains the user's data, including user's
 collection of inspirational quotes
 =======================================================*/
-let UserSchema = new mongoose.Schema({
+let UserSchema = new Schema({
     name: String,
     password: String,
     email: String,

@@ -5,141 +5,71 @@
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="font-awesome\css\font-awesome.min.css">
+
+    <script></script>
     <title></title>
 </head>
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <nav class="navbar navbar-default" role="navigation">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <h3 class="navbar-text1">SaysWho?</h3>
-                            <h3 class="navbar-text2">“Finding my inspiration”</h3>
-                            <a class="navbar-brand" href="inspirationBook.html">
-                                <img class="notebook-icon" alt="notebook-Icon" src="/Images/notebook-Icon.png">
-                            </a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="http://www.jquery2dotnet.com">Sign Up</a></li>
-                                <li class="dropdown">
-                                    <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown"><a class="navbar-brand" href="#">
-                                            <img class="login-icon" alt="login-icon" src="/Images/login-icon.png"></a></a>
-                                    <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-                                        <li>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                                    <div class="form-group">
-                                                    <label class="sr-only" for="emailInput">Email address</label>
-                                                    <input type="email" class="form-control" id="emailInput" placeholder="Email address" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                    <label class="sr-only" for="passwordInput">Password</label>
-                                                    <input type="password" class="form-control" id="passwordInput" placeholder="Password" required>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                    <label>
-                                                    <input type="checkbox"> Remember me
-                                                    </label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                    <button type="submit" class="btn btn-success btn-block">Sign in</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                        <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
-                                        <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <section>
-            <!-- <div class="vitruvian-man-background">
-                <div class="intro">
-                    <h4>saysWho? Helps you collect and manage inspirational quotes at the touch of a button.
-                    You may than save them in your personal Inspiration Book, and refer to them at any time.
-                    Hit “Next” for instructions…</h4>
-                    <input class="arrow-right" type="image" src="/Images/long-arrow-right.png" alt="long arrow right icon"><br>
+
+        <!-- this is fixed general nav bar -->
+        <nav class="navbar navbar-dark indigo">
+                <span class="navbar-text white-text">
+                    <h2>SaysWho?</h2>
+                </span>
+                <span class="navbar-text white-text">
+                    <h2>“Finding my inspiration”</h2>
+                </span>
+                <!-- clickable icon to move to inspirationBook.html -->
+                <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
+                <!-- clickable icon collpase sign-in form -->
+                <!-- need to copy the code for collapse sign-in form searchResults.html-->
+                <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+        </nav>
+        <!-- closing nav bar -->
+
+        <!-- findQuote row -->
+        <div class="row"><br><br><br>
+            <div class="col-md-6 col-md-offset-3 home-page">  
+                <div class="row findQuote">
+                        <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
+                                <option value="tag">tag</option>
+                                <option value="author">author</option>
+                                <option value="filter">filter</option>
+                       </select>
+                       <div class="col-xs-6"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
+                       <button type="button" id="find" class="btn btn-info col-2">find</button>
+
                 </div>
             </div>
-            <div class="left-div-icons">
-                <input class="save-icon" type="image" src="/Images/save-icon.png" alt="save icon"><br>
-                <input class="tag-icon" type="image" src="/Images/tag-icon.png" alt="tag icon"></button><br>
-                <input class="share-icon" type="image" src="/Images/share-icon.png" alt="share icon"></button><br>
-            </div> -->
+        </div>
+        <!-- closing findQuote row -->
+        
+        <section>
+            <!-- below the background div image of Vitruvian-Man -->
+            <div class="vitruvian-man-background">
+                <!-- below popup introduction div-->
+                <div class"intro-popup">
+                    <a class="trigger_popup_fricc">Tell About SaysWho? App</a>
+                    <div class="hover_bkgr_fricc" style="display: block;">
+                        <span class="helper"></span>
+                        <div>
+                            <div class="popupCloseButton">Close</div>
+                            <h5>saysWho? Helps you collect and manage inspirational quotes at the touch of a button. You may than save them in your personal Inspiration Book, and refer to them at any time. Hit “Next” for instructions<br>
+                            To search for quotes, you may enter one of more tags/author names – followed by the “Search” button. Omitting the search criteria returns a random “surprise” quote<br>
+                            Alternatively, you may explore the Vitruvian Man – for a fun and intuitive way to search for quotes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- closing background div image of Vitruvian-Man -->
         </section>
-        <!-- Footer -->
-    <footer class="page-footer font-small blue pt-4 mt-4">
 
-        <!-- Footer Links -->
-        <div class="container-fluid text-center text-md-left">
-      
-          <!-- Grid row -->
-          <div class="row">
-      
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3">
-      
-              <!-- Content -->
-              <h5 class="text-uppercase">Footer Content</h5>
-              <p>Here you can use rows and columns here to organize your footer content.</p>
-      
-            </div>
-            <!-- Grid column -->
-      
-            <hr class="clearfix w-100 d-md-none pb-3">
-      
-            <!-- Grid column -->
-            <div class="col-md-6 mb-md-0 mb-3">
-      
-              <!-- Links -->
-              <h5 class="text-uppercase">Links</h5>
-      
-              <ul class="list-unstyled">
-                <li>
-                  <a href="#!">Link 1</a>
-                </li>
-                <li>
-                  <a href="#!">Link 2</a>
-                </li>
-                <li>
-                  <a href="#!">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!">Link 4</a>
-                </li>
-              </ul>
-      
-            </div>
-            <!-- Grid column -->
-      
-          </div>
-          <!-- Grid row -->
-      
-        </div>
-        <!-- Footer Links -->
-      
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-          <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
-      
-      </footer>
-      <!-- Footer -->
+
     </div>
+
+    <script src="bootstrap/dist/jsbootstrap.min.js"></script>
 
     <script src="jquery/dist/jquery.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>

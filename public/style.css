@@ -7,59 +7,101 @@
 }
 
 
+/*fixed general nav bar*/
 .navbar{
-    background-color: sienna;
     width: 1000px;
     height: 100px;
 }
-.navbar-text1{
+.navbar-text{
     text-align: center;
     font-style: italic;
-    color: black;
-}
-.navbar-text2{
-    text-align: center;
-    font-style: italic;
-    font-style: italic;
-    color: black;
-}
-#login-nav input {
-    margin-bottom: 15px;
 }
 .notebook-icon{
-    max-width: 40px;
-    /* height: 40px; */
+    width: 24px !important;
+    height: 24px !important;
     margin: 0;
     display: inline;
 }
-.navbar-brand{
+.login-icon{
     max-width: 40px;
-    display: inline;
     margin: 0;
-    display: inline;
+    display: inline;   
 }
+/*closing fixed general nav bar*/
+
+
+/* findQuote row */
+.row{
+    background-color: white;
+}
+/* closing findQuote row */
 
 
 
-/* .vitruvian-man-background{
-    background-image: url(/Images/Vitruvian-Man.png);
+.vitruvian-man-background{
+    background-image: url(Images/Vitruvian-Man.png);
+  
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+    
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    
+    /* This is what makes the background image rescale based
+       on the container's size */
     background-size: cover;
-} */
-.intro{
-    background-color: saddlebrown;
-    text-align: center;
-    /* float:left; */
+    
+    /* Set a background color that will be displayed
+       while the background image is loading */
+    background-color: #464646;
 }
 
 
-/* .fotter{
+/* popup introduction div */
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+.hover_bkgr_fricc {
+    background: rgba(0,0,0,.4);
+    cursor: pointer;
+    display: none;
+    height: 100%;
     position: fixed;
-    height: 100px;
-    left: 0;
-    bottom: 0;
-    width: 100%;
     text-align: center;
-} */
-.footer-copyright{
-    background-color: lightblue;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
 }
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+h5 {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+/* closing popup introduction div */

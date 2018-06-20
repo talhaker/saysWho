@@ -13,17 +13,17 @@ mongoose.Promise = global.Promise;
 /*=====================================================
 Connect to MongoDB and check the connection
 =======================================================*/
-let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
-mongoose.connect(myConnection, { useMongoClient: true })
-    .then(() => { console.log('DB connection established!'); })
-    .catch((error) => console.error(error));
+// let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
+// mongoose.connect(myConnection, { useMongoClient: true })
+//     .then(() => { console.log('DB connection established!'); })
+//     .catch((error) => console.error(error));
 
 
 /*=====================================================
 MongoDB schema models
 =======================================================*/
 let Quote = require('./models/QuoteModel');
-let User = require('./models/UserModel');
+// let User = require('./models/UserModel');
 
 /*=====================================================
 Express setup

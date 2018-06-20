@@ -20,6 +20,9 @@ eventsHandler.registerRemoveQuote();
 
 eventsHandler.registerAddNote();
 eventsHandler.registerRemoveNote();
+eventsHandler.registerFindQuoteFromApi() ;
+
+
 
 // Get the modal
 var modal = document.getElementById('id01');

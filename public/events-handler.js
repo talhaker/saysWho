@@ -7,11 +7,9 @@ class EventsHandler {
     constructor(QuotesRepository, QuotesRenderer) {
         this.quotesRepository = QuotesRepository;
         this.quotesRenderer = QuotesRenderer;
-        this.userLoginData = {
-            name: "",
-            password: "",
-            email: ""
-        };
+        this.indexReturnedQuote = 0;
+        this.indexQuote = 0
+
 
 
 
@@ -21,16 +19,19 @@ class EventsHandler {
     registerUserLogin() {
         // Get all user's quotes
         $('#login').on('click', () => {
+            let self = this;
             let $name = "Rachel";
             let $email = "racheltaz@gmail.com";
             let $password = "rachelTaz";
             if ($name === '' || $email === '' || $password === '') {
                 alert('Please enter name, email and password!');
             } else {
-                this.quotesRepository.userLogin($name, $email, $password).then(() => {
-                    console.log('User ' + $name + ' successfully logged in');
-                    this.quotesRenderer.renderPosts(this.postsRepository.posts);
-                }).catch(() => { console.log('catch - error adding user ' + $name); });
+                this.quotesRepository.userLogin($name, $email, $password)
+                    .then(() => {
+                        console.log('User ' + $name + ' successfully logged in');
+                        // this.quotesRenderer.renderPosts(this.postsRepository.posts);
+                    })
+                    .catch(() => { console.log('catch - error adding user ' + $name); });
             }
             // let $name = $('#name');
             // let $email = $('#email');
@@ -53,7 +54,7 @@ class EventsHandler {
         // Get all user's quotes
         $('#book').on('click', () => {
             if (this.userLoginData.email === "") {
-                alert('To see your inspirational book, lease log into your account');
+                alert('To see your inspirational book, please log into your account');
                 return;
             }
             this.quotesRepository.getUserQuotes();
@@ -64,32 +65,67 @@ class EventsHandler {
     registerNextQuote() {
         // on page-Quotes  show the next quote
         $('#next').on('click', () => {
-            this.quotesRepository.getQuotes();
+            if (this.indexReturnedQuote >= this.quotesRepository.returnedQuotes.length - 1)
+                this.indexReturnedQuote = 0;
+            else
+                this.indexReturnedQuote++
+                this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
 
         });
     }
 
     registerPreviousQuote() {
         // on page-Quotes  show the previous  Quote
-        $('#previous').on('click', () => {});
+        $('#previous').on('click', () => {
+            if (this.indexReturnedQuote <= 0)
+                this.indexReturnedQuote = this.quotesRepository.returnedQuotes.length - 1;
+            else
+                this.indexReturnedQuote--;
+            this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
+        });
     }
 
+    registerFindQuoteFromApi() {
+        // $('#findQuote').on('change', () => {
+        //     alert($('#findQuote').val());
+        // })
+        $('#find').on('click', () => {
+            var toFind = '';
+            let findby = $('#findBy').val(); ///tag,filter,author
+
+            switch ($('#findQuote').val()) {
+                case "filter": // /?filter=funny
+                    toFind = "/?filter=" + findby;
+                    break;
+                case "tag":
+                    toFind = "/?filter=" + findby + "&type=tag";
+                    break;
+                default: //author
+                    toFind = "/?filter=" + findby + "&type=author";
+            }
+            debugger
+            this.quotesRepository.getQuotes(toFind);
+            //alert(toFind)
+        })
+
+
+    }
     registerAddQuote() {
-        // $('#addpost').on('click', () => {
-        //     let $inputText = $('#postText');
-        //     let $inputTitle = $('#postTitle');
-        //     let $inputUser = $('#postUser');
-        //     if ($inputText.val() === '' || $inputTitle.val() === '' || $inputUser.val() === '') {
-        //         alert('Please enter text, username and title!');
-        //     } else {
-        //         this.postsRepository.addPost($inputText.val(), $inputTitle.val(), $inputUser.val()).then(() => {
-        //             this.postsRenderer.renderPosts(this.postsRepository.posts);
-        //         }).catch(() => { console.log('catch- error in adding post function'); });
-        //         $inputText.val('');
-        //         $inputTitle.val('');
-        //         $inputUser.val('');
-        //     }
-        // });
+        $('#save').on('click', () => {
+
+
+            let indexReturnedQuote = this.indexReturnedQuote;
+            let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
+            let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
+            let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
+            let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
+            //userId
+            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, "5b2830a0c467cf187457a874").then(() => {
+                console.log("good job")
+            }).catch(() => { console.log('catch- error in adding Quote function'); });
+
+
+        });
 
     }
 
@@ -99,6 +135,21 @@ class EventsHandler {
 
 
     registerAddTags() {
+        $('#save2').on('click', () => {
+
+
+            let indexReturnedQuote = this.indexReturnedQuote;
+            let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
+            let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
+            let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
+            let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
+            //userId
+            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, "5b2830a0c467cf187457a874").then(() => {
+                console.log("good job")
+            }).catch(() => { console.log('catch- error in adding Quote function'); });
+
+
+        });
 
     }
 

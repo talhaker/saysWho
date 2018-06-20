@@ -32,6 +32,11 @@
     display: inline;
 }
 
+#QuoteText {
+    color: white;
+    font-size: 25px
+}
+
 .login-icon {
     max-width: 40px;
     /* height: 40px; */
@@ -57,10 +62,25 @@
     /* float:left; */
 }
 
+.symbol {
+    font-size: 25px !important;
+    border: solid black;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: aliceblue
+}
 
-/* .left-div-icons{
-    float:left;    
-} */
+.borderQuote {
+    /* height: 200px; */
+    border: 2px solid green;
+    color: white;
+    font-size: 30px
+    /* padding: 12px; */
+}
+
+.previousandnext {
+    text-align: center;
+}
 
 .fotter {
     position: fixed;

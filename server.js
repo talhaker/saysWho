@@ -39,7 +39,7 @@ let app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
@@ -50,39 +50,47 @@ These will define your API:
 
 /* 1) Signup/Login                                     */
 app.post('/login', (req, res) => {
-    // User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
-    User.find({ email: request.body.email }, (err, users) => {
-        if (err) {
-            throw err;
-        }
-        if (users.length > 0) {
-            // user already exists - return it
-            res.send(users[0]);
-        }
-        // User doesn't exist yet - create it
-        let newUser = new User({
-            name: req.body.name,
-            password: req.body.password,
-            email: req.body.email
-        });
-        newUser.save((err, user) => {
+    User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
+        // .select('quotes')
+        .populate('quotes.quote')
+        .exec((err, user) => {
             if (err) {
                 throw err;
             }
-            res.send(user);
-        });
-    })
+            if (user !== null) {
+                // user already exists - return it
+                res.send(user);
+            }
+            // User doesn't exist yet - create it
+            let newUser = new User({
+                name: req.body.name,
+                password: req.body.password,
+                email: req.body.email,
+                quotes: []
+            });
+            newUser.save((err, user) => {
+                if (err) {
+                    throw err;
+                }
+                res.send(user);
+            });
+        })
 });
 
 /* 2) Get user's quotes and their related data         */
-app.get('/book', (req, res) => {
-    User.findOne({ email: req.body.email }).populate('quotes', 'quotes -_id').exec(function(err, quotes) {
-        if (err) {
-            throw err;
-        }
-        res.send(quotes);
-    });
-});
+// app.get('/book', (req, res) => {
+//     let id = req.body.id;
+//     // Check if the ID is a valid mongoose id
+//     if (!ObjectID.isValid(id)) {
+//         return res.status(400).send('Id not in the correct format');
+//     }
+//     User.findById(req.body.id).populate('quotes', 'quotes -_id').exec(function(err, quotes) {
+//         if (err) {
+//             throw err;
+//         }
+//         res.send(quotes);
+//     });
+// });
 
 /* 3) Save a quote                                     */
 // app.post('/posts', (req, res) => {

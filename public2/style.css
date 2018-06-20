@@ -20,8 +20,7 @@
 
 .navbar-text2 {
     text-align: center;
-    font-style: italic;
-    font-style: italic;
+    /* font-style: italic; */
     color: black;
 }
 
@@ -47,7 +46,7 @@
 } */
 
 .vitruvian-man-background {
-    background-image: url(./images/Vitruvian-Man.jpg);
+    background-image: url(../images/Vitruvian-Man.jpg);
     background-size: cover;
 }
 

@@ -50,7 +50,8 @@ These will define your API:
 
 /* 1) Signup/Login                                     */
 app.post('/login', (req, res) => {
-    User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
+    // User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
+    User.find({ email: request.body.email }, (err, users) => {
         if (err) {
             throw err;
         }

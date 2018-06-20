@@ -1,3 +1,5 @@
+import { getMaxListeners } from "cluster";
+
 "use strict";
 /*=====================================================
 This block manages the quote and user repositories
@@ -21,31 +23,23 @@ class EventsHandler {
     registerUserLogin() {
         // Get all user's quotes
         $('#login').on('click', () => {
-            let $name = "Rachel";
-            let $email = "racheltaz@gmail.com";
-            let $password = "rachelTaz";
-            if ($name === '' || $email === '' || $password === '') {
-                alert('Please enter name, email and password!');
-            } else {
-                this.quotesRepository.userLogin($name, $email, $password).then(() => {
-                    console.log('User ' + $name + ' successfully logged in');
-                    this.quotesRenderer.renderPosts(this.postsRepository.posts);
-                }).catch(() => { console.log('catch - error adding user ' + $name); });
-            }
             // let $name = $('#name');
             // let $email = $('#email');
             // let $password = $('#password');
-            // if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
-            //     alert('Please enter name, email and password!');
-            // } else {
-            //     this.quotesRepository.userLogin($name.val(), $email.val(), $password.val()).then(() => {
-            //         console.log('User ' + $name + ' successfully logged in');
-            //         this.quotesRenderer.renderPosts(this.postsRepository.posts);
-            //     }).catch(() => { console.log('catch - error adding user ' + $name); });
-            //     $name.val('');
-            //     $email.val('');
-            //     $password.val('');
-            // }
+            let $name = "Rachel";
+            let $email = "racheltaz@getMaxListeners.com";
+            let $password = "rachelTaz";
+            if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
+                alert('Please enter name, email and password!');
+            } else {
+                this.quotesRepository.userLogin($name.val(), $email.val(), $password.val()).then(() => {
+                    console.log('User ' + $name + ' successfully logged in');
+                    this.quotesRenderer.renderPosts(this.postsRepository.posts);
+                }).catch(() => { console.log('catch - error adding user ' + $name); });
+                $name.val('');
+                $email.val('');
+                $password.val('');
+            }
         });
     }
 

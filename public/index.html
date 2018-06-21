@@ -12,96 +12,94 @@
 
 <body>
     <div class="container">
-
-        <!-- this is fixed general nav bar -->
-        <nav class="navbar navbar-dark indigo">
-                <span class="navbar-text white-text">
-                    <h2>SaysWho?</h2>
-                </span>
-                <span class="navbar-text white-text">
-                    <h2>“Finding my inspiration”</h2>
-                </span>
-                <!-- clickable icon to move to inspirationBook.html -->
-                <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
-                <!-- clickable icon collpase sign-in form -->
-                <!-- need to copy the code for collapse sign-in form searchResults.html-->
-                <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
-        </nav>
-        <!-- closing nav bar -->
-
-        <!-- findQuote row -->
-        <div class="row"><br><br><br>
-            <div class="col-md-6 col-md-offset-3 home-page">
-                
+        <div class="row">
+            <div class="col-xs-12 home-page">
+               
                 <div class="row header-page">
-<
 
-
-
-                    <div class="col-xs-2 myQuote"><i id class="symbol fa fa-book"></i>
-                        <br><br><br><br><button type="button" id="previous" class="btn btn-primary">previous</button>
-                    </div>
-                    <div class="col-xs-8 title">SaysWho? <br>“Finding my inspiration” 
-                      <br><br>
-                        “ <span id="QuoteText"></span> ”
-                    </div>
-                    <div class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
-                    <br> <br><br><br><br><button type="button" id="next" class="btn btn-info">next</button>
+                        <div class="col-xs-8 title-page">SaysWho? <br>“Finding my inspiration”  </div>
+                        <div class="col-xs-2 myQuote"><i id class="symbol fa fa-book"></i> </div>
+                        <div class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
+                      
                 </div>
-
-
-
-
-
-                <button type="button" id="nextPage" class="btn btn-info col-2">nextPage</button>
-                <button type="button" id="searchResults" class="btn btn-info col-2">searchResults</button>
-                <button type="button" id="null" class="btn btn-info col-2">null</button>
-
-            </div>
-
-      <div class="col-md-6 col-md-offset-3 home-page">  
-                <div class="row findQuote">
-                        <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
+                <div class="row find-Quote">
+                        <select name="Options" id="findQuote" class="col-xs-2">
                                 <option value="tag">tag</option>
                                 <option value="author">author</option>
                                 <option value="filter">filter</option>
                        </select>
-                       <div class="col-xs-6"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
-                       <button type="button" id="find" class="btn btn-info col-2">find</button>
+                       <div class="col-xs-8"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
+                       <i  id="find" class="fa fa-search " style="font-size: 35px"></i>
 
                 </div>
-            </div>
-        </div>
-        <!-- closing findQuote row test -->
-        
-        <section>
-            <!-- below the background div image of Vitruvian-Man -->
-            <div class="vitruvian-man-background">
-                <!-- below popup introduction div-->
-                <div class"intro-popup">
-                    <a class="trigger_popup_fricc">Tell About SaysWho? App</a>
-                    <div class="hover_bkgr_fricc" style="display: block;">
-                        <span class="helper"></span>
-                        <div>
-                            <div class="popupCloseButton">Close</div>
-                            <h5>saysWho? Helps you collect and manage inspirational quotes at the touch of a button. You may than save them in your personal Inspiration Book, and refer to them at any time. Hit “Next” for instructions<br>
-                            To search for quotes, you may enter one of more tags/author names – followed by the “Search” button. Omitting the search criteria returns a random “surprise” quote<br>
-                            Alternatively, you may explore the Vitruvian Man – for a fun and intuitive way to search for quotes</h5>
-                        </div>
+              
+ <!-- start imagPag --> 
+   <div class="row imagPag">
+
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-8">
+                            <img id="myImg" src="Images/Vitruvian-Man.jpg" usemap="#image-map">
+
+                            <map name="image-map">
+                                <area  class="imgClick" alt="love" title="love"  coords="274,98,253,103,245,116,244,137,252,148,274,148,284,129,286,109" shape="poly">
+                                <area  class="imgClick" alt="giving" title="giving"  coords="443,49,456,25,436,14,409,16,394,30,393,56,404,101,428,110,463,103,468,82,439,78,414,81,401,85,394,63,411,60" shape="poly">
+                                <area  class="imgClick" alt="giving" title="giving"  coords="44,9,84,25,66,111,21,107,15,82,43,72,71,80,74,59,32,42,21,77" shape="poly">
+                                <area  class="imgClick" alt="power" title="power"  coords="361,42,360,42,290,62,296,113,383,112,369,87,329,84,368,72" shape="poly">
+                                <area  class="imgClick" alt="power" title="power"  coords="98,31,186,62,176,116,87,107,93,78,150,81,94,62" shape="poly">
+                                <area  class="imgClick" alt="wisdom" title="wisdom"  coords="271,32,243,15,212,17,211,28,211,32" shape="poly">
+                                <area  class="imgClick" alt="beauty" title="beauty"  coords="263,41,260,53,214,48,219,36,248,38,263,42" shape="poly">
+                                <area  class="imgClick" alt="remorse" title="remorse"  coords="201,191,264,192,267,171,217,160,202,170,204,174" shape="poly">
+                                <area  class="imgClick" alt="breathing" title="breathing"  coords="234,103,195,106,201,154,246,159,238,126" shape="poly">
+                                <area  class="imgClick" alt="path" title="path"  coords="300,239,170,240,126,326,161,323,197,275,198,324,260,324,274,276,298,326,329,321" shape="poly">
+                                <area  class="imgClick" alt="stability" title="stability"  coords="387,372,346,393,307,410,246,415,204,415,117,392,91,379,114,347,146,348,135,372,124,391,191,411,212,393,203,362,262,362,265,388,306,410,345,392,303,341,336,328,361,365,383,373,387,372" shape="poly">
+                            </map>
                     </div>
-                </div>
-            </div>
-            <!-- closing background div image of Vitruvian-Man -->
-        </section>
+                    <div class="col-xs-1"></div>
+      </div>
+   <!-- end imagPag -->     
 
+ <!-- start searchResults -->
+
+ <div class="row body-quote" style="display: none">
+                        
+        <button type="button" id="previous" class="btnShow col-xs-2 btn btn-primary">previous</button>
+    
+    <div class="col-xs-8 title">
+    <div class="borderQuote">
+        <span class="marker"> “</span>
+        <span id="QuoteText"></span> 
+        <span class="marker">”</span>
+    </div>
+    </div>
+   
+      <button type="button" id="next" class="btnShow  col-xs-2 btn btn-info">next</button>
+      <div class="btnSave">
+        <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
+                <button type="button"  data-toggle="modal"  data-target="#modalSave" class="btn btn-info">click to save</button>
+     </div>
+</div>
+
+ <!-- end searchResults -->
+
+
+
+
+
+                <!-- <button type="button" id="nextPage" class="btn btn-info col-2">nextPage</button>
+                <button type="button" id="searchResults" class="btn btn-info col-2">searchResults</button>
+                <button type="button" id="null" class="btn btn-info col-2">null</button> -->
+
+            </div>
 
     </div>
-
-    <script src="bootstrap/dist/jsbootstrap.min.js"></script>
+  
 
     <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="main.js" type="module"></script>
+
 </body>
 
 </html>

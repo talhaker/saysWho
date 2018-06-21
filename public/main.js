@@ -20,6 +20,9 @@ eventsHandler.registerRemoveQuote();
 eventsHandler.registerAddNote();
 eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi() ;
+eventsHandler.registerFindByImg(); 
+
+
 
 $('#searchResults').on('click', () => {
 

@@ -57,12 +57,28 @@ class EventsHandler {
                         default:  //author
                         toFind="/?filter="+findby+"&type=author" ; 
                     } 
-                    debugger
                     this.quotesRepository.getQuotes(toFind);
                     //alert(toFind)
                 })
                 
 
+    }
+
+    registerFindByImg(){
+        let part;
+        $('.imgClick').mouseover( function(e){
+        part= this.title;
+        })
+
+        $('.imgClick').click(()=>{
+            debugger 
+            $('.imagPag').hide();
+            $('.body-quote').show();
+          let toFind="/?filter="+part
+        //   window.location = "searchResults.html";
+              this.quotesRepository.getQuotes(toFind);
+
+        })
     }
     registerAddQuote() {
         $('#save').on('click', () => {

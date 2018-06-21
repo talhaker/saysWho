@@ -14,17 +14,12 @@ const APP_USER_PWD = "TelAviv62";
 const APP_API_URL = 'https://favqs.com/api/';
 class QuotesRepository {
     constructor() {
+        this.quotes = [];
         this.user = {
             id: "",
             name: "",
             email: "",
-            password: "",
-            quotes: []
-                // quotes: [],
-                // name: "",
-                // email: "",
-                // password: "",
-                // id: "5b296b53571da13b783101f0" >>>
+            password: ""
         };
         this.returnedQuotes = [];
         /* 
@@ -68,6 +63,9 @@ class QuotesRepository {
         //         console.log(textStatus);
         //     }
         // });
+
+
+        this.getUserQuotes();
     }
 
     /*
@@ -80,14 +78,11 @@ class QuotesRepository {
     Postman-Token: be99f101-4f82-d8b0-0dda-6dc4b61213cc
     */
 
-    //// tag = /?filter=funny&type=tag
-    ///       "/?filter=funny&type=tag"
-    //   author = /?filter=Mark+Twain&type=author
-    getQuotes(toFind) {
+    getQuotes() {
 
         let self = this;
         $.ajax({
-            url: APP_API_URL + 'quotes' + toFind,
+            url: APP_API_URL + 'quotes',
             headers: {
                 'Authorization': 'Token token=' + APP_API_TOKEN,
                 'User-Token': this.sessionToken,
@@ -97,8 +92,6 @@ class QuotesRepository {
             dataType: 'json',
             success: function(data) {
                 self.returnedQuotes = data.quotes;
-                $('#QuoteText').text(data.quotes[0].body);
-                console.log('succes: ' + self.returnedQuotes);
                 console.log('succes: ');
                 for (let i = 0; i < data.quotes.length; i++) {
                     console.log(self.returnedQuotes[i].author + ' :  ' + self.returnedQuotes[i].body);
@@ -111,32 +104,31 @@ class QuotesRepository {
 
     // Login
     userLogin(name, email, password) {
-        let self = this;
-        return $.ajax({
-            method: 'POST',
-            url: '/saysWho/login',
-            data: {
-                name: name,
-                email: email,
-                password: password
-            },
-            dataType: 'json',
-            success: (data) => {
-                // Update user parameters
-                self.user = {
-                    id: data._id,
-                    name: data.name,
-                    email: data.email,
-                    password: data.password,
-                    quotes: data.quotes
-                };
+        // let self = this;
+        // return $.ajax({
+        //     method: 'POST',
+        //     url: 'login',
+        //     data: {
+        //         name: name,
+        //         email: email,
+        //         password: password
+        //     },
+        //     success: (data) => {
+        //         // Update user parameters
+        //         self.user = {
+        //             id: data._id,
+        //             name: data.name,
+        //             email: data.email,
+        //             password: data.password
+        //         };
 
-                console.log(self.user);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('userLogin(): ' + textStatus);
-            }
-        });
+        //         console.log(self.user);
+        //         this.getUserQuotes(data.email);
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         console.log('userLogin(): ' + textStatus);
+        //     }
+        // });
     }
 
     // request all the posts from the DB
@@ -144,11 +136,9 @@ class QuotesRepository {
         // return $.ajax({
         //     method: 'GET',
         //     url: 'book',
-        //     data: { Id: this.user.id },
-        //     dataType: 'json',
         //     success: (quotes) => {
         //         // add the quotes
-        //         this.user.quotes = quotes;
+        //         this.quotes = quotes;
         //     },
         //     error: function(jqXHR, textStatus, errorThrown) {
         //         console.log(textStatus);
@@ -156,62 +146,29 @@ class QuotesRepository {
         // });
     }
 
-    getQuotes(toFind) {
-        let self = this;
-        $.ajax({
-            url: APP_API_URL + 'quotes' + toFind,
-            headers: {
-                'Authorization': 'Token token=' + this.sessionToken,
-                'Authorization': 'Token token=' + APP_API_TOKEN,
-                'Content-Type': 'application/json'
-            },
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                self.returnedQuotes = data.quotes;
-                $('#QuoteText').text(data.quotes[0].body);
-                console.log('succes: ' + self.returnedQuotes);
-            }
-        });
+    saveQuote(quoteId, tags, notes) {
 
-    }
-
-    saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
-        let self = this;
-        let newQuote = {
-            quote_text: quoteBody,
-            quote_id: quoteId,
-            quote_tags: tags,
-            quote_author: author,
-            user: self.user.id,
-            user_note: note,
-            user_tag: myTags
-        }
-
-        return $.ajax({
-            method: 'POST',
-            url: 'save_quote',
-            data: newQuote,
-            dataType: 'json',
-            success: (data_Quote) => {
-                // Push quote if not already in array
-
-                self.user.quotes.push(data_Quote);
-                console.log("add qoute")
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
+        // return $.ajax({
+        //     method: 'POST',
+        //     url: 'quotes',
+        //     data: {
+        //         _id: quoteId,
+        //         tags: tags,
+        //         notes: notes
+        //     },
+        //     dataType: 'json',
+        //     success: (newQuote) => {
+        //         // Push quote if not already in array
+        //         this.quotes.push(newQuote);
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         console.log(textStatus);
+        //     }
+        // });
         // this.quotesUser.push({ quote: quoteId, tags: [], notes: myNotes });
 
     }
-    NextOrPreviousQuote(index) {
-        let quote = this.returnedQuotes[index].body;
 
-        $('#QuoteText').text(quote);
-    }
     addTags(quoteId, tags) {
 
     }

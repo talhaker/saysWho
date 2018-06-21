@@ -4,11 +4,11 @@ Our Setup -
 we are going to send requests to favqs (Fav Quotes) API 
 so we need a bit more than usual!
 =======================================================*/
-let bodyParser = require('body-parser');
-let express = require('express');
-let mongoose = require('mongoose');
-let ObjectID = require('mongodb').ObjectID;
-let path = require('path');
+const bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const ObjectID = require('mongodb').ObjectID;
 mongoose.Promise = global.Promise;
 
 /*=====================================================
@@ -28,21 +28,20 @@ mongoose.connect(myConnection, { useMongoClient: true })
     .then(() => {
         console.log('DB connection established!');
         // Only generate dummy data on the first time
-        // generateDummyData();
+        //generateDummyData();
     })
     .catch((error) => console.error(error));
 
 
 /*=====================================================
-Express setup
+Express & express handlebars setup
 =======================================================*/
 let app = express();
-app.use(express.static('public'));
+//app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
-app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 
 
@@ -50,25 +49,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 Here we need to create the different server routes
 These will define your API:
 =======================================================*/
+
 /* 1) Signup/Login                                     */
-app.post('/login', (req, res) => {
-    User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
-        if (err) throw err;
-        if (users.length > 0) {
-            // user already exists - return it
-            res.send(users[0]);
-        }
-        // User doesn't exist yet - create it
-        let user = new User({
-            name: req.body.name,
-            password: req.body.password,
-            email: req.body.email
-        });
-        user.save((err, user) => {
-            if (err) throw err;
-            res.send(user);
-        });
-    })
+app.post('/saysWho/login', (req, res) => {
+    User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
+        .populate('quotes.quote')
+        .exec((err, user) => {
+            if (err) {
+                throw err;
+            }
+            if (user !== null) {
+                // user already exists - return it
+                res.send(user);
+            } else {
+                // User doesn't exist yet - create it
+                let newUser = new User({
+                    name: req.body.name,
+                    password: req.body.password,
+                    email: req.body.email,
+                    quotes: []
+                });
+                newUser.save((err, user) => {
+                    if (err) {
+                        throw err;
+                    }
+                    res.send(user);
+                });
+            }
+        })
 });
 
 /* 2) Get user's quotes and their related data         */
@@ -80,14 +88,14 @@ app.post('/login', (req, res) => {
 // });
 
 /* 2) Save a quote                              */
-         /*
+/*
         User.create({
         name:"myName",
         password:"myPass",
         email:"myEmail",
         quotes:[]
         });
-      */    
+      */
 //   app.get('/', () => {  
 //       console.log("meir")
 // });
@@ -96,91 +104,88 @@ app.post('/login', (req, res) => {
 //     res.send(200, req.body);
 //   });
 
-       
 app.post('/save_quote', (req, res) => {
-    let apiId=req.body.quote_id;
-    let userId=req.body.user;
-    let myTags=req.body.user_tag;
+    let apiId = req.body.quote_id;
+    let userId = req.body.user;
+    let myTags = req.body.user_tag;
 
 
-     Quote.find({api_id:apiId}, function (err, dataQuote) {
-     
-        console.log( "meir  "+dataQuote)
-        console.log( "aaaaaaaaaaaaaaaaaaaaa")
-        if(dataQuote.length===0)//if new
+    Quote.find({ api_id: apiId }, function(err, dataQuote) {
+
+        console.log("meir  " + dataQuote)
+        console.log("aaaaaaaaaaaaaaaaaaaaa")
+        if (dataQuote.length === 0) //if new
         {
             console.log("new qoute")
-             Quote.create({
-             text: req.body.quote_text,
-             author: req.body.quote_author,
-             api_id: req.body.quote_id,
-             api_tags: req.body.quote_tags
-           }, (err, Result) => {
-             if (err) throw err;
-                 User.findById(userId, function (err, _user) {
-             let new_quote={
-                 quote:Result.id,
-                 notes:req.body.user_note,
-                 tags:myTags
-             }
-             var temp=_user.quotes;
-                 temp.push(new_quote)
-                 _user.quotes=temp;
-                 console.log("quote  "+Result.id) 
-                 console.log("user  "+_user.id)
-                 _user.save();
-                 res.send(User);
-               
-                   });
- 
-           });
-           
-        }
-        else    //if Exists
+            Quote.create({
+                text: req.body.quote_text,
+                author: req.body.quote_author,
+                api_id: req.body.quote_id,
+                api_tags: req.body.quote_tags
+            }, (err, Result) => {
+                if (err) throw err;
+                User.findById(userId, function(err, _user) {
+                    let new_quote = {
+                        quote: Result.id,
+                        notes: req.body.user_note,
+                        tags: myTags
+                    }
+                    var temp = _user.quotes;
+                    temp.push(new_quote)
+                    _user.quotes = temp;
+                    console.log("quote  " + Result.id)
+                    console.log("user  " + _user.id)
+                    _user.save();
+                    res.send(User);
+
+                });
+
+            });
+
+        } else //if Exists
         {
-         console.log("Exists")
-              User.findById(userId, function (err, _user) {
-          let new_quote={
-              quote:dataQuote[0]._id,
-              notes:req.body.user_note,
-              tags:dataQuote[0].api_tags
-                 }
+            console.log("Exists")
+            User.findById(userId, function(err, _user) {
+                let new_quote = {
+                    quote: dataQuote[0]._id,
+                    notes: req.body.user_note,
+                    tags: dataQuote[0].api_tags
+                }
 
-          let temp=new_quote.tags;
-              temp.push(req.body.user_tag[0])
-              _user.quotes.tags=temp
+                let temp = new_quote.tags;
+                temp.push(req.body.user_tag[0])
+                _user.quotes.tags = temp
 
-           var temp1=_user.quotes;
-              temp1.push(new_quote)
-              _user.quotes=temp1;
-              
-              console.log("quote  "+dataQuote[0]._id) 
-              console.log("user  "+_user.id)
-              _user.save();
-              res.send(new_quote);
+                var temp1 = _user.quotes;
+                temp1.push(new_quote)
+                _user.quotes = temp1;
 
-                  });
+                console.log("quote  " + dataQuote[0]._id)
+                console.log("user  " + _user.id)
+                _user.save();
+                res.send(new_quote);
+
+            });
         }
 
-   })
+    })
 });
 
 
 
 //get qoute from user
-app.post('/quotes1', function (req, res) {
+app.post('/quotes1', function(req, res) {
     User.
     findOne({ name: "myName" }).
     populate(). // 
-    exec(function (err, user) {
-      if (err) return handleError(err);
-  
-      console.log('The user ', user);
+    exec(function(err, user) {
+        if (err) return handleError(err);
+
+        console.log('The user ', user);
 
     });
     res.send('Hello World!');
-  });
-
+});
 
 
 
@@ -378,4 +383,3 @@ let generateDummyData = () => {
 
     console.log('Dummy data generated!');
 }
-

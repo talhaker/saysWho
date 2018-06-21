@@ -1,19 +1,69 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+#go-home {
+    cursor: pointer;
+}
+
 .home-page {
     /* padding: 20px;
     margin: 20px; */
-    margin: 20px;
+    margin: 5px;
     background-color: lightblue;
-
     font-size: 20px;
+    height: 100%;
 }
 
+.header-strip {
+    padding-bottom: 5px;
+    background-color: #B01513;
+    height: 130px;
+    border: 1px solid black;
+}
 
+.search-quote {
+    background-color: lightgrey;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.notebook-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+.login-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+.login-icon {
+    cursor: pointer;
+}
+
+.vitruvian-man-map {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 
 /* searchResults  */
 
-#QuoteText{
-    color:white;
+#QuoteText {
+    color: white;
     font-size: 25px
 }
 
@@ -24,67 +74,65 @@
 }
 
 .symbol {
-
     font-size: 25px !important;
     border: solid black;
     border-radius: 30px;
     padding: 10px;
     background-color: aliceblue
 }
-.borderQuote{
 
+.borderQuote {
     /* height: 200px; */
-    color:white;
+    color: white;
     font-size: 30px
-
     /* padding: 12px; */
-
 }
-.previousandnext{
+
+.previousandnext {
     text-align: center;
 }
 
-/* #myImg{
-    text-align: center;
-    padding-left: 350px
-} */
-
-/*index  meir*/
-.header-page{
-    
-    padding: 5px;
-    background-color: #B01513;
-
-}
 .myQuote {
     padding: 5px;
     text-align: center;
 }
+
 .title-page {
-    color:white;
+    color: white;
     padding: 5px;
     padding-left: 25px;
 }
-#findQuote{
+
+#find {
+    cursor: pointer;
+}
+
+#findQuote {
     height: 34px;
     border-radius: 5px;
 }
-.find-Quote{
+
+.find-Quote {
     background-color: #de6f6f61;
     padding: 20px;
-
 }
-.btnShow{
+
+.btnShow {
     margin-top: 30px;
 }
-.text-center{
+
+.text-center {
     background-color: lightblue
 }
-.body-quote{
+
+.body-quote {
     min-height: 430px;
     max-height: 450px;
 }
-.btnSave{
+
+.btnSave {
     margin-top: 400px;
 }
+
+
 /* end index  meir*/

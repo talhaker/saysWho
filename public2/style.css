@@ -1,0 +1,95 @@
+.container {
+    background-color: lightblue;
+    width: 1000px;
+    height: 768px;
+    position: center;
+    padding-top: 60px;
+}
+
+.navbar {
+    background-color: sienna;
+    width: 1000px;
+    height: 100px;
+}
+
+.navbar-text1 {
+    text-align: center;
+    font-style: italic;
+    color: black;
+}
+
+.navbar-text2 {
+    text-align: center;
+    /* font-style: italic; */
+    color: black;
+}
+
+.notebook-icon {
+    max-width: 40px;
+    /* height: 40px; */
+    margin: 0;
+    display: inline;
+}
+
+.login-icon {
+    max-width: 40px;
+    /* height: 40px; */
+    margin: 0;
+    display: inline;
+}
+
+
+/* section{
+    position: inherit;
+    width: 800px;
+    margin: 0 auto;
+} */
+
+.vitruvian-man-background {
+    background-image: url(../images/Vitruvian-Man.jpg);
+    background-size: cover;
+}
+
+.intro {
+    background-color: saddlebrown;
+    text-align: center;
+    /* float:left; */
+}
+
+
+/* .left-div-icons{
+    float:left;    
+} */
+
+.fotter {
+    position: fixed;
+    height: 100px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.footer-copyright {
+    background-color: lightblue;
+}
+
+.save-icon {
+    max-width: 100px;
+    height: 100px;
+}
+
+.tag-icon {
+    max-width: 100px;
+    height: 100px;
+}
+
+.share-icon {
+    max-width: 100px;
+    height: 100px;
+}
+
+.arrow-right {
+    max-width: 100px;
+    height: 100px;
+}

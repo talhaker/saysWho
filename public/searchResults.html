@@ -11,23 +11,21 @@
 
 <body>
     <div class="container">
-        <div class="row"><br><br><br>
-            <div class="col-md-6 col-md-offset-3 home-page">
-                   
+        <div class="row">
+            <div class="col-xs-12 home-page">                   
                     <div class=" row header-page">
                          <div class="col-xs-8 title-page">SaysWho? <br>“Finding my inspiration”</div>
                          <div class="col-xs-2 myQuote"><i class="symbol fa fa-book"></i>  </div>
-                         <div class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
+                         <div class="col-xs-2 login"><i  data-toggle="modal"  data-target="#modalLogin" class="symbol fa fa-user "></i></div>
                     </div>
-                         <br>
 
-                <div class="row findQuote">
-                        <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
+                <div class="row find-Quote">
+                        <select name="Options" id="findQuote" class="col-xs-2 ">
                                 <option value="tag">tag</option>
                                 <option value="author">author</option>
                                 <option value="filter">filter</option>
                        </select>
-                       <div class="col-xs-6"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
+                       <div class="col-xs-8"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
                        <button type="button" id="find" class="btn btn-info col-2">find</button>
 
                 </div>
@@ -85,8 +83,48 @@
                     
                     <div class="text-center">
                         <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
-                                <button type="button"  data-toggle="modal" data-target="#modalSave" class="btn btn-info">click to save</button>
+                                <button type="button"  data-toggle="modal"  data-target="#modalSave" class="btn btn-info">click to save</button>
                      </div>
+
+
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+ <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-sm" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header text-center">
+                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="md-form mb-5">
+                    <input type="text" required  id="userName" placeholder="user name" class="form-control validate">
+                </div>
+                      <br>
+                <div class="md-form">
+                    <input type="email" required id="userEmail" placeholder="email" class="form-control validate">
+                </div>
+                <br>
+                <div class="md-form">
+                    <input type="text" required  id="userPass" placeholder="password" class="form-control validate">
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" id="loginUser" class="btn btn-outline-warning waves-effect">login</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
         </div>
 
     </div>

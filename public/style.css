@@ -1,5 +1,6 @@
 .home-page {
-    padding: 20px;
+    /* padding: 20px;
+    margin: 20px; */
     margin: 20px;
     background-color: lightblue;
 
@@ -23,6 +24,7 @@
 }
 
 .symbol {
+
     font-size: 25px !important;
     border: solid black;
     border-radius: 30px;
@@ -42,27 +44,35 @@
     text-align: center;
 }
 
-
+/* #myImg{
+    text-align: center;
+    padding-left: 350px
+} */
 
 /*index  meir*/
 .header-page{
+    
+    padding: 5px;
     background-color: #B01513;
 
 }
 .myQuote {
     padding: 5px;
-    /* background-color: blue; */
     text-align: center;
 }
 .title-page {
+    color:white;
     padding: 5px;
-    text-align: center;
-
-    /* background-color: aqua; */
+    padding-left: 25px;
 }
 #findQuote{
     height: 34px;
     border-radius: 5px;
+}
+.find-Quote{
+    background-color: #de6f6f61;
+    padding: 20px;
+
 }
 .btnShow{
     margin-top: 30px;
@@ -70,5 +80,11 @@
 .text-center{
     background-color: lightblue
 }
-
+.body-quote{
+    min-height: 430px;
+    max-height: 450px;
+}
+.btnSave{
+    margin-top: 400px;
+}
 /* end index  meir*/

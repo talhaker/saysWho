@@ -61,20 +61,21 @@ app.post('/saysWho/login', (req, res) => {
             if (user !== null) {
                 // user already exists - return it
                 res.send(user);
+            } else {
+                // User doesn't exist yet - create it
+                let newUser = new User({
+                    name: req.body.name,
+                    password: req.body.password,
+                    email: req.body.email,
+                    quotes: []
+                });
+                newUser.save((err, user) => {
+                    if (err) {
+                        throw err;
+                    }
+                    res.send(user);
+                });
             }
-            // User doesn't exist yet - create it
-            let newUser = new User({
-                name: req.body.name,
-                password: req.body.password,
-                email: req.body.email,
-                quotes: []
-            });
-            newUser.save((err, user) => {
-                if (err) {
-                    throw err;
-                }
-                res.send(user);
-            });
         })
 });
 

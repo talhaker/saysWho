@@ -12,22 +12,30 @@ class EventsHandler {
 
     }
 
+    registerGoHome() {
+        // Get all user's quotes
+        $('#go-home').on('click', () => {
+            $('.imagPag').show();
+            $('.body-quote').hide();
+        });
+    }
+
     registerUserLogin() {
         // Get all user's quotes
         $('#login').on('click', () => {
             let self = this;
-            let $name = "Rachel";
-            let $email = "racheltaz@gmail.com";
-            let $password = "rachelTaz";
-            if ($name === '' || $email === '' || $password === '') {
+            let $name = $('#userName');
+            let $email = $('#userEmail');
+            let $password = $('#userPass');
+            if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
                 alert('Please enter name, email and password!');
             } else {
-                this.quotesRepository.userLogin($name, $email, $password)
+                this.quotesRepository.userLogin($name.val(), $email.val(), $password.val())
                     .then(() => {
-                        console.log('User ' + $name + ' successfully logged in');
+                        console.log('User ' + $name.val() + ' successfully logged in');
                         // this.quotesRenderer.renderPosts(this.postsRepository.posts);
                     })
-                    .catch(() => { console.log('catch - error adding user ' + $name); });
+                    .catch(() => { console.log('catch - error logging-in user ' + $name.val()); });
             }
             // let $name = $('#name');
             // let $email = $('#email');
@@ -86,6 +94,9 @@ class EventsHandler {
         //     alert($('#findQuote').val());
         // })
         $('#find').on('click', () => {
+            $('.imagPag').hide();
+            $('.body-quote').show();
+
             var toFind = '';
             let findby = $('#findBy').val(); ///tag,filter,author
 
@@ -99,12 +110,27 @@ class EventsHandler {
                 default: //author
                     toFind = "/?filter=" + findby + "&type=author";
             }
-            debugger
             this.quotesRepository.getQuotes(toFind);
             //alert(toFind)
         })
 
 
+    }
+
+    registerFindByImg() {
+        let part;
+        $('.imgClick').mouseover(function(e) {
+            part = this.title;
+        })
+
+        $('.imgClick').click(() => {
+            $('.imagPag').hide();
+            $('.body-quote').show();
+            let toFind = "/?filter=" + part
+                //   window.location = "searchResults.html";
+            this.quotesRepository.getQuotes(toFind);
+
+        })
     }
     registerAddQuote() {
         $('#save').on('click', () => {

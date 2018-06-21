@@ -16,7 +16,7 @@
                 <!-- Header                        -->
                 <div class="row">
                     <div class="header-strip">
-                        <div class="col-xs-offset-1 col-xs-9">
+                        <div id="go-home" class="col-xs-offset-1 col-xs-9">
                             <p>
                                 <h1><i><b>SaysWho?</b></i></h1>
                             </p>
@@ -30,8 +30,9 @@
                         </div>
                         <div class="col-xs-1">
                             <!-- clickable icon collpase sign-in form -->
-                            <!-- need to copy the code for collapse sign-in form searchResults.html-->
-                            <a id="login" class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+                            <div data-toggle="modal" data-target="#modalLogin">
+                                <a class="login-icon"><img src="Images/login-icon.png"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,31 +46,139 @@
                         <option value="filter">filter</option>
                     </select>
                     <div class="col-xs-8">
-                        <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... ">
+                        <input class="form-control " id="findBy" type="text" placeholder="Search by.... ">
                     </div>
                     <i id="find" class="fa fa-search " style="font-size: 35px"></i>
                 </div>
                 <!-- closing search strip                        -->
 
-            </div>
+                <!-- Vitruvian Man map                        -->
+                <!-- start imagPag (Meir) -->
+                <div class="row imagPag">
 
-            <hr>
+                    <!-- closing itruvian Man map                        -->
+                    <div class="col-xs-offset-3 col-xs-6 vitruvian-man-map">
+                        <img id="myImg" src="Images/Vitruvian-Man.jpg" usemap="#image-map">
 
-            <!-- Vitruvian Man map                        -->
-            <div class="row">
-                <div class="col-xs-offset-3 col-xs-6 vitruvian-man-map">
-                    <img id="myImg" src="Images/Vitruvian-Man.jpg">
+                        <map name="image-map">
+                            <area  class="imgClick" alt="love" title="love"  coords="274,98,253,103,245,116,244,137,252,148,274,148,284,129,286,109" shape="poly">
+                            <area  class="imgClick" alt="giving" title="giving"  coords="443,49,456,25,436,14,409,16,394,30,393,56,404,101,428,110,463,103,468,82,439,78,414,81,401,85,394,63,411,60" shape="poly">
+                            <area  class="imgClick" alt="giving" title="giving"  coords="44,9,84,25,66,111,21,107,15,82,43,72,71,80,74,59,32,42,21,77" shape="poly">
+                            <area  class="imgClick" alt="power" title="power"  coords="361,42,360,42,290,62,296,113,383,112,369,87,329,84,368,72" shape="poly">
+                            <area  class="imgClick" alt="power" title="power"  coords="98,31,186,62,176,116,87,107,93,78,150,81,94,62" shape="poly">
+                            <area  class="imgClick" alt="wisdom" title="wisdom"  coords="271,32,243,15,212,17,211,28,211,32" shape="poly">
+                            <area  class="imgClick" alt="beauty" title="beauty"  coords="263,41,260,53,214,48,219,36,248,38,263,42" shape="poly">
+                            <area  class="imgClick" alt="remorse" title="remorse"  coords="201,191,264,192,267,171,217,160,202,170,204,174" shape="poly">
+                            <area  class="imgClick" alt="air" title="air"  coords="234,103,195,106,201,154,246,159,238,126" shape="poly">
+                            <area  class="imgClick" alt="path" title="path"  coords="300,239,170,240,126,326,161,323,197,275,198,324,260,324,274,276,298,326,329,321" shape="poly">
+                            <area  class="imgClick" alt="base" title="base"  coords="387,372,346,393,307,410,246,415,204,415,117,392,91,379,114,347,146,348,135,372,124,391,191,411,212,393,203,362,262,362,265,388,306,410,345,392,303,341,336,328,361,365,383,373,387,372" shape="poly">
+                        </map>
+                    </div>
+                    <!-- end imagPag -->
+
+                </div>
+
+                <!-- start searchResults -->
+
+                <div class="row body-quote" style="display: none">
+
+                    <button type="button" id="previous" class="btnShow col-xs-2 btn btn-primary">previous</button>
+
+                    <div class="col-xs-8 title">
+                        <div class="borderQuote">
+                            <span class="marker"> “</span>
+                            <span id="QuoteText"></span>
+                            <span class="marker">”</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="next" class="btnShow  col-xs-2 btn btn-info">next</button>
+                    <div class="btnSave text-center">
+                        <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
+                        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-info">Click to save</button>
+                    </div>
+                </div>
+                <!-- end searchResults -->
+
+
+                <!-- ////////////////      modalSave    ////////////////////// -->
+                <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-notify modal-sm" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Save Quote</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form mb-5">
+                                    <input type="text" id="tag" placeholder="tag optional" class="form-control validate">
+                                </div>
+                                <br>
+                                <div class="md-form">
+                                    <input type="email" id="note" placeholder="note optional" class="form-control validate">
+                                </div>
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center">
+                                <a type="button" id="save" class="btn btn-outline-warning waves-effect">Save</a>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
+                </div>
+
+
+                <!-- ////////////////      modalLogin    ////////////////////// -->
+                <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-notify modal-sm" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form mb-5">
+                                    <input type="text" required id="userName" placeholder="user name" class="form-control validate">
+                                </div>
+                                <br>
+                                <div class="md-form">
+                                    <input type="email" required id="userEmail" placeholder="email" class="form-control validate">
+                                </div>
+                                <br>
+                                <div class="md-form">
+                                    <input type="text" required id="userPass" placeholder="password" class="form-control validate">
+                                </div>
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center">
+                                <a type="button" id="login" class="btn btn-outline-warning waves-effect">login</a>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
                 </div>
             </div>
-            <!-- closing itruvian Man map                        -->
-
-
-            <script src="jquery/dist/jquery.js"></script>
-            <script src="bootstrap/dist/jsbootstrap.min.js"></script>
-            <script src="handlebars/dist/handlebars.js"></script>
-            <script src="main.js" type="module"></script>
         </div>
     </div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="handlebars/dist/handlebars.js"></script>
+    <script src="main.js" type="module"></script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ let quotesRepository = new QuotesRepository();
 let quotesRenderer = new QuotesRenderer();
 let eventsHandler = new EventsHandler(quotesRepository, quotesRenderer);
 
+eventsHandler.registerGoHome();
 eventsHandler.registerUserLogin();
 eventsHandler.registerGetInspirationBook();
 eventsHandler.registerNextQuote();
@@ -20,12 +21,9 @@ eventsHandler.registerRemoveQuote();
 
 eventsHandler.registerAddNote();
 eventsHandler.registerRemoveNote();
-eventsHandler.registerFindQuoteFromApi() ;
+eventsHandler.registerFindQuoteFromApi();
+eventsHandler.registerFindByImg();
 
-$('#searchResults').on('click', () => {
-
-window.location = "searchResults.html";
-  });
 
 // Get the modal
 var modal = document.getElementById('id01');

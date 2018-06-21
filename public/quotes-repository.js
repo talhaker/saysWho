@@ -114,7 +114,7 @@ class QuotesRepository {
         let self = this;
         return $.ajax({
             method: 'POST',
-            url: 'login',
+            url: '/saysWho/login',
             data: {
                 name: name,
                 email: email,
@@ -156,8 +156,27 @@ class QuotesRepository {
         // });
     }
 
+    getQuotes(toFind) {
+        let self = this;
+        $.ajax({
+            url: APP_API_URL + 'quotes' + toFind,
+            headers: {
+                'Authorization': 'Token token=' + this.sessionToken,
+                'Authorization': 'Token token=' + APP_API_TOKEN,
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                self.returnedQuotes = data.quotes;
+                $('#QuoteText').text(data.quotes[0].body);
+                console.log('succes: ' + self.returnedQuotes);
+            }
+        });
+
+    }
+
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
-        debugger
         let self = this;
         let newQuote = {
             quote_text: quoteBody,

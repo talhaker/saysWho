@@ -6,22 +6,21 @@ html {
     height: 100%;
 }
 
-.home-page {
-    min-height: 640px;
+#go-home {
+    cursor: pointer;
 }
 
 .home-page {
     /* padding: 20px;
     margin: 20px; */
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin: 5px;
     background-color: lightblue;
     font-size: 20px;
     height: 100%;
 }
 
 .header-strip {
-    padding: 5px;
+    padding-bottom: 5px;
     background-color: #B01513;
     height: 130px;
     border: 1px solid black;
@@ -49,6 +48,10 @@ html {
     margin: 0;
     display: inline;
     margin-top: 40px;
+}
+
+.login-icon {
+    cursor: pointer;
 }
 
 .vitruvian-man-map {
@@ -79,30 +82,18 @@ html {
 }
 
 .borderQuote {
-    height: 00px;
+    /* height: 200px; */
     color: white;
     font-size: 30px
     /* padding: 12px; */
 }
 
 .previousandnext {
-    z-index: 3;
-}
-
-#previous {
-    padding-left: 15px;
-}
-
-#myImg {
     text-align: center;
 }
 
-
-/*index  meir*/
-
 .myQuote {
     padding: 5px;
-    /* background-color: blue; */
     text-align: center;
 }
 
@@ -110,7 +101,10 @@ html {
     color: white;
     padding: 5px;
     padding-left: 25px;
-    /* background-color: aqua; */
+}
+
+#find {
+    cursor: pointer;
 }
 
 #findQuote {
@@ -118,17 +112,26 @@ html {
     border-radius: 5px;
 }
 
+.find-Quote {
+    background-color: #de6f6f61;
+    padding: 20px;
+}
+
 .btnShow {
     margin-top: 30px;
 }
 
+.text-center {
+    background-color: lightblue
+}
 
-/* .btnSave {
-    margin-bottom: 10px;
-} */
+.body-quote {
+    min-height: 430px;
+    max-height: 450px;
+}
 
-.save-quote {
-    background-color: lightblue;
+.btnSave {
+    margin-top: 400px;
 }
 
 

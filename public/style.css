@@ -1,116 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
 .container {
-    background-color: lightblue;
+    /* background-color: lightblue; */
     width: 1000px;
     height: 768px;
     position: center;
     padding-top: 60px;
 }
 
-.navbar {
-    background-color: sienna;
-    width: 1000px;
-    height: 100px;
+.header-strip {
+    background-color: firebrick;
+    height: 140px;
 }
 
-.navbar-text1 {
-    text-align: center;
-    font-style: italic;
-    color: black;
-}
-
-.navbar-text2 {
-    text-align: center;
-    font-style: italic;
-    font-style: italic;
-    color: black;
-}
-
-.notebook-icon {
-    max-width: 40px;
-    /* height: 40px; */
+.notebook-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
     margin: 0;
     display: inline;
+    margin-top: 40px;
 }
 
-#QuoteText {
-    color: white;
-    font-size: 25px
-}
-
-.login-icon {
-    max-width: 40px;
-    /* height: 40px; */
+.login-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
     margin: 0;
     display: inline;
+    margin-top: 40px;
 }
 
 
-/* section{
-    position: inherit;
-    width: 800px;
-    margin: 0 auto;
-} */
+/*closing fixed general nav bar*/
+
+
+/* findQuote row */
+
+
+/* closing findQuote row */
 
 .vitruvian-man-background {
-    background-image: url(./images/Vitruvian-Man.jpg);
+    background-image: url(./Images/Vitruvian-Man.jpg);
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    /* This is what makes the background image rescale based
+       on the container's size */
     background-size: cover;
+    /* Set a background color that will be displayed
+       while the background image is loading */
+    background-color: #464646;
 }
 
-.intro {
-    background-color: saddlebrown;
-    text-align: center;
-    /* float:left; */
+
+/* popup introduction div */
+
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+    /* display: none; */
 }
 
-.symbol {
-    font-size: 25px !important;
-    border: solid black;
-    border-radius: 30px;
-    padding: 10px;
-    background-color: aliceblue
-}
 
-.borderQuote {
-    /* height: 200px; */
-    border: 2px solid green;
-    color: white;
-    font-size: 30px
-    /* padding: 12px; */
-}
-
-.previousandnext {
-    text-align: center;
-}
-
-.fotter {
+/* .hover_bkgr_fricc {
+    background: rgba(0, 0, 0, .4);
+    cursor: pointer;
+    display: none;
+    height: 100%;
     position: fixed;
-    height: 100px;
-    left: 0;
-    bottom: 0;
+    text-align: center;
+    top: 0;
     width: 100%;
+    z-index: 10000;
+} */
+
+.sayswho-intro {
+    display: none;
+}
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
     text-align: center;
 }
 
-.footer-copyright {
-    background-color: lightblue;
+h5 {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
 }
 
-.save-icon {
-    max-width: 100px;
-    height: 100px;
-}
 
-.tag-icon {
-    max-width: 100px;
-    height: 100px;
-}
-
-.share-icon {
-    max-width: 100px;
-    height: 100px;
-}
-
-.arrow-right {
-    max-width: 100px;
-    height: 100px;
-}
+/* closing popup introduction div */

@@ -20,6 +20,8 @@ let User = require('./models/UserModel');
 /*=====================================================
 Connect to MongoDB and check the connection
 =======================================================*/
+
+
 //let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
 let myConnection = 'mongodb://localhost/saysWhoDB'
 mongoose.connect(myConnection, { useMongoClient: true })
@@ -49,9 +51,8 @@ These will define your API:
 =======================================================*/
 
 /* 1) Signup/Login                                     */
-app.post('/login', (req, res) => {
+app.post('/saysWho/login', (req, res) => {
     User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
-        // .select('quotes')
         .populate('quotes.quote')
         .exec((err, user) => {
             if (err) {
@@ -78,33 +79,30 @@ app.post('/login', (req, res) => {
 });
 
 /* 2) Get user's quotes and their related data         */
-// app.get('/book', (req, res) => {
-//     let id = req.body.id;
-//     // Check if the ID is a valid mongoose id
-//     if (!ObjectID.isValid(id)) {
-//         return res.status(400).send('Id not in the correct format');
-//     }
-//     User.findById(req.body.id).populate('quotes', 'quotes -_id').exec(function(err, quotes) {
-//         if (err) {
-//             throw err;
-//         }
-//         res.send(quotes);
-//     });
-// });
-
-/* 3) Save a quote                                     */
-// app.post('/posts', (req, res) => {
-//   Post.create({
-//     title: req.body.title,
-//     text: req.body.text,
-//     username: req.body.username,
-//     time: req.body.time,
-//     comments: []
-//   }, (err, postResult) => {
+// app.get('/posts', (req, res) => {
+//   Post.find({}, (err, postResult) => {
 //     if (err) throw err;
 //     res.send(postResult);
 //   });
 // });
+
+/* 2) Save a quote                              */
+/*
+        User.create({
+        name:"myName",
+        password:"myPass",
+        email:"myEmail",
+        quotes:[]
+        });
+      */
+//   app.get('/', () => {  
+//       console.log("meir")
+// });
+// app.get("", ()=> {
+//     console.log(req.body) // populated!
+//     res.send(200, req.body);
+//   });
+
 
 /* 4) Delete a quote                                   */
 // app.delete('/posts/:id', (req, res) => {
@@ -151,6 +149,9 @@ app.post('/login', (req, res) => {
 //     });
 // });
 
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public', 'index.html'));
+// })
 
 
 /*=====================================================
@@ -160,6 +161,7 @@ const SERVER_PORT = process.env.PORT || 8080;
 app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
 
 // Dummy data to populate the database
+
 let generateDummyData = () => {
     let quote1 = new Quote({
         text: "Man always dies before he is fully born.",
@@ -296,6 +298,3 @@ let generateDummyData = () => {
 
     console.log('Dummy data generated!');
 }
-
-
-//

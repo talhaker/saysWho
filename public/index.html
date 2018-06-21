@@ -10,6 +10,32 @@
 
 <body>
     <div class="container">
+
+        <!-- Header                        -->
+        <div class="row">
+            <div class="header-strip">
+                <div class="col-md-10">
+                    <p>
+                        <h1><i><b>SaysWho?</b></i></h1>
+                    </p>
+                    <p>
+                        <h2><i>“Finding my inspiration”</i></h2>
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <!-- clickable icon to move to inspirationBook.html -->
+                    <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
+                </div>
+                <div class="col-md-1">
+                    <!-- clickable icon collpase sign-in form -->
+                    <!-- need to copy the code for collapse sign-in form searchResults.html-->
+                    <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+                </div>
+            </div>
+        </div>
+        <!-- closing header -->
+
+        <!-- findQuote row -->
         <div class="row"><br><br><br>
             <div class="col-md-6 col-md-offset-3 home-page">
                 <div class="row findQuote">
@@ -23,29 +49,30 @@
                     </div>
                     <button type="button" id="find" class="btn btn-info col-2">find</button>
                 </div>
-
-                <div class="row header-page">
-                    <div class="col-xs-2 myQuote">
-                        <i id="book" class="symbol fa fa-book"></i>
-                        <br><br><br><br><button type="button" id="previous" class="btn btn-primary">previous</button>
-                    </div>
-                    <div class="col-xs-8 title">SaysWho? <br>“Finding my inspiration”
-                        <br><br>
-                        <div class="borderQuote">
-                            “ <span id="QuoteText"></span> ”
-                        </div>
-                    </div>
-                    <div id="login" class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
-                    <br> <br><br><br><br><button type="button" id="next" class="btn btn-info">next</button>
-                </div>
-
-                <br>
-                <div class="row previousandnext">
-                    <button type="button" id="save" class="btn btn-info">save</button>
-
-                </div>
             </div>
         </div>
+        <!-- closing findQuote row test -->
+
+        <section>
+            <!-- below the background div image of Vitruvian-Man -->
+            <div class="vitruvian-man-background">
+                <!-- below popup introduction div-->
+                <div class "intro-popup">
+                    <a class="trigger_popup_fricc">Tell About SaysWho? App</a>
+                    <div class="hover_bkgr_fricc">
+                        <span class="helper"></span>
+                        <div class="sayswho-intro">
+                            <div class="popupCloseButton">Close</div>
+                            <h5>saysWho? Helps you collect and manage inspirational quotes at the touch of a button. You may than save them in your personal Inspiration Book, and refer to them at any time. Hit “Next” for instructions<br> To search for quotes,
+                                you may enter one of more tags/author names – followed by the “Search” button. Omitting the search criteria returns a random “surprise” quote<br> Alternatively, you may explore the Vitruvian Man – for a fun and intuitive
+                                way to search for quotes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- closing background div image of Vitruvian-Man -->
+        </section>
+
 
     </div>
 

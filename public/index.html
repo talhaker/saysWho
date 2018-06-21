@@ -12,6 +12,24 @@
 
 <body>
     <div class="container">
+
+        <!-- this is fixed general nav bar -->
+        <nav class="navbar navbar-dark indigo">
+                <span class="navbar-text white-text">
+                    <h2>SaysWho?</h2>
+                </span>
+                <span class="navbar-text white-text">
+                    <h2>“Finding my inspiration”</h2>
+                </span>
+                <!-- clickable icon to move to inspirationBook.html -->
+                <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
+                <!-- clickable icon collpase sign-in form -->
+                <!-- need to copy the code for collapse sign-in form searchResults.html-->
+                <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+        </nav>
+        <!-- closing nav bar -->
+
+        <!-- findQuote row -->
         <div class="row"><br><br><br>
             <div class="col-md-6 col-md-offset-3 home-page">
                 
@@ -40,6 +58,42 @@
                 <button type="button" id="null" class="btn btn-info col-2">null</button>
 
             </div>
+
+      <div class="col-md-6 col-md-offset-3 home-page">  
+                <div class="row findQuote">
+                        <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
+                                <option value="tag">tag</option>
+                                <option value="author">author</option>
+                                <option value="filter">filter</option>
+                       </select>
+                       <div class="col-xs-6"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
+                       <button type="button" id="find" class="btn btn-info col-2">find</button>
+
+                </div>
+            </div>
+        </div>
+        <!-- closing findQuote row test -->
+        
+        <section>
+            <!-- below the background div image of Vitruvian-Man -->
+            <div class="vitruvian-man-background">
+                <!-- below popup introduction div-->
+                <div class"intro-popup">
+                    <a class="trigger_popup_fricc">Tell About SaysWho? App</a>
+                    <div class="hover_bkgr_fricc" style="display: block;">
+                        <span class="helper"></span>
+                        <div>
+                            <div class="popupCloseButton">Close</div>
+                            <h5>saysWho? Helps you collect and manage inspirational quotes at the touch of a button. You may than save them in your personal Inspiration Book, and refer to them at any time. Hit “Next” for instructions<br>
+                            To search for quotes, you may enter one of more tags/author names – followed by the “Search” button. Omitting the search criteria returns a random “surprise” quote<br>
+                            Alternatively, you may explore the Vitruvian Man – for a fun and intuitive way to search for quotes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- closing background div image of Vitruvian-Man -->
+        </section>
+
 
     </div>
 

@@ -12,19 +12,26 @@ let path = require('path');
 mongoose.Promise = global.Promise;
 
 /*=====================================================
-Connect to MongoDB and check the connection
-=======================================================*/
-let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
-mongoose.connect(myConnection, { useMongoClient: true })
-    .then(() => { console.log('DB connection established!'); })
-    .catch((error) => console.error(error));
-
-
-/*=====================================================
 MongoDB schema models
 =======================================================*/
 let Quote = require('./models/QuoteModel');
 let User = require('./models/UserModel');
+
+/*=====================================================
+Connect to MongoDB and check the connection
+=======================================================*/
+
+
+//let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
+let myConnection = 'mongodb://localhost/saysWhoDB'
+mongoose.connect(myConnection, { useMongoClient: true })
+    .then(() => {
+        console.log('DB connection established!');
+        // Only generate dummy data on the first time
+        // generateDummyData();
+    })
+    .catch((error) => console.error(error));
+
 
 /*=====================================================
 Express setup
@@ -37,11 +44,34 @@ app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+
+
 /*=====================================================
 Here we need to create the different server routes
 These will define your API:
 =======================================================*/
-/* 1) Get user's quotes and their related data         */
+/* 1) Signup/Login                                     */
+app.post('/login', (req, res) => {
+    User.find({ $or: [{ name: request.body.name }, { email: request.body.email }] }, (err, users) => {
+        if (err) throw err;
+        if (users.length > 0) {
+            // user already exists - return it
+            res.send(users[0]);
+        }
+        // User doesn't exist yet - create it
+        let user = new User({
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email
+        });
+        user.save((err, user) => {
+            if (err) throw err;
+            res.send(user);
+        });
+    })
+});
+
+/* 2) Get user's quotes and their related data         */
 // app.get('/posts', (req, res) => {
 //   Post.find({}, (err, postResult) => {
 //     if (err) throw err;
@@ -49,9 +79,24 @@ These will define your API:
 //   });
 // });
 
-          /* 2) Save a quote         quote_note:note,
-        user_tag:myTags                       */
-        
+/* 2) Save a quote                              */
+         /*
+        User.create({
+        name:"myName",
+        password:"myPass",
+        email:"myEmail",
+        quotes:[]
+        });
+      */    
+//   app.get('/', () => {  
+//       console.log("meir")
+// });
+// app.get("", ()=> {
+//     console.log(req.body) // populated!
+//     res.send(200, req.body);
+//   });
+
+       
 app.post('/save_quote', (req, res) => {
     let apiId=req.body.quote_id;
     let userId=req.body.user;
@@ -139,7 +184,7 @@ app.post('/quotes1', function (req, res) {
 
 
 
-/* 3) Delete a quote                                   */
+/* 4) Delete a quote                                   */
 // app.delete('/posts/:id', (req, res) => {
 //   var id = req.params.id;
 //   // Check if the ID is a valid mongoose id
@@ -153,7 +198,7 @@ app.post('/quotes1', function (req, res) {
 //   });
 // });
 
-/* 4) Add tag(s) to an existing quote                  */
+/* 5) Add tag(s) to an existing quote                  */
 // app.post('/posts/:id/comments', (req, res) => {
 //     var id = req.params.id;
 //     // Check if the ID is a valid mongoose id
@@ -167,9 +212,9 @@ app.post('/quotes1', function (req, res) {
 //     });
 // });
 
-/* 5) Add note to an existing quote                    */
+/* 6) Add note to an existing quote                    */
 
-/* 5) Update note to an existing quote                 */
+/* 7) Update note to an existing quote                 */
 // app.put('/posts/:postId', (req, res) => {
 //     var id = req.params.postId;
 //     // Check if the ID is a valid mongoose id
@@ -194,4 +239,143 @@ PORT
 =======================================================*/
 const SERVER_PORT = process.env.PORT || 8080;
 app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
+
+// Dummy data to populate the database
+
+let generateDummyData = () => {
+    let quote1 = new Quote({
+        text: "Man always dies before he is fully born.",
+        author: "Erich Fromm",
+        api_id: "13560",
+        api_tags: ["death"]
+    });
+
+    let quote2 = new Quote({
+        text: "I forgot to shake hands and be friendly. It was an important lesson about leadership.",
+        author: "Lee Iacocca",
+        api_id: "36327",
+        api_tags: ["leadership"]
+    });
+
+    let quote3 = new Quote({
+        text: "We hire people who want to make the best things in the world.",
+        author: "Steve Jobs",
+        api_id: "6937",
+        api_tags: ["best"]
+    });
+
+    let quote4 = new Quote({
+        text: "Only he is successful in his business who makes that pursuit which affords him the highest pleasure sustain him.",
+        author: "Henry David Thoreau",
+        api_id: "8000",
+        api_tags: ["business"]
+    });
+
+    let quote5 = new Quote({
+        text: "I think you can have 10,000 explanations for failure, but no good explanation for success.",
+        author: "Paulo Coelho",
+        api_id: "18213",
+        api_tags: ["failure", "good", "success"]
+    });
+
+    let quote6 = new Quote({
+        text: "To raise new questions, new possibilities, to regard old problems from a new angle, requires creative imagination and marks real advance in science.",
+        author: "Albert Einstein",
+        api_id: "34163",
+        api_tags: ["imagination", "science"]
+    });
+
+    let quote7 = new Quote({
+        text: "Well, I think that there's a very thin dividing line between success and failure. And I think if you start a business without financial backing, you're likely to go the wrong side of that dividing line.",
+        author: "Richard Branson",
+        api_id: "8392",
+        api_tags: ["business", "failure", "success"]
+    });
+
+    let quote8 = new Quote({
+        text: "My eyesight is not nearly as good. My hearing is probably going away. My memory is slipping too. But I'm still around.",
+        author: "John Wooden",
+        api_id: "27701",
+        api_tags: ["good"]
+    });
+
+    let quote9 = new Quote({
+        text: "A work of art is the unique result of a unique temperament.",
+        author: "Oscar Wilde",
+        api_id: "4326",
+        api_tags: ["art", "work"]
+    });
+
+    let quote10 = new Quote({
+        text: "There are a number of things wrong with Washington. One of them is that everyone is too far from home.",
+        author: "Dwight D. Eisenhower",
+        api_id: "32262",
+        api_tags: ["home"]
+    });
+
+    quote1.save();
+    quote2.save();
+    quote3.save();
+    quote4.save();
+    quote5.save();
+    quote6.save();
+    quote7.save();
+    quote8.save();
+    quote9.save();
+    quote10.save();
+
+    let user1 = new User({
+        name: "Rachel",
+        password: "rachelTaz",
+        email: "racheltaz@gmail.com",
+        quotes: [{
+                quote: quote1,
+                tags: ["life", "grief"],
+                notes: ["That's deep..."]
+            },
+            {
+                quote: quote7,
+                tags: ["clever"],
+                notes: ["Worth thinking about"]
+            },
+            {
+                quote: quote8,
+                tags: ["oldage"],
+                notes: []
+            },
+            {
+                quote: quote6,
+                tags: [],
+                notes: ["Einstein, a philosopher as well..."]
+            }
+        ]
+    });
+
+    let user2 = new User({
+        name: "Meir",
+        password: "MeirSib",
+        email: "66meir46@gmail.com",
+        quotes: [{
+                quote: quote2,
+                tags: ["smile"],
+                notes: ["Street smart"]
+            },
+            {
+                quote: quote3,
+                tags: ["ambition"],
+                notes: []
+            },
+            {
+                quote: quote6,
+                tags: ["genious"],
+                notes: ["Wish I could think like him"]
+            }
+        ]
+    });
+
+    user1.save();
+    user2.save();
+
+    console.log('Dummy data generated!');
+}
 

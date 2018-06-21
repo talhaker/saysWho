@@ -14,8 +14,8 @@ const APP_USER_PWD = "TelAviv62";
 const APP_API_URL = 'https://favqs.com/api/';
 class QuotesRepository {
     constructor() {
-        this.quotes = [];
         this.user = {
+            quotes : [],
              name: "",
              email: "",
              password: "",
@@ -124,33 +124,28 @@ class QuotesRepository {
         // });
     }
 
-    saveQuote(quoteBody,quoteId, tags, author) {
+    saveQuote (quoteBody,quoteId,tags,author,note,myTags)  {
+        debugger
         let self = this;
-
-        /*
-            text: String,
-            author: String,
-            api_id: String,
-            api_tags: [String]
-        */ 
-       //  data: JSON.stringify(newQuote),
        let newQuote={
         quote_text:quoteBody,
         quote_id: quoteId,
         quote_tags: tags,
         quote_author: author,
-        user: self.user.id
+        user: self.user.id,
+        user_note:note,
+        user_tag:myTags
        }
        
         return $.ajax({
             method: 'POST',
-            url: 'quotes',
+            url: 'save_quote',
             data: newQuote,
             dataType: 'json',
             success: (data_Quote) => {
                 // Push quote if not already in array
                 
-                self.quotes.push(data_Quote);
+                self.user.quotes.push(data_Quote);
                 console.log("add qoute")
 
             },

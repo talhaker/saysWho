@@ -1,3 +1,40 @@
+/*index  meir*/
+.header-page{
+    background-color: #B01513;
+
+}
+.myQuote {
+    padding: 5px;
+    /* background-color: blue; */
+    text-align: center;
+}
+.title-page {
+    padding: 5px;
+    text-align: center;
+
+    /* background-color: aqua; */
+}
+#findQuote{
+    height: 34px;
+    border-radius: 5px;
+}
+.btnShow{
+    margin-top: 30px;
+}
+.text-center{
+    background-color: lightblue
+}
+
+/* end index  meir*/
+
+.home-page {
+    padding: 20px;
+    margin: 20px;
+    background-color: lightblue;
+
+    font-size: 20px;
+}
+
 .container{
     background-color: lightblue;
     width: 1000px;
@@ -21,6 +58,14 @@
     height: 24px !important;
     margin: 0;
     display: inline;
+
+
+
+/* searchResults  */
+
+#QuoteText{
+    color:white;
+    font-size: 25px
 }
 .login-icon{
     max-width: 40px;
@@ -36,6 +81,11 @@
 }
 /* closing findQuote row */
 
+/* check this (Tal) */
+    /* height: 200px; */
+    color:white;
+    font-size: 30px
+/* check this (Tal) */
 
 
 .vitruvian-man-background{
@@ -76,6 +126,12 @@
     height: 100%;
     position: fixed;
     text-align: center;
+/* check this (Tal) */
+}
+
+
+
+/* check this (Tal) */
     top: 0;
     width: 100%;
     z-index: 10000;
@@ -105,3 +161,4 @@ h5 {
     -webkit-margin-end: 0px;
 }
 /* closing popup introduction div */
+/* check this (Tal) */

@@ -37,19 +37,19 @@ class EventsHandler {
                     })
                     .catch(() => { console.log('catch - error logging-in user ' + $name.val()); });
             }
-            // let $name = $('#name');
-            // let $email = $('#email');
-            // let $password = $('#password');
-            // if ($name.val() === '' || $email.val() === '' || $password.val() === '') {
+            // let self = this;
+            // let $name = "Rachel";
+            // let $email = "racheltaz@gmail.com";
+            // let $password = "rachelTaz";
+            // if ($name === '' || $email === '' || $password === '') {
             //     alert('Please enter name, email and password!');
             // } else {
-            //     this.quotesRepository.userLogin($name.val(), $email.val(), $password.val()).then(() => {
-            //         console.log('User ' + $name + ' successfully logged in');
-            //         this.quotesRenderer.renderPosts(this.postsRepository.posts);
-            //     }).catch(() => { console.log('catch - error adding user ' + $name); });
-            //     $name.val('');
-            //     $email.val('');
-            //     $password.val('');
+            //     this.quotesRepository.userLogin($name, $email, $password)
+            //         .then(() => {
+            //             console.log('User ' + $name + ' successfully logged in');
+            //             // this.quotesRenderer.renderPosts(this.postsRepository.posts);
+            //         })
+            //         .catch(() => { console.log('catch - error logging-in user ' + $name); });
             // }
         });
     }
@@ -57,10 +57,14 @@ class EventsHandler {
     registerGetInspirationBook() {
         // Get all user's quotes
         $('#book').on('click', () => {
-            if (this.userLoginData.email === "") {
+            if (this.quotesRepository.user.email === "") {
                 alert('To see your inspirational book, please log into your account');
                 return;
             }
+
+            $('.imagPag').hide();
+            $('.body-quote').show();
+
             this.quotesRepository.getUserQuotes();
 
         });
@@ -69,23 +73,14 @@ class EventsHandler {
     registerNextQuote() {
         // on page-Quotes  show the next quote
         $('#next').on('click', () => {
-            if (this.indexReturnedQuote >= this.quotesRepository.returnedQuotes.length - 1)
-                this.indexReturnedQuote = 0;
-            else
-                this.indexReturnedQuote++
-                this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
-
+            this.quotesRepository.nextQuote();
         });
     }
 
     registerPreviousQuote() {
         // on page-Quotes  show the previous  Quote
         $('#previous').on('click', () => {
-            if (this.indexReturnedQuote <= 0)
-                this.indexReturnedQuote = this.quotesRepository.returnedQuotes.length - 1;
-            else
-                this.indexReturnedQuote--;
-            this.quotesRepository.NextOrPreviousQuote(this.indexReturnedQuote);
+            this.quotesRepository.previousQuote();
         });
     }
 
@@ -111,6 +106,7 @@ class EventsHandler {
                     toFind = "/?filter=" + findby + "&type=author";
             }
             this.quotesRepository.getQuotes(toFind);
+            this.indexReturnedQuote = 0;
             //alert(toFind)
         })
 

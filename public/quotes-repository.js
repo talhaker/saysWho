@@ -14,11 +14,18 @@ const APP_USER_PWD = "TelAviv62";
 const APP_API_URL = 'https://favqs.com/api/';
 class QuotesRepository {
     constructor() {
+        let $name = "Rachel";
+        let $email = "racheltaz@gmail.com";
+        let $password = "rachelTaz";
         this.user = {
             id: "",
             name: "",
             email: "",
             password: "",
+            // id: "5b2a0be50b67f359bc2bf5c9",
+            // name: "Rachel",
+            // email: "racheltaz@gmail.com",
+            // password: "rachelTaz",
             quotes: []
                 // quotes: [],
                 // name: "",
@@ -27,6 +34,9 @@ class QuotesRepository {
                 // id: "5b296b53571da13b783101f0" >>>
         };
         this.returnedQuotes = [];
+        this.displayReturnedQuotes = false;
+        this.numOfQuotes = 0;
+        this.quoteIndex = 0;
         /* 
                 POST /api/session HTTP/1.1
                 Host: favqs.com
@@ -89,15 +99,24 @@ class QuotesRepository {
         $.ajax({
             url: APP_API_URL + 'quotes' + toFind,
             headers: {
+                'Authorization': 'Token token=' + this.sessionToken,
                 'Authorization': 'Token token=' + APP_API_TOKEN,
-                'User-Token': this.sessionToken,
                 'Content-Type': 'application/json'
             },
+            // headers: {
+            //             'Authorization': 'Token token=' + APP_API_TOKEN,
+            //             'User-Token': this.sessionToken,
+            //             'Content-Type': 'application/json'
+            //         },
             method: 'GET',
             dataType: 'json',
             success: function(data) {
                 self.returnedQuotes = data.quotes;
                 $('#QuoteText').text(data.quotes[0].body);
+                self.displayReturnedQuotes = true;
+                self.numOfQuotes = self.returnedQuotes.length;
+                self.quoteIndex = 0;
+
                 console.log('succes: ' + self.returnedQuotes);
                 console.log('succes: ');
                 for (let i = 0; i < data.quotes.length; i++) {
@@ -141,40 +160,38 @@ class QuotesRepository {
 
     // request all the posts from the DB
     getUserQuotes() {
-        // return $.ajax({
-        //     method: 'GET',
-        //     url: 'book',
-        //     data: { Id: this.user.id },
-        //     dataType: 'json',
-        //     success: (quotes) => {
-        //         // add the quotes
-        //         this.user.quotes = quotes;
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.log(textStatus);
-        //     }
-        // });
+        $('#QuoteText').text(this.user.quotes[0].quote.text);
+        $('#Author').text(this.user.quotes[0].quote.author);
+
+        this.displayReturnedQuotes = false;
+        this.numOfQuotes = this.user.quotes.length;
+        this.quoteIndex = 0;
+
+        console.log('succes: ' + this.user.quotes);
     }
 
-    getQuotes(toFind) {
-        let self = this;
-        $.ajax({
-            url: APP_API_URL + 'quotes' + toFind,
-            headers: {
-                'Authorization': 'Token token=' + this.sessionToken,
-                'Authorization': 'Token token=' + APP_API_TOKEN,
-                'Content-Type': 'application/json'
-            },
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                self.returnedQuotes = data.quotes;
-                $('#QuoteText').text(data.quotes[0].body);
-                console.log('succes: ' + self.returnedQuotes);
-            }
-        });
+    // getQuotes(toFind) {
+    //     let self = this;
+    //     $.ajax({
+    //         url: APP_API_URL + 'quotes' + toFind,
+    //         headers: {
+    //             'Authorization': 'Token token=' + this.sessionToken,
+    //             'Authorization': 'Token token=' + APP_API_TOKEN,
+    //             'Content-Type': 'application/json'
+    //         },
+    //         method: 'GET',
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             self.returnedQuotes = data.quotes;
+    //             self.displayReturnedQuotes = true;
+    //             self.numOfQuotes = this.user.quotes.length;
 
-    }
+    //             $('#QuoteText').text(data.quotes[0].body);
+    //             console.log('succes: ' + self.returnedQuotes);
+    //         }
+    //     });
+
+    // }
 
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
         let self = this;
@@ -207,11 +224,51 @@ class QuotesRepository {
         // this.quotesUser.push({ quote: quoteId, tags: [], notes: myNotes });
 
     }
-    NextOrPreviousQuote(index) {
-        let quote = this.returnedQuotes[index].body;
+
+    nextQuote() {
+        let quote = "";
+        let author = "";
+
+        if (this.quoteIndex === this.numOfQuotes - 1) {
+            this.quoteIndex = 0;
+        } else {
+            this.quoteIndex++;
+        }
+
+        if (this.displayReturnedQuotes) {
+            quote = this.returnedQuotes[this.quoteIndex].body;
+            author = this.returnedQuotes[this.quoteIndex].author;
+        } else {
+            quote = this.user.quotes[this.quoteIndex].text;
+            author = this.user.quotes[this.quoteIndex].author;
+        }
 
         $('#QuoteText').text(quote);
+        $('#Author').text(author);
     }
+
+    previousQuote(index) {
+        let quote = "";
+        let author = "";
+
+        if (index === 0) {
+            this.quoteIndex = this.numOfQuotes - 1;
+        } else {
+            this.quoteIndex--;
+        }
+
+        if (this.displayReturnedQuotes) {
+            quote = this.returnedQuotes[this.quoteIndex].body;
+            author = this.returnedQuotes[this.quoteIndex].author;
+        } else {
+            quote = this.user.quotes[this.quoteIndex].text;
+            author = this.user.quotes[this.quoteIndex].author;
+        }
+
+        $('#QuoteText').text(quote);
+        $('#Author').text(author);
+    }
+
     addTags(quoteId, tags) {
 
     }

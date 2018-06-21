@@ -10,10 +10,6 @@ class EventsHandler {
         this.indexReturnedQuote = 0;
         this.indexQuote = 0
 
-
-
-
-        // this.$posts = $(".posts");
     }
 
     registerUserLogin() {
@@ -114,13 +110,16 @@ class EventsHandler {
         $('#save').on('click', () => {
 
 
+            let myTags = [];
             let indexReturnedQuote = this.indexReturnedQuote;
             let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
             let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
             let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
             let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
-            //userId
-            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, "5b2830a0c467cf187457a874").then(() => {
+            let note = [$('#note').val()];
+            myTags.push($('#tag').val());
+
+            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags).then(() => {
                 console.log("good job")
             }).catch(() => { console.log('catch- error in adding Quote function'); });
 

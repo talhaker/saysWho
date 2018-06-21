@@ -22,7 +22,10 @@ eventsHandler.registerAddNote();
 eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi() ;
 
+$('#searchResults').on('click', () => {
 
+window.location = "searchResults.html";
+  });
 
 // Get the modal
 var modal = document.getElementById('id01');

@@ -103,6 +103,90 @@ app.post('/saysWho/login', (req, res) => {
 //     res.send(200, req.body);
 //   });
 
+app.post('/save_quote', (req, res) => {
+    let apiId = req.body.quote_id;
+    let userId = req.body.user;
+    let myTags = req.body.user_tag;
+
+
+    Quote.find({ api_id: apiId }, function(err, dataQuote) {
+
+        console.log("meir  " + dataQuote)
+        console.log("aaaaaaaaaaaaaaaaaaaaa")
+        if (dataQuote.length === 0) //if new
+        {
+            console.log("new qoute")
+            Quote.create({
+                text: req.body.quote_text,
+                author: req.body.quote_author,
+                api_id: req.body.quote_id,
+                api_tags: req.body.quote_tags
+            }, (err, Result) => {
+                if (err) throw err;
+                User.findById(userId, function(err, _user) {
+                    let new_quote = {
+                        quote: Result.id,
+                        notes: req.body.user_note,
+                        tags: myTags
+                    }
+                    var temp = _user.quotes;
+                    temp.push(new_quote)
+                    _user.quotes = temp;
+                    console.log("quote  " + Result.id)
+                    console.log("user  " + _user.id)
+                    _user.save();
+                    res.send(User);
+
+                });
+
+            });
+
+        } else //if Exists
+        {
+            console.log("Exists")
+            User.findById(userId, function(err, _user) {
+                let new_quote = {
+                    quote: dataQuote[0]._id,
+                    notes: req.body.user_note,
+                    tags: dataQuote[0].api_tags
+                }
+
+                let temp = new_quote.tags;
+                temp.push(req.body.user_tag[0])
+                _user.quotes.tags = temp
+
+                var temp1 = _user.quotes;
+                temp1.push(new_quote)
+                _user.quotes = temp1;
+
+                console.log("quote  " + dataQuote[0]._id)
+                console.log("user  " + _user.id)
+                _user.save();
+                res.send(new_quote);
+
+            });
+        }
+
+    })
+});
+
+
+
+//get qoute from user
+app.post('/quotes1', function(req, res) {
+    User.
+    findOne({ name: "myName" }).
+    populate(). // 
+    exec(function(err, user) {
+        if (err) return handleError(err);
+
+        console.log('The user ', user);
+
+    });
+    res.send('Hello World!');
+});
+
+
 
 /* 4) Delete a quote                                   */
 // app.delete('/posts/:id', (req, res) => {

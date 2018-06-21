@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="bootstrap\dist\css\bootstrap-theme.min.css">
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="font-awesome\css\font-awesome.min.css">
@@ -10,45 +11,117 @@
 
 <body>
     <div class="container">
-        <div class="row"><br><br><br>
-            <div class="col-md-6 col-md-offset-3 home-page">
-                   
-                <div class="row findQuote">
-                        <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-2">
-                                <option value="tag">tag</option>
-                                <option value="author">author</option>
-                                <option value="filter">filter</option>
-                       </select>
-                       <div class="col-xs-6"> <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... "></div>
-                       <button type="button" id="find" class="btn btn-info col-2">find</button>
+        <div class="row home-page">
+            <div class="col-xs-12">
 
-                </div>
-                <div class="row header-page">
-                    <div class="col-xs-2 myQuote"><i class="symbol fa fa-book"></i>
-                        <br><br><br><br><button type="button" id="previous" class="btn btn-primary">previous</button>
+                <!-- Header                        -->
+                <div class="row">
+                    <div class="header-strip">
+                        <div class="col-xs-offset-1 col-xs-9">
+                            <p>
+                                <h1><i><b>SaysWho?</b></i></h1>
+                            </p>
+                            <p>
+                                <h2><i>“Finding my inspiration”</i></h2>
+                            </p>
+                        </div>
+                        <div class="col-xs-1">
+                            <!-- clickable icon to move to inspirationBook.html -->
+                            <a class="notebook-icon" href="#"><img src="Images/notebook-Icon.png"></a>
+                        </div>
+                        <div class="col-xs-1">
+                            <!-- clickable icon collpase sign-in form -->
+                            <!-- need to copy the code for collapse sign-in form searchResults.html-->
+                            <a class="login-icon" href="#"><img src="Images/login-icon.png"></a>
+                        </div>
                     </div>
-                    <div class="col-xs-8 title">SaysWho? <br>“Finding my inspiration” 
-                      <br><br>
+                </div>
+                <!-- closing header -->
+
+                <!-- Search strip                        -->
+                <div class="row search-quote">
+                    <select name="Options" id="findQuote" class="col-xs-2 col-xs-offset-1">
+                        <option value="tag">tag</option>
+                        <option value="author">author</option>
+                        <option value="filter">filter</option>
+                    </select>
+                    <div class="col-xs-8">
+                        <input class="form-control " id="findBy" type="text" placeholder="find qoute by .... ">
+                    </div>
+                    <i id="find" class="fa fa-search " style="font-size: 35px"></i>
+                </div>
+                <!-- closing search strip                        -->
+
+            </div>
+
+            <!-- Display quotes                                  -->
+            <div class="row body-quote">
+                <div class="col-xs-1">
+                    <a class="fa fa-arrow-circle-left fa-3x previousandnext" id="previous" href="#"></a>
+                    <!-- <button type="button" id="previous" class="btnShow col-xs-2 btn btn-primary">previous</button> -->
+                </div>
+
+                <div class="col-xs-10 title">
                     <div class="borderQuote">
-                        “ <span id="QuoteText"></span> ”
+                        <span class="marker"> “</span>
+                        <span id="QuoteText"></span>
+                        <span class="marker">”</span>
                     </div>
-                    </div>
-                    <div class="col-xs-2 login"><i class="symbol fa fa-user "></i></div>
-                    <br> <br><br><br><br><button type="button" id="next" class="btn btn-info">next</button>
                 </div>
 
-<br>
-                <div class="row previousandnext">
-                    <button type="button" id="save" class="btn btn-info">save</button>
+                <div class="col-xs-1">
+                    <a class="fa fa-arrow-circle-right fa-3x previousandnext" id="next" href="#"></a>
+                    <!-- <button type="button" id="next" class="btnShow  col-xs-2 btn btn-info">next</button> -->
+                </div>
 
+            </div>
+            <!-- closing display quotes                         -->
+
+            <div class="save-quote">
+                <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
+                <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-info">click to save</button>
+            </div>
+
+
+            <br>
+
+            <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-sm" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title white-text w-100 font-weight-bold py-2">Save Quote</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body">
+                            <div class="md-form mb-5">
+                                <input type="text" id="tag" placeholder="tag optional" class="form-control validate">
+                            </div>
+                            <br>
+                            <div class="md-form">
+                                <input type="email" id="note" placeholder="note optional" class="form-control validate">
+                            </div>
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer justify-content-center">
+                            <a type="button" id="save" class="btn btn-outline-warning waves-effect">Save</a>
+                        </div>
+                    </div>
+                    <!--/.Content-->
                 </div>
             </div>
         </div>
 
     </div>
-    <script src="bootstrap/dist/jsbootstrap.min.js"></script>
 
     <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap\dist\js\bootstrap.min.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="main.js" type="module"></script>
 </body>

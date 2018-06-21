@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/*index  meir*/
+
+.header-page {
+    background-color: #B01513;
+}
+
+.myQuote {
+    padding: 5px;
+    /* background-color: blue; */
+    text-align: center;
+}
+
+.title-page {
+    padding: 5px;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+#findQuote {
+    height: 34px;
+    border-radius: 5px;
+}
+
+.btnShow {
+    margin-top: 30px;
+}
+
+.text-center {
+    background-color: lightblue
+}
+
+
+/* end index  meir*/
+
+.home-page {
+    padding: 20px;
+    margin: 20px;
+    background-color: lightblue;
+    font-size: 20px;
+}
+
+.container {
+    background-color: lightblue;
+    width: 1000px;
+    height: 768px;
+    position: center;
+    padding-top: 60px;
+}
+
+.header-strip {
+    background-color: firebrick;
+    height: 140px;
+}
+
+.notebook-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+.login-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+
+/*closing fixed general nav bar*/
+
+
+/* findQuote row */
+
+
+/* check this (Tal) */
+
+
+/* height: 200px; */
+
+.hover_bkgr_fricc {
+    background: rgba(0, 0, 0, .4);
+    cursor: pointer;
+    display: none;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    color: white;
+    font-size: 30px
+}
+
+
+/* check this (Tal) */
+
+
+/* closing findQuote row */
+
+.vitruvian-man-background {
+    background-image: url(./Images/Vitruvian-Man.jpg);
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    /* This is what makes the background image rescale based
+       on the container's size */
+    background-size: cover;
+    /* Set a background color that will be displayed
+       while the background image is loading */
+    background-color: #464646;
+}
+
+
+/* popup introduction div */
+
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+    /* display: none; */
+}
+
+
+/* check this (Tal) */
+
+
+/* top: 0;
+    width: 100%;
+    z-index: 10000;
+} */
+
+.sayswho-intro {
+    display: none;
+}
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+h5 {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+
+/* closing popup introduction div */
+
+
+/* check this (Tal) */

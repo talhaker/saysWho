@@ -2,17 +2,35 @@
     box-sizing: border-box;
 }
 
-.container {
-    /* background-color: lightblue; */
-    width: 1000px;
-    height: 768px;
-    position: center;
-    padding-top: 60px;
+html {
+    height: 100%;
+}
+
+.home-page {
+    min-height: 640px;
+}
+
+.home-page {
+    /* padding: 20px;
+    margin: 20px; */
+    margin-bottom: 10px;
+    margin-top: 5px;
+    background-color: lightblue;
+    font-size: 20px;
+    height: 100%;
 }
 
 .header-strip {
-    background-color: firebrick;
-    height: 140px;
+    padding: 5px;
+    background-color: #B01513;
+    height: 130px;
+    border: 1px solid black;
+}
+
+.search-quote {
+    background-color: lightgrey;
+    padding: 10px;
+    border: 1px solid black;
 }
 
 .notebook-icon img {
@@ -33,86 +51,85 @@
     margin-top: 40px;
 }
 
-
-/*closing fixed general nav bar*/
-
-
-/* findQuote row */
-
-
-/* closing findQuote row */
-
-.vitruvian-man-background {
-    background-image: url(./Images/Vitruvian-Man.jpg);
-    /* Background image is centered vertically and horizontally at all times */
-    background-position: center center;
-    /* Background image doesn't tile */
-    background-repeat: no-repeat;
-    /* Background image is fixed in the viewport so that it doesn't move when 
-       the content's height is greater than the image's height */
-    background-attachment: fixed;
-    /* This is what makes the background image rescale based
-       on the container's size */
-    background-size: cover;
-    /* Set a background color that will be displayed
-       while the background image is loading */
-    background-color: #464646;
+.vitruvian-man-map {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 
-/* popup introduction div */
+/* searchResults  */
 
-.trigger_popup_fricc {
-    cursor: pointer;
-    font-size: 20px;
-    margin: 20px;
-    display: inline-block;
-    font-weight: bold;
-    /* display: none; */
+#QuoteText {
+    color: white;
+    font-size: 25px
 }
 
-
-/* .hover_bkgr_fricc {
-    background: rgba(0, 0, 0, .4);
-    cursor: pointer;
-    display: none;
-    height: 100%;
-    position: fixed;
+.login {
+    padding: 5px;
     text-align: center;
-    top: 0;
-    width: 100%;
-    z-index: 10000;
+    /* background-color: green; */
+}
+
+.symbol {
+    font-size: 25px !important;
+    border: solid black;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: aliceblue
+}
+
+.borderQuote {
+    height: 00px;
+    color: white;
+    font-size: 30px
+    /* padding: 12px; */
+}
+
+.previousandnext {
+    z-index: 3;
+}
+
+#previous {
+    padding-left: 15px;
+}
+
+#myImg {
+    text-align: center;
+}
+
+
+/*index  meir*/
+
+.myQuote {
+    padding: 5px;
+    /* background-color: blue; */
+    text-align: center;
+}
+
+.title-page {
+    color: white;
+    padding: 5px;
+    padding-left: 25px;
+    /* background-color: aqua; */
+}
+
+#findQuote {
+    height: 34px;
+    border-radius: 5px;
+}
+
+.btnShow {
+    margin-top: 30px;
+}
+
+
+/* .btnSave {
+    margin-bottom: 10px;
 } */
 
-.sayswho-intro {
-    display: none;
-}
-
-.popupCloseButton {
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-
-h5 {
-    display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+.save-quote {
+    background-color: lightblue;
 }
 
 
-/* closing popup introduction div */
+/* end index  meir*/

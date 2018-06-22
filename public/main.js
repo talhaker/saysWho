@@ -28,8 +28,8 @@ eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi();
 eventsHandler.registerFindByImg();
 
-eventsHandler.registerFindByImg(); 
-eventsHandler.registerFindInBook(); 
+eventsHandler.registerFindByImg();
+eventsHandler.registerGetInspirationBook();
 
 // Get the modal
 var modal = document.getElementById('id01');

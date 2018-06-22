@@ -79,54 +79,37 @@ class QuotesRepository {
         //     }
         // });
     }
-
-    /*
-    GET /api/quotes HTTP/1.1
-    Host: favqs.com
-    User-Token: "EDt2V1TBumIGR/tOeCbotEQ6FQSIi3rEFlj/WfumSth2vBCjtVfdkMKvxnl2sbXQfXLHOZdSD3s2mzX6aJGU4g=="
-    Authorization: Token token="effa3280e38d5dbf9b31ea6aca416fd1"
-    Content-Type: application/json
-    Cache-Control: no-cache
-    Postman-Token: be99f101-4f82-d8b0-0dda-6dc4b61213cc
-    */
-
-    //// tag = /?filter=funny&type=tag
-    ///       "/?filter=funny&type=tag"
-    //   author = /?filter=Mark+Twain&type=author
     getQuotes(toFind) {
-
+            
         let self = this;
         $.ajax({
-            url: APP_API_URL + 'quotes' + toFind,
+            url: APP_API_URL + 'quotes'+toFind,
             headers: {
                 'Authorization': 'Token token=' + this.sessionToken,
                 'Authorization': 'Token token=' + APP_API_TOKEN,
                 'Content-Type': 'application/json'
             },
-            // headers: {
-            //             'Authorization': 'Token token=' + APP_API_TOKEN,
-            //             'User-Token': this.sessionToken,
-            //             'Content-Type': 'application/json'
-            //         },
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-                self.returnedQuotes = data.quotes;
-                $('#QuoteText').text(data.quotes[0].body);
-                self.displayReturnedQuotes = true;
-                self.numOfQuotes = self.returnedQuotes.length;
-                self.quoteIndex = 0;
+                // self.returnedQuotes = data.quotes; 
+                 for(let i=0;i<data.quotes.length;i++){
+                    self.returnedQuotes[i]=  {
+                        api_tags:data.quotes[i].tags,
+                        api_d: data.quotes[i].id,
+                        text: data.quotes[i].body,
+                        author: data.quotes[i].author
+                    }
+                 }
 
+
+                $('#QuoteText').text(self.returnedQuotes[0].text);
                 console.log('succes: ' + self.returnedQuotes);
-                console.log('succes: ');
-                for (let i = 0; i < data.quotes.length; i++) {
-                    console.log(self.returnedQuotes[i].author + ' :  ' + self.returnedQuotes[i].body);
-                    console.log(self.returnedQuotes[i].id + ' :  ' + self.returnedQuotes[i].tags);
-                }
             }
         });
 
     }
+
 
     // Login
     userLogin(name, email, password) {
@@ -149,14 +132,21 @@ class QuotesRepository {
                     password: data.password,
                     quotes: data.quotes
                 };
+                $('#userName').val("");
+                 $('#userEmail').val("");
+                 $('#userPass').val("");
 
-                console.log(self.user);
+                 localStorage.setItem("UserName", self.user.name);
+                 localStorage.setItem("UserEmail", self.user.email);
+                 localStorage.setItem("UserPass", self.user.password);
+                 localStorage.setItem("login", true);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('userLogin(): ' + textStatus);
             }
         });
     }
+
 
     // request all the posts from the DB
     getUserQuotes() {
@@ -170,50 +160,36 @@ class QuotesRepository {
         console.log('succes: ' + this.user.quotes);
     }
 
-    // getQuotes(toFind) {
-    //     let self = this;
-    //     $.ajax({
-    //         url: APP_API_URL + 'quotes' + toFind,
-    //         headers: {
-    //             'Authorization': 'Token token=' + this.sessionToken,
-    //             'Authorization': 'Token token=' + APP_API_TOKEN,
-    //             'Content-Type': 'application/json'
-    //         },
-    //         method: 'GET',
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             self.returnedQuotes = data.quotes;
-    //             self.displayReturnedQuotes = true;
-    //             self.numOfQuotes = this.user.quotes.length;
-
-    //             $('#QuoteText').text(data.quotes[0].body);
-    //             console.log('succes: ' + self.returnedQuotes);
-    //         }
-    //     });
-
-    // }
-
-    saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
+//saveQuote
+    saveQuote (quoteBody,quoteId,tags,author,note,myTags)  {
         let self = this;
-        let newQuote = {
-            quote_text: quoteBody,
-            quote_id: quoteId,
-            quote_tags: tags,
-            quote_author: author,
-            user: self.user.id,
-            user_note: note,
-            user_tag: myTags
-        }
-
+    let newQuote={
+        quote_text:quoteBody,
+        quote_id: quoteId,
+        quote_tags: tags,
+        quote_author: author,
+        user: self.user.id,
+        user_note:note,
+        user_tag:myTags
+    }
+    
         return $.ajax({
             method: 'POST',
             url: 'save_quote',
             data: newQuote,
             dataType: 'json',
-            success: (data_Quote) => {
-                // Push quote if not already in array
-
-                self.user.quotes.push(data_Quote);
+            success: (data_Quote) => {         
+                let myindex= self.user.quotes.length;  
+                for(let i=0;i<self.user.quotes.length;i++)  
+                    {
+                        if(self.user.quotes[i].api_d==newQuote.quote_id)
+                        myindex=i;
+                        
+                    } 
+                self.user.quotes[myindex]=data_Quote;
+                $('#note').val("");
+                $('#tag').val("");
+                $('#modalSave').modal('toggle');
                 console.log("add qoute")
 
             },
@@ -221,8 +197,17 @@ class QuotesRepository {
                 console.log(textStatus);
             }
         });
-        // this.quotesUser.push({ quote: quoteId, tags: [], notes: myNotes });
+    }
 
+ NextOrPreviousQuote(index) {
+    let quote= this.returnedQuotes[index].text;
+    $('#QuoteText').text(quote);
+    }
+    NextOrPreviousQuoteBook(index){
+        
+        let quote= this.user.quotes[index].quote.text;
+    
+        $('#QuoteText-book').text(quote);
     }
 
     nextQuote() {

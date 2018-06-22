@@ -14,9 +14,9 @@ const APP_USER_PWD = "TelAviv62";
 const APP_API_URL = 'https://favqs.com/api/';
 class QuotesRepository {
     constructor() {
-        let $name = "Rachel";
-        let $email = "racheltaz@gmail.com";
-        let $password = "rachelTaz";
+        let $name = "";
+        let $email = "";
+        let $password = "";
         this.user = {
             id: "",
             name: "",
@@ -34,7 +34,6 @@ class QuotesRepository {
                 // id: "5b296b53571da13b783101f0" >>>
         };
         this.returnedQuotes = [];
-        this.displayReturnedQuotes = false;
         this.numOfQuotes = 0;
         this.quoteIndex = 0;
         /* 
@@ -80,10 +79,10 @@ class QuotesRepository {
         // });
     }
     getQuotes(toFind) {
-            
+
         let self = this;
         $.ajax({
-            url: APP_API_URL + 'quotes'+toFind,
+            url: APP_API_URL + 'quotes' + toFind,
             headers: {
                 'Authorization': 'Token token=' + this.sessionToken,
                 'Authorization': 'Token token=' + APP_API_TOKEN,
@@ -92,22 +91,23 @@ class QuotesRepository {
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-                // self.returnedQuotes = data.quotes; 
-                 for(let i=0;i<data.quotes.length;i++){
-                    self.returnedQuotes[i]=  {
-                        api_tags:data.quotes[i].tags,
-                        api_d: data.quotes[i].id,
-                        text: data.quotes[i].body,
-                        author: data.quotes[i].author
-                    }
-                 }
-
+                // self.returnedQuotes = data.quotes;
+                self.returnedQuotes = [];
+                data.quotes.forEach((quote) => {
+                    self.returnedQuotes.push({
+                        api_tags: quote.tags,
+                        api_d: quote.id,
+                        text: quote.body,
+                        author: quote.author
+                    });
+                });
 
                 $('#QuoteText').text(self.returnedQuotes[0].text);
+                $('#Author').text(self.returnedQuotes[0].author);
+                $("#quoteIx").text('Quote 1 of ' + self.returnedQuotes.length);
                 console.log('succes: ' + self.returnedQuotes);
             }
         });
-
     }
 
 
@@ -133,13 +133,13 @@ class QuotesRepository {
                     quotes: data.quotes
                 };
                 $('#userName').val("");
-                 $('#userEmail').val("");
-                 $('#userPass').val("");
+                $('#userEmail').val("");
+                $('#userPass').val("");
 
-                 localStorage.setItem("UserName", self.user.name);
-                 localStorage.setItem("UserEmail", self.user.email);
-                 localStorage.setItem("UserPass", self.user.password);
-                 localStorage.setItem("login", true);
+                localStorage.setItem("UserName", self.user.name);
+                localStorage.setItem("UserEmail", self.user.email);
+                localStorage.setItem("UserPass", self.user.password);
+                localStorage.setItem("login", true);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('userLogin(): ' + textStatus);
@@ -152,41 +152,40 @@ class QuotesRepository {
     getUserQuotes() {
         $('#QuoteText').text(this.user.quotes[0].quote.text);
         $('#Author').text(this.user.quotes[0].quote.author);
+        $("#quoteIx").text('Quote 1 of ' + this.user.quotes.length);
 
-        this.displayReturnedQuotes = false;
         this.numOfQuotes = this.user.quotes.length;
         this.quoteIndex = 0;
 
         console.log('succes: ' + this.user.quotes);
     }
 
-//saveQuote
-    saveQuote (quoteBody,quoteId,tags,author,note,myTags)  {
+    //saveQuote
+    saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
         let self = this;
-    let newQuote={
-        quote_text:quoteBody,
-        quote_id: quoteId,
-        quote_tags: tags,
-        quote_author: author,
-        user: self.user.id,
-        user_note:note,
-        user_tag:myTags
-    }
-    
+        let newQuote = {
+            quote_text: quoteBody,
+            quote_id: quoteId,
+            quote_tags: tags,
+            quote_author: author,
+            user: self.user.id,
+            user_note: note,
+            user_tag: myTags
+        }
+
         return $.ajax({
             method: 'POST',
             url: 'save_quote',
             data: newQuote,
             dataType: 'json',
-            success: (data_Quote) => {         
-                let myindex= self.user.quotes.length;  
-                for(let i=0;i<self.user.quotes.length;i++)  
-                    {
-                        if(self.user.quotes[i].api_d==newQuote.quote_id)
-                        myindex=i;
-                        
-                    } 
-                self.user.quotes[myindex]=data_Quote;
+            success: (data_Quote) => {
+                let myindex = self.user.quotes.length;
+                for (let i = 0; i < self.user.quotes.length; i++) {
+                    if (self.user.quotes[i].api_d == newQuote.quote_id)
+                        myindex = i;
+
+                }
+                self.user.quotes[myindex] = data_Quote;
                 $('#note').val("");
                 $('#tag').val("");
                 $('#modalSave').modal('toggle');
@@ -199,60 +198,61 @@ class QuotesRepository {
         });
     }
 
- NextOrPreviousQuote(index) {
-    let quote= this.returnedQuotes[index].text;
-    $('#QuoteText').text(quote);
-    }
-    NextOrPreviousQuoteBook(index){
-        
-        let quote= this.user.quotes[index].quote.text;
-    
-        $('#QuoteText-book').text(quote);
+    NextOrPreviousQuote(index) {
+        $('#QuoteText').text(this.returnedQuotes[index].text);
+        $('#Author').text(this.returnedQuotes[index].author);
+        $('#quoteIx').text("Quote " + (index + 1) + " of " + this.returnedQuotes.length);
     }
 
-    nextQuote() {
-        let quote = "";
-        let author = "";
-
-        if (this.quoteIndex === this.numOfQuotes - 1) {
-            this.quoteIndex = 0;
-        } else {
-            this.quoteIndex++;
-        }
-
-        if (this.displayReturnedQuotes) {
-            quote = this.returnedQuotes[this.quoteIndex].body;
-            author = this.returnedQuotes[this.quoteIndex].author;
-        } else {
-            quote = this.user.quotes[this.quoteIndex].text;
-            author = this.user.quotes[this.quoteIndex].author;
-        }
-
-        $('#QuoteText').text(quote);
-        $('#Author').text(author);
+    NextOrPreviousQuoteBook(index) {
+        $('#QuoteText-book').text(this.user.quotes[index].quote.text);
+        $('#Author-book').text(this.user.quotes[index].quote.author);
+        $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
     }
 
-    previousQuote(index) {
-        let quote = "";
-        let author = "";
+    // nextQuote() {
+    //     let quote = "";
+    //     let author = "";
 
-        if (index === 0) {
-            this.quoteIndex = this.numOfQuotes - 1;
-        } else {
-            this.quoteIndex--;
-        }
+    //     if (this.quoteIndex === this.numOfQuotes - 1) {
+    //         this.quoteIndex = 0;
+    //     } else {
+    //         this.quoteIndex++;
+    //     }
 
-        if (this.displayReturnedQuotes) {
-            quote = this.returnedQuotes[this.quoteIndex].body;
-            author = this.returnedQuotes[this.quoteIndex].author;
-        } else {
-            quote = this.user.quotes[this.quoteIndex].text;
-            author = this.user.quotes[this.quoteIndex].author;
-        }
+    //     if (this.displayReturnedQuotes) {
+    //         quote = this.returnedQuotes[this.quoteIndex].body;
+    //         author = this.returnedQuotes[this.quoteIndex].author;
+    //     } else {
+    //         quote = this.user.quotes[this.quoteIndex].text;
+    //         author = this.user.quotes[this.quoteIndex].author;
+    //     }
 
-        $('#QuoteText').text(quote);
-        $('#Author').text(author);
-    }
+    //     $('#QuoteText').text(quote);
+    //     $('#Author').text(author);
+    // }
+
+    // previousQuote(index) {
+    //     let quote = "";
+    //     let author = "";
+
+    //     if (index === 0) {
+    //         this.quoteIndex = this.numOfQuotes - 1;
+    //     } else {
+    //         this.quoteIndex--;
+    //     }
+
+    //     if (this.displayReturnedQuotes) {
+    //         quote = this.returnedQuotes[this.quoteIndex].body;
+    //         author = this.returnedQuotes[this.quoteIndex].author;
+    //     } else {
+    //         quote = this.user.quotes[this.quoteIndex].text;
+    //         author = this.user.quotes[this.quoteIndex].author;
+    //     }
+
+    //     $('#QuoteText').text(quote);
+    //     $('#Author').text(author);
+    // }
 
     addTags(quoteId, tags) {
 

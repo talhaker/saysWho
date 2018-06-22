@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-xs-1">
                             <!-- clickable icon to move to inspirationBook.html -->
-                            <a id="book" class="notebook-icon" ><img src="Images/notebook-Icon.png"></a>
+                            <a id="book" class="notebook-icon"><img src="Images/notebook-Icon.png"></a>
                         </div>
                         <div class="col-xs-1">
                             <!-- clickable icon collpase sign-in form -->
@@ -81,7 +81,7 @@
                 <!-- start search Results api -->
 
                 <div class="row body-quote" style="display: none">
-
+                    <h1><i>Inspirational Quotes Found</i></h1>
                     <button type="button" id="previous" class="btnShow col-xs-2 btn btn-primary">previous</button>
 
                     <div class="col-xs-8 title">
@@ -94,6 +94,7 @@
                         </div>
                     </div>
 
+                    <div id="quoteIx" class="col-xs-offset-8 col-xs-2"></div>
                     <button type="button" id="next" class="btnShow  col-xs-2 btn btn-info">next</button>
                     <div class="btnSave text-center">
                         <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
@@ -101,28 +102,30 @@
                     </div>
                 </div>
                 <!-- end search Results api -->
-                 <!-- start search Results book -->
-                <div class="row body-quote-book"style="display:none">
-                        
-                        <button type="button" id="previous-book" class="btnShow col-xs-2 btn btn-primary">previous</button>
-                    
-                    <div class="col-xs-8 title">
-                     <div class="borderQuote">
-                        <span class="marker"> “</span>
-                        <span id="QuoteText-book"></span> 
-                        <span class="marker">”</span>
-                      </div>
-                    </div>
-                   
+                <!-- start Inspiration book -->
+                <div class="row body-quote-book" style="display:none">
+                    <h1><i>My Inspiration Book</i></h1>
 
-                    
-                      <button type="button" id="next-book" class="btnShow  col-xs-2 btn btn-info">next</button>
-                      <div class="btnBook text-center">
-                            <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
-                                    <button type="button"  data-toggle="modal"  data-target="#modalSaveInBook" class="btn btn-info">click to edit</button>
-                         </div>
+                    <button type="button" id="previous-book" class="btnShow col-xs-2 btn btn-primary">previous</button>
+
+                    <div class="col-xs-8 title">
+                        <div class="borderQuote">
+                            <span class="marker"> “</span>
+                            <span id="QuoteText-book"></span>
+                            <br/>
+                            <span id="Author-book"></span>
+                            <span class="marker">”</span>
+                        </div>
+                    </div>
+
+                    <div id="quoteIx-book" class="col-xs-offset-8 col-xs-2"></div>
+                    <button type="button" id="next-book" class="btnShow  col-xs-2 btn btn-info">next</button>
+                    <div class="btnBook text-center">
+                        <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
+                        <button type="button" data-toggle="modal" data-target="#modalSaveInBook" class="btn btn-info">click to edit</button>
+                    </div>
                 </div>
-                 <!-- end search Results book -->
+                <!-- end search Results book -->
 
                 <!-- ////////////////      modalSave    ////////////////////// -->
                 <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -194,55 +197,55 @@
                         <!--/.Content-->
                     </div>
                 </div>
-                    <!-- ////////////////      modal edit book   ////////////////////// -->
+                <!-- ////////////////      modal edit book   ////////////////////// -->
 
-                    <div class="modal fade" id="modalSaveInBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-notify modal-sm" role="document">
-                                <!--Content-->
-                                <div class="modal-content">
-                                    <!--Header-->
-                                    <div class="modal-header text-center modal-book">
-                                        <h4 class="modal-title  white-text w-100 font-weight-bold py-2">My Book</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal fade" id="modalSaveInBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-notify modal-sm" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header text-center modal-book">
+                                <h4 class="modal-title  white-text w-100 font-weight-bold py-2">My Book</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true" class="white-text">&times;</span>
                                         </button>
-                                    </div>
-                        
-                                    <!--Body-->
-                                    <div class="modal-body">
-                                            <div class="md-form mb-5">
-                                                    <select name="Options" id="findQuote-book">
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form mb-5">
+                                    <select name="Options" id="findQuote-book">
                                                             <option value="tag">tag</option>
                                                             <option value="author">author</option>
                                                             <option value="filter">filter</option>
                                                    </select>
-                                            </div>
-                                            <br>
-                                            <div class="md-form">
-                                                    <input class="form-control " id="findBy-book" type="text" placeholder="find qoute by .... ">
-                                            </div>
-                                            <div class="modal-footer justify-content-center">
-                                                    <a type="button" id="findInBook" class="close" data-dismiss="modal"  class="btn btn-outline-warning waves-effect">find</a>
-                                                </div>
-                                        </div>
-                                    <div class="modal-body">
-                                        <div class="md-form mb-5">
-                                            <input type="text"  id="tag-book" placeholder="tag optional" class="form-control validate">
-                                        </div>
-                        <br>
-                                        <div class="md-form">
-                                            <input type="email"  id="note-book" placeholder="note optional" class="form-control validate">
-                                        </div>
-                                    </div>
-                        
-                                    <!--Footer-->
-                                    <div class="modal-footer justify-content-center">
-                                        <a type="button" id="editInBook"class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">edit</a>
-                                    </div>
                                 </div>
-                                <!--/.Content-->
+                                <br>
+                                <div class="md-form">
+                                    <input class="form-control " id="findBy-book" type="text" placeholder="find qoute by .... ">
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <a type="button" id="findInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">find</a>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="md-form mb-5">
+                                    <input type="text" id="tag-book" placeholder="tag optional" class="form-control validate">
+                                </div>
+                                <br>
+                                <div class="md-form">
+                                    <input type="email" id="note-book" placeholder="note optional" class="form-control validate">
+                                </div>
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center">
+                                <a type="button" id="editInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">edit</a>
                             </div>
                         </div>
+                        <!--/.Content-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

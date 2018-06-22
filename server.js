@@ -41,28 +41,51 @@ app.use(bodyParser.urlencoded({ extended: true }));
 Here we need to create the different server routes
 These will define your API:
 =======================================================*/
-/* 1) Get user's quotes and their related data         */
-// app.get('/posts', (req, res) => {
-//   Post.find({}, (err, postResult) => {
-//     if (err) throw err;
-//     res.send(postResult);
-//   });
-// });
-
+/* 1) Signup/Login                                     */
+app.post('/saysWho/login', (req, res) => {
+    User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
+        .populate('quotes.quote')
+        .exec((err, user) => {
+            if (err) {
+                throw err;
+            }
+            if (user !== null) {
+                // user already exists - return it
+                res.send(user);
+            } else {
+                // User doesn't exist yet - create it
+                let newUser = new User({
+                    name: req.body.name,
+                    password: req.body.password,
+                    email: req.body.email,
+                    quotes: []
+                });
+                newUser.save((err, user) => {
+                    if (err) {
+                        throw err;
+                    }
+                    res.send(user);
+                });
+            }
+        })
+});
           /* 2) Save a quote         quote_note:note,
         user_tag:myTags                       */
         
-app.post('/save_quote', (req, res) => {
-    let apiId=req.body.quote_id;
-    let userId=req.body.user;
-    let myTags=req.body.user_tag;
 
 
-     Quote.find({api_id:apiId}, function (err, dataQuote) {
-     
-        console.log( "meir  "+dataQuote)
-        console.log( "aaaaaaaaaaaaaaaaaaaaa")
-        if(dataQuote.length===0)//if new
+        
+     app.post('/save_quote', (req, res) => {
+          let apiId=req.body.quote_id;
+        //    let apiId="417"
+           let userId=req.body.user;
+          let myTags=req.body.user_tag;
+     Quote.findOne({api_id:apiId}, function (err,dataQuote) {
+        if (err) {
+            res.send(err);
+            return console.error(err);
+          }
+        if(dataQuote==null)//if new
         {
             console.log("new qoute")
              Quote.create({
@@ -72,47 +95,73 @@ app.post('/save_quote', (req, res) => {
              api_tags: req.body.quote_tags
            }, (err, Result) => {
              if (err) throw err;
-                 User.findById(userId, function (err, _user) {
+             User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
              let new_quote={
                  quote:Result.id,
                  notes:req.body.user_note,
-                 tags:myTags
+                 tags:req.body.user_tag
              }
-             var temp=_user.quotes;
+              var temp=_user.quotes;
                  temp.push(new_quote)
                  _user.quotes=temp;
-                 console.log("quote  "+Result.id) 
-                 console.log("user  "+_user.id)
-                 _user.save();
-                 res.send(User);
-               
+
+                   _user.save();
+                   
+                //    res.send(_user.quotes[_user.quotes.length-1]);
+              
                    });
- 
+                   User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
+                    res.send(_user.quotes[_user.quotes.length-1]);
+                   });
+               
            });
            
         }
         else    //if Exists
         {
          console.log("Exists")
-              User.findById(userId, function (err, _user) {
-          let new_quote={
-              quote:dataQuote[0]._id,
+      User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
+          let flag=true;
+      for(let i=0;i<_user.quotes.length;i++)
+      {
+          if(dataQuote.id==_user.quotes[i].quote.id) //if quote  is  Exists in user 
+          {
+            console.log(_user.quotes[i].quote.id);
+            console.log(dataQuote.id);
+            if(req.body.user_tag[0]!="") {
+                let temp=_user.quotes[i].tags;
+                    temp.push(req.body.user_tag[0]);
+                    _user.quotes[i].tags=temp;
+                    console.log("new tag") ;
+            }
+            if(req.body.user_note[0]!="") {
+                let temp=_user.quotes[i].notes;
+                    temp.push(req.body.user_note[0]);
+                    _user.quotes[i].notes=temp;
+                    console.log("new note") ;
+            }
+            res.send(_user.quotes[i]);
+            flag=false;
+
+          }
+      }
+             if(flag)
+         {  
+             let new_quote={
+              quote:dataQuote.id,
               notes:req.body.user_note,
-              tags:dataQuote[0].api_tags
-                 }
-
-          let temp=new_quote.tags;
-              temp.push(req.body.user_tag[0])
-              _user.quotes.tags=temp
-
-           var temp1=_user.quotes;
-              temp1.push(new_quote)
-              _user.quotes=temp1;
+              tags:req.body.user_tag,
+            }
+          let temp=_user.quotes;
+              temp.push(new_quote)
+              _user.quotes=temp;
               
-              console.log("quote  "+dataQuote[0]._id) 
-              console.log("user  "+_user.id)
               _user.save();
-              res.send(new_quote);
+            //   res.send(_user.quotes[_user.quotes.length-1]);
+            User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
+                res.send(_user.quotes[_user.quotes.length-1]);
+               });
+            }
 
                   });
         }

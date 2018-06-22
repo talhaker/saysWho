@@ -20,7 +20,6 @@
 .login {
     padding: 5px;
     text-align: center;
-    /* background-color: green; */
 }
 
 .symbol {
@@ -77,8 +76,12 @@
 .btnShow{
     margin-top: 30px;
 }
-.text-center{
+/**/
+.text-center.modal-book{
     background-color: lightblue
+}
+.text-center.modal-save{
+    background-color: lightgreen
 }
 .body-quote{
     min-height: 430px;

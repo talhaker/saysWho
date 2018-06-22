@@ -21,64 +21,15 @@ class QuotesRepository {
              id:"5b296b53571da13b783101f0"
         };
         this.returnedQuotes = [];
-        /* 
-                POST /api/session HTTP/1.1
-                Host: favqs.com
-                Content-Type: application/json
-                Authorization: Token token="effa3280e38d5dbf9b31ea6aca416fd1"
-                Cache-Control: no-cache
-                Postman-Token: 0d372af7-e66a-9dfe-d10a-529512b7dd40
-                { 
-                  "user": {
-                    "login": "taltal.haker@gmail.com",
-                    "password": "TelAviv62"
-                  }
-                }        
-        */
-
-
         this.sessionToken = "3miH8uYml17fD/Ie7Ry+YbntH7C5/Dw42a66kXCu9IGnkRp287zHYVxcE4SJy55l0UdBNxuj/dzkTpt19gKDwQ==";
-        // let self = this;
-        // $.ajax({
-        //     url: APP_API_URL + 'session',
-        //     headers: {
-        //         'Authorization': 'Token token=' + APP_API_TOKEN,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     method: 'POST',
-        //     dataType: 'json',
-        //     data: {
-        //         "user": {
-        //             "login": APP_USER_LOGIN,
-        //             "password": APP_USER_PWD
-        //         }
-        //     },
-        //     success: function(data) {
-        //         //                    self.sessionToken = data.User - Token);
-        //         console.log('session token = ' + data);
-
-        //     }
-        // });
-
-
-        this.getUserQuotes();
     }
-
-    /*
-    GET /api/quotes HTTP/1.1
-    Host: favqs.com
-    User-Token: "EDt2V1TBumIGR/tOeCbotEQ6FQSIi3rEFlj/WfumSth2vBCjtVfdkMKvxnl2sbXQfXLHOZdSD3s2mzX6aJGU4g=="
-    Authorization: Token token="effa3280e38d5dbf9b31ea6aca416fd1"
-    Content-Type: application/json
-    Cache-Control: no-cache
-    Postman-Token: be99f101-4f82-d8b0-0dda-6dc4b61213cc
-    */
-
-//// tag = /?filter=funny&type=tag
-///       "/?filter=funny&type=tag"
-//   author = /?filter=Mark+Twain&type=author
     getQuotes(toFind) {
-
+        if($('#findBy').val()=="")
+        {
+            toFind="";
+            alert("You got random quotes")
+        }
+            
         let self = this;
         $.ajax({
             url: APP_API_URL + 'quotes'+toFind,
@@ -90,30 +41,60 @@ class QuotesRepository {
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-                self.returnedQuotes = data.quotes;
-                $('#QuoteText').text(data.quotes[0].body);
+                // self.returnedQuotes = data.quotes; 
+                 for(let i=0;i<data.quotes.length;i++){
+                    self.returnedQuotes[i]=  {
+                        api_tags:data.quotes[i].tags,
+                        api_d: data.quotes[i].id,
+                        text: data.quotes[i].body,
+                        author: data.quotes[i].author
+                    }
+                 }
+
+
+                $('#QuoteText').text(self.returnedQuotes[0].text);
                 console.log('succes: ' + self.returnedQuotes);
             }
         });
 
     }
 
+    userLogin(name, email, password) {
+        debugger
+        let self = this;
+        return $.ajax({
+            method: 'POST',
+            url: '/saysWho/login',
+            data: {
+                name: name,
+                email: email,
+                password: password
+            },
+            dataType: 'json',
+            success: (data) => {
+                // Update user parameters
+                self.user = {
+                    id: data._id,
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                    quotes: data.quotes
+                };
+                $('#userName').val("");
+                 $('#userEmail').val("");
+                 $('#userPass').val("");
 
-    // request all the posts from the DB
-    getUserQuotes() {
-        // return $.ajax({
-        //     method: 'Get',
-        //     url: 'inspiration',
-        //     success: (inspiration) => {
-        //         // add the quotes
-        //         this.quotes = inspirtion.quotes;
-        //         this.users = inspirtion.users;
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.log(textStatus);
-        //     }
-        // });
+                 localStorage.setItem("UserName", self.user.name);
+                 localStorage.setItem("UserEmail", self.user.email);
+                 localStorage.setItem("UserPass", self.user.password);
+                 localStorage.setItem("login", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('userLogin(): ' + textStatus);
+            }
+        });
     }
+
 
     saveQuote (quoteBody,quoteId,tags,author,note,myTags)  {
         debugger
@@ -133,10 +114,19 @@ class QuotesRepository {
             url: 'save_quote',
             data: newQuote,
             dataType: 'json',
-            success: (data_Quote) => {
-                // Push quote if not already in array
-                
-                self.user.quotes.push(data_Quote);
+            success: (data_Quote) => {         
+                let myindex= self.user.quotes.length;  
+                debugger
+                for(let i=0;i<self.user.quotes.length;i++)  
+                    {
+                         if(self.user.quotes[i].api_d==newQuote.quote_id)
+                           myindex=i;
+                        
+                    } 
+                self.user.quotes[myindex]=data_Quote;
+                $('#note').val("");
+                $('#tag').val("");
+                $('#modalSave').modal('toggle');
                 console.log("add qoute")
 
             },
@@ -144,13 +134,17 @@ class QuotesRepository {
                 console.log(textStatus);
             }
         });
-        // this.quotesUser.push({ quote: quoteId, tags: [], notes: myNotes });
-
     }
     NextOrPreviousQuote(index) {
-    let quote= this.returnedQuotes[index].body;
+    let quote= this.returnedQuotes[index].text;
     
     $('#QuoteText').text(quote);
+    }
+    NextOrPreviousQuoteBook(index){
+        debugger
+        let quote= this.user.quotes[index].quote.text;
+    
+        $('#QuoteText').text(quote);
     }
     addTags(quoteId, tags) {
 

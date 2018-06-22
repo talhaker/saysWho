@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="bootstrap\dist\css\bootstrap-theme.min.css">
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+    <link href="searchResults.css" rel="stylesheet">
+
     <link rel="stylesheet" href="font-awesome\css\font-awesome.min.css">
     <title>searchResults</title>
 </head>
@@ -15,7 +17,7 @@
             <div class="col-xs-12 home-page">                   
                     <div class=" row header-page">
                          <div class="col-xs-8 title-page">SaysWho? <br>“Finding my inspiration”</div>
-                         <div class="col-xs-2 myQuote"><i class="symbol fa fa-book"></i>  </div>
+                         <div class="col-xs-2 myQuote"><i id="myBook" class="symbol fa fa-book"></i>  </div>
                          <div class="col-xs-2 login"><i  data-toggle="modal"  data-target="#modalLogin" class="symbol fa fa-user "></i></div>
                     </div>
 
@@ -33,29 +35,30 @@
 
                 <div class="row body-quote">
                         
-                            <button type="button" id="previous" class="btnShow col-xs-2 btn btn-primary">previous</button>
+                            <button type="button" id="previous-book" class="btnShow col-xs-2 btn btn-primary">previous</button>
                         
                         <div class="col-xs-8 title">
-                        <div class="borderQuote">
+                         <div class="borderQuote">
                             <span class="marker"> “</span>
                             <span id="QuoteText"></span> 
                             <span class="marker">”</span>
-                        </div>
+                          </div>
                         </div>
                        
-                          <button type="button" id="next" class="btnShow  col-xs-2 btn btn-info">next</button>
+                          <button type="button" id="next-book" class="btnShow  col-xs-2 btn btn-info">next</button>
                     </div>
 
 
                    <br>
-              
-                <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+               <!-- ////////////////      modalSave    ////////////////////// -->
+
+                <div class="modal fade" id="modalSaveInBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-notify modal-sm" role="document">
                             <!--Content-->
                             <div class="modal-content">
                                 <!--Header-->
-                                <div class="modal-header text-center">
-                                    <h4 class="modal-title white-text w-100 font-weight-bold py-2">Save Quote</h4>
+                                <div class="modal-header text-center modal-book">
+                                    <h4 class="modal-title  white-text w-100 font-weight-bold py-2">My Book</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true" class="white-text">&times;</span>
                                     </button>
@@ -63,18 +66,34 @@
                     
                                 <!--Body-->
                                 <div class="modal-body">
+                                        <div class="md-form mb-5">
+                                                <select name="Options" id="findQuote-book">
+                                                        <option value="tag">tag</option>
+                                                        <option value="author">author</option>
+                                                        <option value="filter">filter</option>
+                                               </select>
+                                        </div>
+                                        <br>
+                                        <div class="md-form">
+                                                <input class="form-control " id="findBy-book" type="text" placeholder="find qoute by .... ">
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                                <a type="button" id="findInBook" class="close" data-dismiss="modal"  class="btn btn-outline-warning waves-effect">find</a>
+                                            </div>
+                                    </div>
+                                <div class="modal-body">
                                     <div class="md-form mb-5">
-                                        <input type="text"  id="tag" placeholder="tag optional" class="form-control validate">
+                                        <input type="text"  id="tag-book" placeholder="tag optional" class="form-control validate">
                                     </div>
                     <br>
                                     <div class="md-form">
-                                        <input type="email"  id="note" placeholder="note optional" class="form-control validate">
+                                        <input type="email"  id="note-book" placeholder="note optional" class="form-control validate">
                                     </div>
                                 </div>
                     
                                 <!--Footer-->
                                 <div class="modal-footer justify-content-center">
-                                    <a type="button" id="save" class="btn btn-outline-warning waves-effect">Save</a>
+                                    <a type="button" id="editInBook"class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">edit</a>
                                 </div>
                             </div>
                             <!--/.Content-->
@@ -83,48 +102,47 @@
                     
                     <div class="text-center">
                         <!-- <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalSave">click to save -->
-                                <button type="button"  data-toggle="modal"  data-target="#modalSave" class="btn btn-info">click to save</button>
+                                <button type="button"  data-toggle="modal"  data-target="#modalSaveInBook" class="btn btn-info">click to edit</button>
                      </div>
 
 
 
+               <!-- ////////////////      modalLogin    ////////////////////// -->
+                <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-notify modal-sm" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
 
- <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
- <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-sm" role="document">
-        <!--Content-->
-        <div class="modal-content">
-            <!--Header-->
-            <div class="modal-header text-center">
-                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="md-form mb-5">
+                                    <input type="text" required  id="userName" placeholder="user name" class="form-control validate">
+                                </div>
+                                    <br>
+                                <div class="md-form">
+                                    <input type="email" required id="userEmail" placeholder="email" class="form-control validate">
+                                </div>
+                                <br>
+                                <div class="md-form">
+                                    <input type="text" required  id="userPass" placeholder="password" class="form-control validate">
+                                </div>
+                            </div>
 
-            <!--Body-->
-            <div class="modal-body">
-                <div class="md-form mb-5">
-                    <input type="text" required  id="userName" placeholder="user name" class="form-control validate">
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center">
+                                <a type="button" id="loginUser" class="btn btn-outline-warning waves-effect">login</a>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
                 </div>
-                      <br>
-                <div class="md-form">
-                    <input type="email" required id="userEmail" placeholder="email" class="form-control validate">
-                </div>
-                <br>
-                <div class="md-form">
-                    <input type="text" required  id="userPass" placeholder="password" class="form-control validate">
-                </div>
-            </div>
-
-            <!--Footer-->
-            <div class="modal-footer justify-content-center">
-                <a type="button" id="loginUser" class="btn btn-outline-warning waves-effect">login</a>
-            </div>
-        </div>
-        <!--/.Content-->
-    </div>
-</div>
         </div>
 
     </div>

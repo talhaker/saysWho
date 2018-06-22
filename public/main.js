@@ -11,6 +11,11 @@ let quotesRenderer = new QuotesRenderer();
 let eventsHandler = new EventsHandler(quotesRepository, quotesRenderer);
 
 eventsHandler.registerOnLoadPage();
+
+eventsHandler.registerGoHome();
+eventsHandler.registerUserLogin();
+eventsHandler.registerGetInspirationBook();
+
 eventsHandler.registerNextQuote();
 eventsHandler.registerPreviousQuote();
 
@@ -22,10 +27,8 @@ eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi() ;
 eventsHandler.registerFindByImg(); 
 
+eventsHandler.registerFindByImg(); 
+eventsHandler.registerFindInBook(); 
 
 
 
-$('#searchResults').on('click', () => {
-
-window.location = "searchResults.html";
-  });

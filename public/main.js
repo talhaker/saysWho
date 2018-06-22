@@ -10,6 +10,10 @@ let quotesRepository = new QuotesRepository();
 let quotesRenderer = new QuotesRenderer();
 let eventsHandler = new EventsHandler(quotesRepository, quotesRenderer);
 
+
+eventsHandler.registerOnLoadPage();
+
+
 eventsHandler.registerGoHome();
 eventsHandler.registerUserLogin();
 eventsHandler.registerGetInspirationBook();
@@ -24,6 +28,8 @@ eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi();
 eventsHandler.registerFindByImg();
 
+eventsHandler.registerFindByImg(); 
+eventsHandler.registerFindInBook(); 
 
 // Get the modal
 var modal = document.getElementById('id01');

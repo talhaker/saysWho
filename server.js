@@ -50,6 +50,8 @@ Here we need to create the different server routes
 These will define your API:
 =======================================================*/
 
+
+
 /* 1) Signup/Login                                     */
 app.post('/saysWho/login', (req, res) => {
     User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] })
@@ -79,19 +81,77 @@ app.post('/saysWho/login', (req, res) => {
         })
 });
 
+app.post('/saysWho/EditTagsAndNote', (req, res) => {
+    console.log("stop")
+     console.log(req.body.myQuote.tags)
+     console.log(req.body.myQuote.notes)
+
+    let userId=req.body.userId;
+    let quoteId=req.body.myQuote._id;
+    User.findById(userId).exec(function (err, _user) {
+        for( let i=0;_user.quotes.length>i;i++)
+            {
+                if(_user.quotes[i]._id == quoteId)
+                  {   
+                    _user.quotes[i]=req.body.myQuote;             
+                    res.send(_user.quotes[i]);
+                  }
+            }
+    });
+
+})
+// app.post('/add_note', (req, res) => {
+    
+//     let userId=req.body.userId;
+//     let quoteId=req.body.quoteId;
+//     let newNote=req.body.newNote;
+//     User.findById(userId).exec(function (err, _user) {
+//         for( let i=0;_user.quotes.length>i;i++)
+//             {
+//                 if(_user.quotes[i]._id == quoteId)
+//                   {   
+//                     _user.quotes[i].notes=newNote;               
+//                     res.send(_user.quotes[i]);
+//                   }
+//             }
+//     });
+
+// })
+app.post('/saysWho/removeQuote ', (req, res) => {
+    
+    let userId=req.body.userId;
+    let quoteId=req.body.quoteId;
+    //{"quotes.id" : "5b2c24e88d61973478a2d5f2"}
+    User.findById(userId).exec(function (err, _user) {
+        console.log(_user)
+        for( let i=0;_user.quotes.length>i;i++)
+            {
+                console.log(_user.quotes[i]._id)
+                if(_user.quotes[i]._id == quoteId)
+                  {   
+                    _user.quotes[i].remove() ; 
+                    _user.save();            
+                    _user.send(_user);
+    
+                  }
+            }
+    });
+
+})
 
 
-app.post('/save_quote', (req, res) => {
-    let apiId=req.body.quote_id;
-  //    let apiId="417"
+
+
+app.post('/saysWho/save_quote', (req, res) => {
+     let apiId=req.body.quote_id;
      let userId=req.body.user;
-    let myTags=req.body.user_tag;
+     let myTags=req.body.user_tag;
 Quote.findOne({api_id:apiId}, function (err,dataQuote) {
   if (err) {
       res.send(err);
       return console.error(err);
     }
-  if(dataQuote==null)//if new
+  if(dataQuote==null)//if new quote in db   is new in user
   {
        Quote.create({
        text: req.body.quote_text,
@@ -110,13 +170,15 @@ Quote.findOne({api_id:apiId}, function (err,dataQuote) {
            temp.push(new_quote)
            _user.quotes=temp;
 
-             _user.save();
+             _user.save(function (err, seveED){
+                User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
+                    console.log(_user);
+                    res.send(_user); // vvvvvvvvv if new quote in db   is new in user
+                  });
+             });
+           
                      
              });
-             User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-              res.send(_user.quotes[_user.quotes.length-1]);
-             });
-         
      });
      
   }
@@ -127,7 +189,7 @@ User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
     let flag=true;
 for(let i=0;i<_user.quotes.length;i++)
 {
-    if(dataQuote.id==_user.quotes[i].quote.id) //if quote  is  Exists in user 
+    if(dataQuote.id==_user.quotes[i].quote.id) //if quote  is  Exists in user  /  edit quote
     {
       console.log(_user.quotes[i].quote.id);
       console.log(dataQuote.id);
@@ -143,12 +205,12 @@ for(let i=0;i<_user.quotes.length;i++)
               _user.quotes[i].notes=temp;
               console.log("new note") ;
       }
-      res.send(_user.quotes[i]);
+      res.send(_user); /// מחזיר 1
       flag=false;
 
     }
 }
-       if(flag)
+       if(flag)  
    {  
        let new_quote={
         quote:dataQuote.id,
@@ -159,9 +221,11 @@ for(let i=0;i<_user.quotes.length;i++)
         temp.push(new_quote)
         _user.quotes=temp;
         
-        _user.save();
-      User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-          res.send(_user.quotes[_user.quotes.length-1]);
+        _user.save(function (err, seveED){
+            User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
+                console.log(_user);
+                res.send(_user); ///     / new in user
+              });
          });
       }
 
@@ -170,23 +234,6 @@ for(let i=0;i<_user.quotes.length;i++)
 
 })
 });
-
-
-
-//get qoute from user
-app.post('/quotes1', function(req, res) {
-    User.
-    findOne({ name: "myName" }).
-    populate(). // 
-    exec(function(err, user) {
-        if (err) return handleError(err);
-
-        console.log('The user ', user);
-
-    });
-    res.send('Hello World!');
-});
-
 
 
 /* 4) Delete a quote                                   */

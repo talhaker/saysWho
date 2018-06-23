@@ -16,19 +16,19 @@ eventsHandler.registerOnLoadPage();
 
 eventsHandler.registerGoHome();
 eventsHandler.registerUserLogin();
-eventsHandler.registerGetInspirationBook();
 eventsHandler.registerNextQuote();
 eventsHandler.registerPreviousQuote();
 
 eventsHandler.registerAddQuote();
-eventsHandler.registerRemoveQuote();
+eventsHandler.registerEditTagsAndNote();
 
-eventsHandler.registerAddNote();
-eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi();
 eventsHandler.registerFindByImg();
 
-eventsHandler.registerFindByImg();
+
+eventsHandler.registerRemoveQuote();
+eventsHandler.registerRemoveNote();
+
 eventsHandler.registerGetInspirationBook();
 
 // Get the modal

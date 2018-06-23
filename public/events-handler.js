@@ -47,12 +47,13 @@ class EventsHandler {
 
     registerGetInspirationBook() {
         $('#book').click(() => {
+            this.indexQuote = 0
             if (localStorage.getItem("login") != null) {
                 $('.imagPag').hide();
                 $('.body-quote').hide();
                 $('.body-quote-book').show();
                 if (this.quotesRepository.user.quotes.length > 0) {
-                    $('#QuoteText-book').text(this.quotesRepository.user.quotes[0].quote.text);
+                    this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);                    
                 } else {
                     $('#QuoteText-book').text("No quotes saved for user " + this.quotesRepository.user.name);
                 }
@@ -61,7 +62,7 @@ class EventsHandler {
             }
 
             $('#next-book').on('click', () => {
-                if (this.indexQuote === this.quotesRepository.user.quotes.length - 1) {
+                if (this.indexQuote == this.quotesRepository.user.quotes.length - 1) {
                     this.indexQuote = 0;
                 } else {
                     this.indexQuote++;
@@ -70,7 +71,7 @@ class EventsHandler {
             });
 
             $('#previous-book').on('click', () => {
-                if (this.indexQuote === 0)
+                if (this.indexQuote == 0)
                     this.indexQuote = this.quotesRepository.user.quotes.length - 1;
                 else
                     this.indexQuote--;
@@ -97,7 +98,7 @@ class EventsHandler {
     registerNextQuote() {
         // on page-Quotes, show the next quote
         $('#next').on('click', () => {
-            if (this.indexReturnedQuote === this.quotesRepository.returnedQuotes.length - 1)
+            if (this.indexReturnedQuote == this.quotesRepository.returnedQuotes.length - 1)
                 this.indexReturnedQuote = 0;
             else
                 this.indexReturnedQuote++
@@ -110,7 +111,7 @@ class EventsHandler {
     registerPreviousQuote() {
         // on page-Quotes, show the previous quote
         $('#previous').on('click', () => {
-            if (this.indexReturnedQuote === 0)
+            if (this.indexReturnedQuote == 0)
                 this.indexReturnedQuote = this.quotesRepository.returnedQuotes.length - 1;
             else
                 this.indexReturnedQuote--;
@@ -204,35 +205,50 @@ class EventsHandler {
 
 
     registerRemoveQuote() {
+        $('#removeQuote').on('click', () => {
+            debugger
+            let myQuote=this.quotesRepository.user.quotes[this.indexQuote] ;
+            this.quotesRepository.user.quotes.splice(this.indexQuote,1);
+            this.indexQuote--;
+            debugger
+            this.quotesRepository.RemoveQuote(myQuote.tags,myQuote._id);
+            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
+
+            // $('.mer1').append('<p> '+myQuote.tags+' </p>'); 
+
+        })
+
 
     }
 
 
-    registerAddTags() {
-        $('#save2').on('click', () => { //xxxxx
 
-
-            let indexReturnedQuote = this.indexReturnedQuote;
-            let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
-            let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
-            let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
-            let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
-            //userId
-            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, "5b2830a0c467cf187457a874").then(() => {
-                console.log("good job")
-            }).catch(() => { console.log('catch- error in adding Quote function'); });
-
-
-        });
-
-    }
 
     registerRemoveTags() {
 
     }
+/////sadasdasdasd
+registerEditTagsAndNote() {
+        $('#editInBook').on('click', () => {
+            debugger
+            let myQuote=this.quotesRepository.user.quotes[this.indexQuote] ;
+            if($('#tag-book').val()!="")
+                { 
 
-    registerAddNote() {
-
+                    let newTag=$('#tag-book').val();
+                        myQuote.tags.push(newTag);
+                // this.quotesRepository.addTags(myQuote.tags,myQuote._id);
+                }
+                if($('#note-book').val()!="")
+                { 
+                    let newNote=$('#note-book').val();
+                     myQuote.notes.push(newNote)
+                     console.log(" new info  note "+myQuote.notes);
+                     console.log(" new info  tags "+myQuote.tags)
+                }
+                this.quotesRepository.EditTagsAndNote(myQuote);
+        })
+        
     }
 
     registerRemoveNote() {

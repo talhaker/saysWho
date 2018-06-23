@@ -172,20 +172,23 @@ class QuotesRepository {
             user_note: note,
             user_tag: myTags
         }
+          
+
 
         return $.ajax({
             method: 'POST',
-            url: 'save_quote',
+            url: '/saysWho/save_quote',
             data: newQuote,
             dataType: 'json',
             success: (data_Quote) => {
-                let myindex = self.user.quotes.length;
-                for (let i = 0; i < self.user.quotes.length; i++) {
-                    if (self.user.quotes[i].api_d == newQuote.quote_id)
-                        myindex = i;
+                self.user.quotes = data_Quote;
 
-                }
-                self.user.quotes[myindex] = data_Quote;
+                // let myindex = self.user.quotes.length;
+                // for (let i = 0; i < self.user.quotes.length; i++) {
+                //     if (self.user.quotes[i].api_d == newQuote.quote_id)
+                //         myindex = i;
+                // }
+                // self.user.quotes[myindex] = data_Quote;
                 $('#note').val("");
                 $('#tag').val("");
                 $('#modalSave').modal('toggle');
@@ -206,59 +209,63 @@ class QuotesRepository {
 
     NextOrPreviousQuoteBook(index) {
         $('#QuoteText-book').text(this.user.quotes[index].quote.text);
-        $('#Author-book').text(this.user.quotes[index].quote.author);
+        $('#Author-book').text(this.user.quotes[index].quote.author).css('color','red');
         $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
     }
 
-    // nextQuote() {
-    //     let quote = "";
-    //     let author = "";
+    EditTagsAndNote(myQuote) {
+        self= this;
+        let infoQuote={
+            myQuote:myQuote,
+            userId:this.user.id
+        }
 
-    //     if (this.quoteIndex === this.numOfQuotes - 1) {
-    //         this.quoteIndex = 0;
-    //     } else {
-    //         this.quoteIndex++;
-    //     }
+         $.ajax({
+            method: 'POST',
+            url: '/saysWho/EditTagsAndNote',
+            data: infoQuote,
+            dataType: 'json',
+            success: (data_Quote) => {  
+                debugger
+                console.log(data_Quote)
+                
+                // self.user.quotes[myindex] = data_Quote;
+                // $('#note').val("");
+                // $('#tag').val("");
+                // $('#modalSave').modal('toggle');
+                // console.log("add qoute")
 
-    //     if (this.displayReturnedQuotes) {
-    //         quote = this.returnedQuotes[this.quoteIndex].body;
-    //         author = this.returnedQuotes[this.quoteIndex].author;
-    //     } else {
-    //         quote = this.user.quotes[this.quoteIndex].text;
-    //         author = this.user.quotes[this.quoteIndex].author;
-    //     }
-
-    //     $('#QuoteText').text(quote);
-    //     $('#Author').text(author);
-    // }
-
-    // previousQuote(index) {
-    //     let quote = "";
-    //     let author = "";
-
-    //     if (index === 0) {
-    //         this.quoteIndex = this.numOfQuotes - 1;
-    //     } else {
-    //         this.quoteIndex--;
-    //     }
-
-    //     if (this.displayReturnedQuotes) {
-    //         quote = this.returnedQuotes[this.quoteIndex].body;
-    //         author = this.returnedQuotes[this.quoteIndex].author;
-    //     } else {
-    //         quote = this.user.quotes[this.quoteIndex].text;
-    //         author = this.user.quotes[this.quoteIndex].author;
-    //     }
-
-    //     $('#QuoteText').text(quote);
-    //     $('#Author').text(author);
-    // }
-
-    addTags(quoteId, tags) {
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
 
     }
 
-    removeTag(quoteId, tag) {
+    removeQuote(quoteId) {
+        let editQuote={
+            quoteId:quoteId,
+            userId:user.id
+        }
+            $.ajax({
+            method: 'POST',
+            url: '/saysWho/removeQuote',
+            data: editQuote,
+            dataType: 'json',
+            success: (data_Quote) => {  
+
+                // self.user.quotes[myindex] = data_Quote;
+                // $('#note').val("");
+                // $('#tag').val("");
+                // $('#modalSave').modal('toggle');
+                // console.log("add qoute")
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
 
     }
 
@@ -269,6 +276,7 @@ class QuotesRepository {
     removeNote(quoteId, noteId) {
 
     }
+    
 
 }
 

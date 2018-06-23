@@ -224,23 +224,26 @@
                                 <div class="md-form">
                                     <input class="form-control " id="findBy-book" type="text" placeholder="find qoute by .... ">
                                 </div>
-                                <div class="modal-footer justify-content-center">
-                                    <a type="button" id="findInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">find</a>
-                                </div>
+                                <br>
+                                <button class="btn btn-info"><a type="button" id="findInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">find</a></button>
                             </div>
+                            <hr>
                             <div class="modal-body">
                                 <div class="md-form mb-5">
-                                    <input type="text" id="tag-book" placeholder="tag optional" class="form-control validate">
+                                    <input type="text" id="tag-book" placeholder="add tag optional" class="form-control validate">
                                 </div>
                                 <br>
-                                <div class="md-form">
-                                    <input type="email" id="note-book" placeholder="note optional" class="form-control validate">
+                                <div class="md-form">    
+                                    <input type="text" id="note-book" placeholder="add note optional" class="form-control validate">
                                 </div>
                             </div>
+                             
 
                             <!--Footer-->
                             <div class="modal-footer justify-content-center">
-                                <a type="button" id="editInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">edit</a>
+                                <button class="btn btn-danger"><a type="button" id="removeQuote" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">remove</a></button>
+
+                                <button  class="btn btn-success"><a type="button" id="editInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">Edit</a></button>
                             </div>
                         </div>
                         <!--/.Content-->

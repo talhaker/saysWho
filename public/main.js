@@ -21,9 +21,8 @@ eventsHandler.registerPreviousQuote();
 eventsHandler.registerAddQuote();
 eventsHandler.registerRemoveQuote();
 
-eventsHandler.registerAddNote();
-eventsHandler.registerRemoveNote();
 eventsHandler.registerFindQuoteFromApi();
+eventsHandler.registerEditTagsAndNote();
 
 eventsHandler.registerFindByImg();
 

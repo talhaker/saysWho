@@ -80,97 +80,94 @@ app.post('/saysWho/login', (req, res) => {
 });
 
 
+app.post('/saysWho/quote/save', (req, res) => {
+    let apiId = req.body.quote_id;
+    let userId = req.body.user;
+    let myTags = req.body.user_tag;
+    Quote.findOne({ api_id: apiId }, function(err, dataQuote) {
+        if (err) {
+            res.send(err);
+            return console.error(err);
+        }
+        if (dataQuote == null) //if new quote in db   is new in user
+        {
+            Quote.create({
+                text: req.body.quote_text,
+                author: req.body.quote_author,
+                api_id: req.body.quote_id,
+                api_tags: req.body.quote_tags
+            }, (err, Result) => {
+                if (err) throw err;
+                User.findById(userId).populate('quotes.quote').exec(function(err, _user) {
+                    let new_quote = {
+                        quote: Result.id,
+                        notes: req.body.user_note,
+                        tags: req.body.user_tag
+                    }
+                    var temp = _user.quotes;
+                    temp.push(new_quote)
+                    _user.quotes = temp;
 
-app.post('/save_quote', (req, res) => {
-    let apiId=req.body.quote_id;
-  //    let apiId="417"
-     let userId=req.body.user;
-    let myTags=req.body.user_tag;
-Quote.findOne({api_id:apiId}, function (err,dataQuote) {
-  if (err) {
-      res.send(err);
-      return console.error(err);
-    }
-  if(dataQuote==null)//if new
-  {
-       Quote.create({
-       text: req.body.quote_text,
-       author: req.body.quote_author,
-       api_id: req.body.quote_id,
-       api_tags: req.body.quote_tags
-     }, (err, Result) => {
-       if (err) throw err;
-       User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-       let new_quote={
-           quote:Result.id,
-           notes:req.body.user_note,
-           tags:req.body.user_tag
-       }
-        var temp=_user.quotes;
-           temp.push(new_quote)
-           _user.quotes=temp;
+                    _user.save(function(err, seveED) {
+                        User.findById(userId).populate('quotes.quote').exec(function(err, _user) {
+                            console.log(_user);
+                            res.send(_user); // vvvvvvvvv if new quote in db   is new in user
+                        });
+                    });
 
-             _user.save();
-                     
-             });
-             User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-              res.send(_user.quotes[_user.quotes.length-1]);
-             });
-         
-     });
-     
-  }
-  else    //if Exists
-  {
-   console.log("Exists")
-User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-    let flag=true;
-for(let i=0;i<_user.quotes.length;i++)
-{
-    if(dataQuote.id==_user.quotes[i].quote.id) //if quote  is  Exists in user 
-    {
-      console.log(_user.quotes[i].quote.id);
-      console.log(dataQuote.id);
-      if(req.body.user_tag[0]!="") {
-          let temp=_user.quotes[i].tags;
-              temp.push(req.body.user_tag[0]);
-              _user.quotes[i].tags=temp;
-              console.log("new tag") ;
-      }
-      if(req.body.user_note[0]!="") {
-          let temp=_user.quotes[i].notes;
-              temp.push(req.body.user_note[0]);
-              _user.quotes[i].notes=temp;
-              console.log("new note") ;
-      }
-      res.send(_user.quotes[i]);
-      flag=false;
 
-    }
-}
-       if(flag)
-   {  
-       let new_quote={
-        quote:dataQuote.id,
-        notes:req.body.user_note,
-        tags:req.body.user_tag,
-      }
-    let temp=_user.quotes;
-        temp.push(new_quote)
-        _user.quotes=temp;
-        
-        _user.save();
-      User.findById(userId).populate('quotes.quote').exec(function (err, _user) {
-          res.send(_user.quotes[_user.quotes.length-1]);
-         });
-      }
+                });
+            });
+
+        } else { //if Exists
+            console.log("Exists")
+            User.findById(userId).populate('quotes.quote').exec(function(err, _user) {
+                let flag = true;
+                for (let i = 0; i < _user.quotes.length; i++) {
+                    if (dataQuote.id == _user.quotes[i].quote.id) //if quote  is  Exists in user  /  edit quote
+                    {
+                        console.log(_user.quotes[i].quote.id);
+                        console.log(dataQuote.id);
+                        if (req.body.user_tag[0] != "") {
+                            let temp = _user.quotes[i].tags;
+                            temp.push(req.body.user_tag[0]);
+                            _user.quotes[i].tags = temp;
+                            console.log("new tag");
+                        }
+                        if (req.body.user_note[0] != "") {
+                            let temp = _user.quotes[i].notes;
+                            temp.push(req.body.user_note[0]);
+                            _user.quotes[i].notes = temp;
+                            console.log("new note");
+                        }
+                        res.send(_user); /// מחזיר 1
+                        flag = false;
+
+                    }
+                }
+                if (flag) {
+                    let new_quote = {
+                        quote: dataQuote.id,
+                        notes: req.body.user_note,
+                        tags: req.body.user_tag,
+                    }
+                    let temp = _user.quotes;
+                    temp.push(new_quote)
+                    _user.quotes = temp;
+
+                    _user.save(function(err, seveED) {
+                        User.findById(userId).populate('quotes.quote').exec(function(err, _user) {
+                            console.log(_user);
+                            res.send(_user); ///     / new in user
+                        });
+                    });
+                }
 
             });
-  }
+        }
 
-})
+    })
 });
-
 
 
 //get qoute from user
@@ -190,54 +187,45 @@ app.post('/quotes1', function(req, res) {
 
 
 /* 4) Delete a quote                                   */
-// app.delete('/posts/:id', (req, res) => {
-//   var id = req.params.id;
-//   // Check if the ID is a valid mongoose id
-//   if (!ObjectID.isValid(id)) {
-//     return res.status(400).send('Id not in the correct format');
-//   }
-//   // delete the post from the DB collection
-//   Post.findByIdAndRemove(id, (err, deletedPost) => {
-//     if (err) throw err;
-//     res.json(deletedPost);
-//   });
-// });
+app.post('/saysWho/quote/remove ', (req, res) => {
+
+    let userId = req.body.userId;
+    let quoteId = req.body.quoteId;
+    //{"quotes.id" : "5b2c24e88d61973478a2d5f2"}
+    User.findById(userId).exec(function(err, _user) {
+        console.log(_user)
+        for (let i = 0; _user.quotes.length > i; i++) {
+            console.log(_user.quotes[i]._id)
+            if (_user.quotes[i]._id == quoteId) {
+                _user.quotes[i].remove();
+                _user.save();
+                _user.send(_user);
+
+            }
+        }
+    });
+
+})
+
 
 /* 5) Add tag(s) to an existing quote                  */
-// app.post('/posts/:id/comments', (req, res) => {
-//     var id = req.params.id;
-//     // Check if the ID is a valid mongoose id
-//     if (!ObjectID.isValid(id)) {
-//         return res.status(400).send('Id not in the correct format');
-//     }
-//     // update the comments array in the DB
-//     Post.findByIdAndUpdate(id, { $push: { comments: req.body } }, { new: true }, (err, updatedPost) => {
-//         if (err) throw err;
-//         res.send(updatedPost);
-//     });
-// });
+app.post('/saysWho/tagsAndNote/edit', (req, res) => {
+    console.log("stop")
+    console.log(req.body.myQuote.tags)
+    console.log(req.body.myQuote.notes)
 
-/* 6) Add note to an existing quote                    */
+    let userId = req.body.userId;
+    let quoteId = req.body.myQuote._id;
+    User.findById(userId).exec(function(err, _user) {
+        for (let i = 0; _user.quotes.length > i; i++) {
+            if (_user.quotes[i]._id == quoteId) {
+                _user.quotes[i] = req.body.myQuote;
+                res.send(_user.quotes[i]);
+            }
+        }
+    });
 
-/* 7) Update note to an existing quote                 */
-// app.put('/posts/:postId', (req, res) => {
-//     var id = req.params.postId;
-//     // Check if the ID is a valid mongoose id
-//     if (!ObjectID.isValid(id)) {
-//         return res.status(400).send('Id not in the correct format');
-//     }
-//     // update the post in the DB collection
-//     Post.findByIdAndUpdate(id, { $set: { text: req.body.text } }, { new: true }, (err, updatedPost) => {
-//         if (err) throw err;
-//         console.log(updatedPost);
-//         res.json(updatedPost);
-//     });
-// });
-
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public', 'index.html'));
-// })
-
+})
 
 /*=====================================================
 PORT

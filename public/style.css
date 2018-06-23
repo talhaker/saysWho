@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    color: black;
 }
 
 html {
@@ -66,8 +67,9 @@ html {
 /* searchResults  */
 
 #QuoteText ,#QuoteText-book{
-    color: white;
-    font-size: 25px
+    color: black;
+    font-size: 25px;
+    /* float: left; */
 }
 
 .login {
@@ -93,6 +95,15 @@ html {
 
 .previousandnext {
     text-align: center;
+}
+
+#Author{
+    font-size: 20px;
+    float: left;
+}
+
+#quoteIx{
+    font-size: 18px;
 }
 
 .myQuote {
@@ -122,6 +133,23 @@ html {
 
 .btnShow {
     margin-top: 30px;
+    font-size: 35px;
+}
+
+#next{
+    float: right;
+}
+
+#previous{
+    float: left;
+}
+
+#next-book {
+    float: right;
+}
+
+#previous-book {
+    float: left;
 }
 
 .text-center.modal-book{
@@ -131,9 +159,23 @@ html {
     background-color: lightgreen
 }
 
+.title{
+    width: 500px;
+    height: 200px;
+} 
 .body-quote,.body-quote-book {
-    min-height: 430px;
+    max-width: 700px;
     max-height: 450px;
+    text-align: center;
+}
+
+#Author-book {
+font-size: 20px;
+float: left;
+}
+
+#quoteIx-book {
+    font-size: 18px;
 }
 
 .btnSave,.btnBook {

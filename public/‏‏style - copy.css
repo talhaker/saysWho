@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
+html {
+    height: 100%;
+}
+
+#go-home {
+    cursor: pointer;
+}
+
+/* .container{
+    padding: 20px;
+} */
+.home-page {
+    /* padding: 20px;
+    margin: 20px; */
+    margin: 5px;
+    background-color: lightblue;
+    font-size: 20px;
+    height: 100%;
+}
+
+.header-strip {
+    padding-bottom: 5px;
+    background-color: #B01513;
+    height: 130px;
+    border: 1px solid black;
+}
+
+.search-quote {
+    background-color: lightgrey;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.notebook-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+.login-icon img {
+    /* width: 24px;
+    height: 24px; */
+    max-width: 50px;
+    margin: 0;
+    display: inline;
+    margin-top: 40px;
+}
+
+.login-icon {
+    cursor: pointer;
+}
+
+.vitruvian-man-map {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* searchResults  */
+
+#QuoteText ,#QuoteText-book{
+    color: black;
+    font-size: 25px;
+    /* float: left; */
+}
+
+.login {
+    padding: 5px;
+    text-align: center;
+    /* background-color: green; */
+}
+
+.symbol {
+    font-size: 25px !important;
+    border: solid black;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: aliceblue
+}
+
+.borderQuote {
+    /* height: 200px; */
+    color: white;
+    font-size: 30px
+    /* padding: 12px; */
+}
+
+.previousandnext {
+    text-align: center;
+}
+
+#Author{
+    font-size: 20px;
+    float: left;
+}
+
+#quoteIx{
+    font-size: 18px;
+}
+
+.myQuote {
+    padding: 5px;
+    text-align: center;
+}
+
+.title-page {
+    color: white;
+    padding: 5px;
+    padding-left: 25px;
+}
+
+#find {
+    cursor: pointer;
+}
+
+#findQuote {
+    height: 34px;
+    border-radius: 5px;
+}
+
+.find-Quote {
+    background-color: #de6f6f61;
+    padding: 20px;
+}
+
+.btnShow {
+    margin-top: 30px;
+    font-size: 35px;
+}
+
+#next{
+    float: right;
+}
+
+#previous{
+    float: left;
+}
+
+#next-book {
+    float: right;
+}
+
+#previous-book {
+    float: left;
+}
+
+.text-center.modal-book{
+    background-color: lightblue
+}
+.text-center.modal-save{
+    background-color: lightgreen
+}
+
+.title{
+    width: 500px;
+    height: 200px;
+} 
+.body-quote,.body-quote-book {
+    max-width: 700px;
+    max-height: 450px;
+    text-align: center;
+}
+
+#Author-book {
+font-size: 20px;
+float: left;
+}
+
+#quoteIx-book {
+    font-size: 18px;
+}
+
+.btnSave,.btnBook {
+    margin-top: 400px;
+}
+
+
+/* end index  meir*/

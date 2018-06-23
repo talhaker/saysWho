@@ -11,16 +11,18 @@ html {
     cursor: pointer;
 }
 
+
 /* .container{
     padding: 20px;
 } */
+
 .home-page {
     /* padding: 20px;
     margin: 20px; */
     margin: 5px;
     background-color: lightblue;
     font-size: 20px;
-    height: 100%;
+    max-height: 650px;
 }
 
 .header-strip {
@@ -58,52 +60,19 @@ html {
     cursor: pointer;
 }
 
+.imagPag {
+    max-height: 650px;
+}
+
 .vitruvian-man-map {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-
-/* searchResults  */
-
-#QuoteText ,#QuoteText-book{
-    color: black;
-    font-size: 25px;
-    /* float: left; */
 }
 
 .login {
     padding: 5px;
     text-align: center;
     /* background-color: green; */
-}
-
-.symbol {
-    font-size: 25px !important;
-    border: solid black;
-    border-radius: 30px;
-    padding: 10px;
-    background-color: aliceblue
-}
-
-.borderQuote {
-    /* height: 200px; */
-    color: white;
-    font-size: 30px
-    /* padding: 12px; */
-}
-
-.previousandnext {
-    text-align: center;
-}
-
-#Author{
-    font-size: 20px;
-    float: left;
-}
-
-#quoteIx{
-    font-size: 18px;
 }
 
 .myQuote {
@@ -132,54 +101,56 @@ html {
 }
 
 .btnShow {
-    margin-top: 30px;
+    margin-top: 50px;
+    margin-left: 50px;
     font-size: 35px;
 }
 
-#next{
-    float: right;
-}
-
-#previous{
-    float: left;
-}
-
-#next-book {
-    float: right;
-}
-
-#previous-book {
-    float: left;
-}
-
-.text-center.modal-book{
+.text-center.modal-book {
     background-color: lightblue
 }
-.text-center.modal-save{
+
+.text-center.modal-save {
     background-color: lightgreen
 }
 
-.title{
-    width: 500px;
-    height: 200px;
-} 
-.body-quote,.body-quote-book {
-    max-width: 700px;
-    max-height: 450px;
-    text-align: center;
+
+/* Search Results/inspiration Book  */
+
+.body-quote,
+.body-quote-book {
+    min-height: 650px;
 }
 
-#Author-book {
-font-size: 20px;
-float: left;
+.borderQuote {
+    height: 235px;
+    color: white;
+    font-size: 30px
+    /* padding: 12px; */
 }
 
+#quoteText,
+#quoteText-book {
+    color: black;
+    font-size: 25px;
+    /* float: left; */
+}
+
+#author,
+#author-book {
+    font-size: 20px;
+    float: left;
+}
+
+#quoteIx,
 #quoteIx-book {
     font-size: 18px;
+    float: right;
 }
 
-.btnSave,.btnBook {
-    margin-top: 400px;
+.btnSave,
+.btnBook {
+    padding-top: 50px;
 }
 
 

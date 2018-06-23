@@ -38,7 +38,9 @@ html {
     border: 1px solid black;
 }
 
-.notebook-icon img {
+.notebook-icon img,
+.login-icon img,
+.about-icon img {
     /* width: 24px;
     height: 24px; */
     max-width: 50px;
@@ -47,16 +49,9 @@ html {
     margin-top: 40px;
 }
 
-.login-icon img {
-    /* width: 24px;
-    height: 24px; */
-    max-width: 50px;
-    margin: 0;
-    display: inline;
-    margin-top: 40px;
-}
-
-.login-icon {
+.notebook-icon,
+.login-icon,
+.about-icon {
     cursor: pointer;
 }
 

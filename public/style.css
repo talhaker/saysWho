@@ -151,11 +151,15 @@ html {
     float: right;
 }
 
+.top-spacer {
+    padding-top: 130px;
+}
+
 .btnSave,
 .btnBook {
-    padding-top: 50px;
+    padding-top: 40px;
     font-size: 35px;
 }
 
 
-/* end index  meir*/
+/* */

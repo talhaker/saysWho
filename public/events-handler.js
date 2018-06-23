@@ -204,41 +204,37 @@ class EventsHandler {
 
 
     registerRemoveQuote() {
-
-    }
-
-
-    registerAddTags() {
-        $('#save2').on('click', () => { //xxxxx
-
-
-            let indexReturnedQuote = this.indexReturnedQuote;
-            let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].body;
-            let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].id;
-            let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].tags;
-            let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
-            //userId
-            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, "5b2830a0c467cf187457a874").then(() => {
-                console.log("good job")
-            }).catch(() => { console.log('catch- error in adding Quote function'); });
-
+        $('#removeQuote').on('click', () => {
+            let myQuote = this.quotesRepository.user.quotes[this.indexQuote];
+            this.quotesRepository.user.quotes.splice(this.indexQuote, 1);
+            this.indexQuote--;
+            this.quotesRepository.RemoveQuote(myQuote.tags, myQuote._id);
+            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
 
         });
-
     }
 
-    registerRemoveTags() {
+
+    registerEditTagsAndNote() {
+        $('#editInBook').on('click', () => {
+            let myQuote = this.quotesRepository.user.quotes[this.indexQuote];
+            if ($('#tag-book').val() != "") {
+
+                let newTag = $('#tag-book').val();
+                myQuote.tags.push(newTag);
+                // this.quotesRepository.addTags(myQuote.tags,myQuote._id);
+            }
+            if ($('#note-book').val() != "") {
+                let newNote = $('#note-book').val();
+                myQuote.notes.push(newNote)
+                console.log(" new info  note " + myQuote.notes);
+                console.log(" new info  tags " + myQuote.tags)
+            }
+            this.quotesRepository.EditTagsAndNote(myQuote);
+        })
 
     }
-
-    registerAddNote() {
-
-    }
-
-    registerRemoveNote() {
-
-    }
-
 }
+
 
 export default EventsHandler;

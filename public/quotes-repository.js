@@ -175,17 +175,18 @@ class QuotesRepository {
 
         return $.ajax({
             method: 'POST',
-            url: 'save_quote',
+            url: '/saysWho/quote/save',
             data: newQuote,
             dataType: 'json',
-            success: (data_Quote) => {
-                let myindex = self.user.quotes.length;
-                for (let i = 0; i < self.user.quotes.length; i++) {
-                    if (self.user.quotes[i].api_d == newQuote.quote_id)
-                        myindex = i;
+            success: (quotes) => {
+                self.user.quotes = quotes;
+                // let myindex = self.user.quotes.length;
+                // for (let i = 0; i < self.user.quotes.length; i++) {
+                //     if (self.user.quotes[i].api_d == newQuote.quote_id)
+                //         myindex = i;
 
-                }
-                self.user.quotes[myindex] = data_Quote;
+                // }
+                // self.user.quotes[myindex] = data_Quote;
                 $('#note').val("");
                 $('#tag').val("");
                 $('#modalSave').modal('toggle');
@@ -208,6 +209,57 @@ class QuotesRepository {
         $('#quoteText-book').text(this.user.quotes[index].quote.text);
         $('#author-book').text(this.user.quotes[index].quote.author);
         $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
+    }
+
+    EditTagsAndNote(myQuote) {
+        self = this;
+        let infoQuote = {
+            myQuote: myQuote,
+            userId: this.user.id
+        }
+
+        $.ajax({
+            method: 'POST',
+            url: '/saysWho/tagsAndNote/edit',
+            data: infoQuote,
+            dataType: 'json',
+            success: (data_Quote) => {
+                debugger
+                console.log(data_Quote)
+
+                // self.user.quotes[myindex] = data_Quote;
+                // $('#note').val("");
+                // $('#tag').val("");
+                // $('#modalSave').modal('toggle');
+                // console.log("add qoute")
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
+    }
+
+    removeQuote(quoteId) {
+        let editQuote = {
+            quoteId: quoteId,
+            userId: user.id
+        }
+        $.ajax({
+            method: 'POST',
+            url: '/saysWho/quote/remove',
+            data: editQuote,
+            dataType: 'json',
+            success: (data_Quote) => {
+                console.log("Qoute removed");
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+            }
+        });
+
     }
 
     addTags(quoteId, tags) {

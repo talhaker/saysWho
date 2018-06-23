@@ -100,12 +100,6 @@ html {
     padding: 20px;
 }
 
-.btnShow {
-    margin-top: 50px;
-    margin-left: 50px;
-    font-size: 35px;
-}
-
 .text-center.modal-book {
     background-color: lightblue
 }
@@ -119,7 +113,7 @@ html {
 
 .body-quote,
 .body-quote-book {
-    min-height: 640px;
+    min-height: 520px;
 }
 
 .borderQuote {
@@ -158,7 +152,9 @@ html {
 .btnSave,
 .btnBook {
     padding-top: 40px;
+    padding-left: 40px;
     font-size: 35px;
+    cursor: pointer;
 }
 
 

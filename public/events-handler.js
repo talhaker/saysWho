@@ -50,10 +50,11 @@ class EventsHandler {
                 $('.imagPag').hide();
                 $('.body-quote').hide();
                 $('.body-quote-book').show();
+                this.indexQuote = 0;
                 if (this.quotesRepository.user.quotes.length > 0) {
-                    $('#quoteText-book').text(this.quotesRepository.user.quotes[0].quote.text);
+                    this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
                 } else {
-                    $('#quoteText-book').text("No quotes saved for user " + this.quotesRepository.user.name);
+                    this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
                 }
             } else {
                 alert('To see your inspirational book, please log into your account');
@@ -147,7 +148,7 @@ class EventsHandler {
             }
             if ($('#findBy').val() == "") {
                 toFind = "";
-                alert("You got random quotes")
+                alert("No search criteria specified. Performing random search")
             }
             this.quotesRepository.getQuotes(toFind);
             //alert(toFind)

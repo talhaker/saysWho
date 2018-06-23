@@ -4,9 +4,8 @@ This block manages the quote and user repositories
 =======================================================*/
 
 class EventsHandler {
-    constructor(QuotesRepository, QuotesRenderer) {
+    constructor(QuotesRepository) {
         this.quotesRepository = QuotesRepository;
-        this.quotesRenderer = QuotesRenderer;
         this.indexReturnedQuote = 0;
         this.indexQuote = 0
 
@@ -52,9 +51,9 @@ class EventsHandler {
                 $('.body-quote').hide();
                 $('.body-quote-book').show();
                 if (this.quotesRepository.user.quotes.length > 0) {
-                    $('#QuoteText-book').text(this.quotesRepository.user.quotes[0].quote.text);
+                    $('#quoteText-book').text(this.quotesRepository.user.quotes[0].quote.text);
                 } else {
-                    $('#QuoteText-book').text("No quotes saved for user " + this.quotesRepository.user.name);
+                    $('#quoteText-book').text("No quotes saved for user " + this.quotesRepository.user.name);
                 }
             } else {
                 alert('To see your inspirational book, please log into your account');

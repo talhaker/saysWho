@@ -102,8 +102,8 @@ class QuotesRepository {
                     });
                 });
 
-                $('#QuoteText').text(self.returnedQuotes[0].text);
-                $('#Author').text(self.returnedQuotes[0].author);
+                $('#quoteText').text(self.returnedQuotes[0].text);
+                $('#author').text(self.returnedQuotes[0].author);
                 $("#quoteIx").text('Quote 1 of ' + self.returnedQuotes.length);
                 console.log('succes: ' + self.returnedQuotes);
             }
@@ -150,8 +150,8 @@ class QuotesRepository {
 
     // request all the posts from the DB
     getUserQuotes() {
-        $('#QuoteText').text(this.user.quotes[0].quote.text);
-        $('#Author').text(this.user.quotes[0].quote.author);
+        $('#quoteText').text(this.user.quotes[0].quote.text);
+        $('#author').text(this.user.quotes[0].quote.author);
         $("#quoteIx").text('Quote 1 of ' + this.user.quotes.length);
 
         this.numOfQuotes = this.user.quotes.length;
@@ -199,60 +199,16 @@ class QuotesRepository {
     }
 
     NextOrPreviousQuote(index) {
-        $('#QuoteText').text(this.returnedQuotes[index].text);
-        $('#Author').text(this.returnedQuotes[index].author);
+        $('#quoteText').text(this.returnedQuotes[index].text);
+        $('#author').text(this.returnedQuotes[index].author);
         $('#quoteIx').text("Quote " + (index + 1) + " of " + this.returnedQuotes.length);
     }
 
     NextOrPreviousQuoteBook(index) {
-        $('#QuoteText-book').text(this.user.quotes[index].quote.text);
-        $('#Author-book').text(this.user.quotes[index].quote.author);
+        $('#quoteText-book').text(this.user.quotes[index].quote.text);
+        $('#author-book').text(this.user.quotes[index].quote.author);
         $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
     }
-
-    // nextQuote() {
-    //     let quote = "";
-    //     let author = "";
-
-    //     if (this.quoteIndex === this.numOfQuotes - 1) {
-    //         this.quoteIndex = 0;
-    //     } else {
-    //         this.quoteIndex++;
-    //     }
-
-    //     if (this.displayReturnedQuotes) {
-    //         quote = this.returnedQuotes[this.quoteIndex].body;
-    //         author = this.returnedQuotes[this.quoteIndex].author;
-    //     } else {
-    //         quote = this.user.quotes[this.quoteIndex].text;
-    //         author = this.user.quotes[this.quoteIndex].author;
-    //     }
-
-    //     $('#QuoteText').text(quote);
-    //     $('#Author').text(author);
-    // }
-
-    // previousQuote(index) {
-    //     let quote = "";
-    //     let author = "";
-
-    //     if (index === 0) {
-    //         this.quoteIndex = this.numOfQuotes - 1;
-    //     } else {
-    //         this.quoteIndex--;
-    //     }
-
-    //     if (this.displayReturnedQuotes) {
-    //         quote = this.returnedQuotes[this.quoteIndex].body;
-    //         author = this.returnedQuotes[this.quoteIndex].author;
-    //     } else {
-    //         quote = this.user.quotes[this.quoteIndex].text;
-    //         author = this.user.quotes[this.quoteIndex].author;
-    //     }
-
-    //     $('#QuoteText').text(quote);
-    //     $('#Author').text(author);
-    // }
 
     addTags(quoteId, tags) {
 

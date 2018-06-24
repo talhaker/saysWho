@@ -187,7 +187,7 @@ app.post('/quotes1', function(req, res) {
 
 
 /* 4) Delete a quote                                   */
-app.post('/saysWho/quote/remove ', (req, res) => {
+app.post('/saysWho/quote/remove', (req, res) => {
 
     let userId = req.body.userId;
     let quoteId = req.body.quoteId;
@@ -199,8 +199,6 @@ app.post('/saysWho/quote/remove ', (req, res) => {
             if (_user.quotes[i]._id == quoteId) {
                 _user.quotes[i].remove();
                 _user.save();
-                _user.send(_user);
-
             }
         }
     });

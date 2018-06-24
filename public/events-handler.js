@@ -192,20 +192,23 @@ class EventsHandler {
             }
             $('#note').val("");
             $('#tag').val("");
-            $('#modalSave').modal('toggle');
         });
     }
 
 
     registerRemoveQuote() {
         $('#removeQuote').on('click', () => {
+            // let self = this;
             let myQuote = this.quotesRepository.user.quotes[this.indexQuote];
             this.quotesRepository.user.quotes.splice(this.indexQuote, 1);
-            this.indexQuote--;
-            this.quotesRepository.RemoveQuote(myQuote.tags, myQuote._id)
-                .then(() => {
-                    this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
-                })
+            if (this.indexQuote === this.quotesRepository.user.quotes.length) {
+                this.indexQuote = 0;
+            }
+            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
+            this.quotesRepository.RemoveQuote(myQuote._id)
+                .catch((err) => {
+                    console.log("Remove Quote failed: " + err);
+                });
         });
     }
 

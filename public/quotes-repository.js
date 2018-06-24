@@ -149,19 +149,6 @@ class QuotesRepository {
     }
 
 
-    // // request all the posts from the DB
-    // getUserQuotes() {
-    //     this.numOfQuotes = this.user.quotes.length;
-    //     this.quoteIndex = 0;
-
-    //     this.NextOrPreviousQuoteBook(0);
-    //     // $('#quoteText').text(this.user.quotes[0].quote.text);
-    //     // $('#author').text(this.user.quotes[0].quote.author);
-    //     // $("#quoteIx").text('Quote 1 of ' + this.user.quotes.length);
-
-    //     console.log('succes: ' + this.user.quotes);
-    // }
-
     //saveQuote
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
         let self = this;
@@ -180,8 +167,8 @@ class QuotesRepository {
             url: '/saysWho/quote/save',
             data: newQuote,
             dataType: 'json',
-            success: (quotes) => {
-                self.user.quotes = quotes;
+            success: (user) => {
+                self.user.quotes = user.quotes;
                 $('#note').val("");
                 $('#tag').val("");
                 $('#modalSave').modal('toggle');
@@ -201,9 +188,15 @@ class QuotesRepository {
     }
 
     NextOrPreviousQuoteBook(index) {
-        $('#quoteText-book').text(this.user.quotes[index].quote.text);
-        $('#author-book').text(this.user.quotes[index].quote.author);
-        $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
+        if (this.user.quotes.length > 0) {
+            $('#quoteText-book').text(this.user.quotes[index].quote.text);
+            $('#author-book').text(this.user.quotes[index].quote.author);
+            $('#quoteIx-book').text("Quote " + (index + 1) + " of " + this.user.quotes.length);
+        } else {
+            $('#quoteText-book').text("Inspiration Book empty");
+            $('#author-book').text("");
+            $('#quoteIx-book').text("");
+        }
     }
 
     EditTagsAndNote(myQuote) {
@@ -236,10 +229,10 @@ class QuotesRepository {
 
     }
 
-    removeQuote(quoteId) {
+    RemoveQuote(quoteId) {
         let editQuote = {
             quoteId: quoteId,
-            userId: user.id
+            userId: this.user.id
         }
         return $.ajax({
             method: 'POST',
@@ -247,7 +240,7 @@ class QuotesRepository {
             data: editQuote,
             dataType: 'json',
             success: (data_Quote) => {
-                console.log("Qoute removed");
+                console.log("Quote removed");
 
             },
             error: function(jqXHR, textStatus, errorThrown) {

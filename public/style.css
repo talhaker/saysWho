@@ -111,6 +111,7 @@ html {
     background-color: lightskyblue;
 }
 
+.logout-body,
 .about-body {
     padding: 40px;
 }

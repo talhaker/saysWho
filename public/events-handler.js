@@ -53,6 +53,10 @@ class EventsHandler {
         $('#logout').on('click', () => {
             localStorage.clear();
             this.quotesRepository.userLogout();
+            $('.body-quote').hide();
+            $('.body-quote-book').hide();
+            $('.imagPag').show();
+
         });
     }
 
@@ -70,8 +74,9 @@ class EventsHandler {
                 $('.body-quote').hide();
                 $('.body-quote-book').show();
             } else {
-                alert('To see your inspirational book, please log into your account');
-            }
+                
+                $('.myAlert').text('To see your inspirational book, please log into your account');
+                $('#modalAlert').modal('show');            }
         })
 
         $('#next-book').on('click', () => {
@@ -134,6 +139,7 @@ class EventsHandler {
 
     registerFindQuoteFromApi() {
         $('#find').on('click', () => {
+
             this.indexReturnedQuote = 0;
 
             var toFind = '';
@@ -154,7 +160,8 @@ class EventsHandler {
             }
             if ($('#findBy').val() == "") {
                 toFind = "";
-                alert("No search criteria specified. Performing random search")
+                $('.myAlert').text('No search criteria specified. Performing random search');
+                $('#modalAlert').modal('show');
             }
             this.quotesRepository.getQuotes(toFind)
                 .then(() => {
@@ -183,8 +190,22 @@ class EventsHandler {
     }
 
     registerAddQuote() {
+
+        $('#modalSaveOpen').on('click', () => {
+            if (localStorage.getItem("login") === null) {
+                $('#modalSave').modal('hide');
+                $('.myAlert').text('To save a quote into your inspirational book, please log into your account');
+                $('#modalAlert').modal('show');
+            }
+            else{
+                $('#modalSave').modal('show');
+            }
+        });
+       
+
+
         $('#save').on('click', () => {
-            if (localStorage.getItem("login") != null) {
+
                 let myTags = [];
                 let indexReturnedQuote = this.indexReturnedQuote;
                 let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].text;
@@ -196,16 +217,16 @@ class EventsHandler {
 
                 this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags)
                     .then(() => {
-                        console.log("good job")
+                        console.log("good job");
+                        $('#note').val("");
+                        $('#tag').val("");
                     })
                     .catch(() => {
                         console.log('catch- error in adding Quote function');
+                        $('#note').val("");
+                        $('#tag').val("");
                     });
-            } else {
-                alert('To save a quote into your inspirational book, please log into your account');
-            }
-            $('#note').val("");
-            $('#tag').val("");
+
         });
     }
 

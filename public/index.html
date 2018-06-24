@@ -118,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="btnSave text-center">
-                        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-primary">Click to save quote</button>
+                        <button type="button" data-toggle="modal" id="modalSaveOpen"  class="btn btn-primary">Click to save quote</button>
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                     <!--Content-->
                     <div class="modal-content">
                         <!--Header-->
-                        <div class="modal-header text-center">
+                        <div class="modal-header text-center Save-Quote">
                             <h4 class="modal-title white-text w-100 font-weight-bold py-2">Save Quote</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true" class="white-text">&times;</span>
@@ -277,26 +277,6 @@
                                 <span aria-hidden="true" class="white-text">&times;</span>
                             </button>
                         </div>
-
-                        <!--Body-->
-                        <!-- 
-                        <div class="modal-body">
-                            <div class="md-form mb-5">
-                                <select name="Options" id="findQuote-book">
-                                    <option value="tag">tag</option>
-                                    <option value="author">author</option>
-                                    <option value="filter">filter</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div class="md-form">
-                                <input class="form-control " id="findBy-book" type="text" placeholder="find qoute by .... ">
-                            </div>
-                            <br>
-                            <button class="btn btn-info"><a type="button" id="findInBook" class="close" data-dismiss="modal" class="btn btn-outline-warning waves-effect">find</a></button>
-                        </div>
-                        <hr>
- -->
                         <div class="modal-body">
                             <div class="md-form mb-5">
                                 <input type="text" id="tag-book" placeholder="add tag optional" class="form-control validate">
@@ -343,7 +323,29 @@
                     <!--/.Content-->
                 </div>
             </div>
-
+                    <!-- ////////////////      modalAlert    ////////////////////// -->
+                    <div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-notify modal-sm" role="document">
+                            <!--Content-->
+                            <div class="modal-content">
+                                <!--Header-->
+                                <div class="modal-header text-center modal-alert">
+                                    <h4 class="modal-title-alert white-text w-100 font-weight-bold py-2">saysWho</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" class="white-text">&times;</span>
+                                    </button>
+                                </div>
+        
+                                <!--Body-->
+                                <div class="modal-body">
+                                  <p class="myAlert"></p>
+                                </div>
+        
+        
+                            </div>
+                            <!--/.Content-->
+                        </div>
+                    </div>
 
         </div>
         <!-- home-page -->

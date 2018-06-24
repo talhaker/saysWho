@@ -99,8 +99,20 @@ html {
     background-color: lightblue
 }
 
+.text-center.modal-login {
+    background-color: lightsalmon;
+}
+
 .text-center.modal-save {
     background-color: lightgreen
+}
+
+.text-center.modal-about {
+    background-color: lightskyblue;
+}
+
+.about-body {
+    padding: 40px;
 }
 
 

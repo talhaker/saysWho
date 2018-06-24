@@ -148,6 +148,16 @@ class QuotesRepository {
         });
     }
 
+    // Logout
+    userLogout() {
+        this.user = {
+            id: "",
+            name: "",
+            email: "",
+            password: "",
+            quotes: []
+        }
+    }
 
     //saveQuote
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {

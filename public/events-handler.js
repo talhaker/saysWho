@@ -22,6 +22,15 @@ class EventsHandler {
 
     registerUserLogin() {
         // Get all user's quotes
+        $('.login-icon').on('click', () => {
+            if (localStorage.getItem('login') !== null) {
+                $('#logout-user').text(this.quotesRepository.user.name);
+                $('#modalLogout').modal('show');
+            } else {
+                $('#modalLogin').modal('show');
+            }
+        });
+
         $('#login').on('click', () => {
 
             let self = this;
@@ -39,6 +48,11 @@ class EventsHandler {
                     })
                     .catch(() => { console.log('catch - error logging-in user ' + $name.val()); });
             }
+        });
+
+        $('#logout').on('click', () => {
+            localStorage.clear();
+            this.quotesRepository.userLogout();
         });
     }
 

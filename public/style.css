@@ -99,15 +99,18 @@ html {
     background-color: lightblue
 }
 
-.text-center.modal-login {
+.text-center.modal-login,.text-center.modal-logout {
     background-color: lightsalmon;
 }
 
 .text-center.modal-save {
     background-color: lightgreen
 }
+.text-center.modal-alert{
+    background-color: red;
+}
 
-.text-center.modal-about {
+.text-center.modal-about,.text-center.Save-Quote {
     background-color: lightskyblue;
 }
 

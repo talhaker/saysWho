@@ -81,7 +81,7 @@ class QuotesRepository {
     getQuotes(toFind) {
 
         let self = this;
-        $.ajax({
+        return $.ajax({
             url: APP_API_URL + 'quotes' + toFind,
             headers: {
                 'Authorization': 'Token token=' + this.sessionToken,
@@ -102,9 +102,10 @@ class QuotesRepository {
                     });
                 });
 
-                $('#quoteText').text(self.returnedQuotes[0].text);
-                $('#author').text(self.returnedQuotes[0].author);
-                $("#quoteIx").text('Quote 1 of ' + self.returnedQuotes.length);
+                self.NextOrPreviousQuote(0);
+                // $('#quoteText').text(self.returnedQuotes[0].text);
+                // $('#author').text(self.returnedQuotes[0].author);
+                // $("#quoteIx").text('Quote 1 of ' + self.returnedQuotes.length);
                 console.log('succes: ' + self.returnedQuotes);
             }
         });
@@ -148,17 +149,18 @@ class QuotesRepository {
     }
 
 
-    // request all the posts from the DB
-    getUserQuotes() {
-        $('#quoteText').text(this.user.quotes[0].quote.text);
-        $('#author').text(this.user.quotes[0].quote.author);
-        $("#quoteIx").text('Quote 1 of ' + this.user.quotes.length);
+    // // request all the posts from the DB
+    // getUserQuotes() {
+    //     this.numOfQuotes = this.user.quotes.length;
+    //     this.quoteIndex = 0;
 
-        this.numOfQuotes = this.user.quotes.length;
-        this.quoteIndex = 0;
+    //     this.NextOrPreviousQuoteBook(0);
+    //     // $('#quoteText').text(this.user.quotes[0].quote.text);
+    //     // $('#author').text(this.user.quotes[0].quote.author);
+    //     // $("#quoteIx").text('Quote 1 of ' + this.user.quotes.length);
 
-        console.log('succes: ' + this.user.quotes);
-    }
+    //     console.log('succes: ' + this.user.quotes);
+    // }
 
     //saveQuote
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
@@ -180,13 +182,6 @@ class QuotesRepository {
             dataType: 'json',
             success: (quotes) => {
                 self.user.quotes = quotes;
-                // let myindex = self.user.quotes.length;
-                // for (let i = 0; i < self.user.quotes.length; i++) {
-                //     if (self.user.quotes[i].api_d == newQuote.quote_id)
-                //         myindex = i;
-
-                // }
-                // self.user.quotes[myindex] = data_Quote;
                 $('#note').val("");
                 $('#tag').val("");
                 $('#modalSave').modal('toggle');
@@ -246,7 +241,7 @@ class QuotesRepository {
             quoteId: quoteId,
             userId: user.id
         }
-        $.ajax({
+        return $.ajax({
             method: 'POST',
             url: '/saysWho/quote/remove',
             data: editQuote,

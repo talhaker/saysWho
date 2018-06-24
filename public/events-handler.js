@@ -12,14 +12,12 @@ class EventsHandler {
     }
 
     registerGoHome() {
-        // Get all user's quotes
+        // Go back to homepage
         $('#go-home').on('click', () => {
             $('.imagPag').show();
             $('.body-quote').hide();
             $('.body-quote-book').hide();
         });
-
-
     }
 
     registerUserLogin() {
@@ -46,38 +44,39 @@ class EventsHandler {
 
     registerGetInspirationBook() {
         $('#book').click(() => {
+            this.indexQuote = 0;
             if (localStorage.getItem("login") != null) {
-                $('.imagPag').hide();
-                $('.body-quote').hide();
-                $('.body-quote-book').show();
-                this.indexQuote = 0;
                 if (this.quotesRepository.user.quotes.length > 0) {
                     this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
                 } else {
                     this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
                 }
+
+                $('.imagPag').hide();
+                $('.body-quote').hide();
+                $('.body-quote-book').show();
             } else {
                 alert('To see your inspirational book, please log into your account');
             }
-
-            $('#next-book').on('click', () => {
-                if (this.indexQuote === this.quotesRepository.user.quotes.length - 1) {
-                    this.indexQuote = 0;
-                } else {
-                    this.indexQuote++;
-                }
-                this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
-            });
-
-            $('#previous-book').on('click', () => {
-                if (this.indexQuote === 0)
-                    this.indexQuote = this.quotesRepository.user.quotes.length - 1;
-                else
-                    this.indexQuote--;
-                this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
-            });
-
         })
+
+        $('#next-book').on('click', () => {
+            if (this.indexQuote === this.quotesRepository.user.quotes.length - 1) {
+                this.indexQuote = 0;
+            } else {
+                this.indexQuote++;
+            }
+            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
+        });
+
+        $('#previous-book').on('click', () => {
+            if (this.indexQuote === 0)
+                this.indexQuote = this.quotesRepository.user.quotes.length - 1;
+            else
+                this.indexQuote--;
+            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
+        });
+
     }
 
 
@@ -120,15 +119,8 @@ class EventsHandler {
 
 
     registerFindQuoteFromApi() {
-        ////////////////////////////////
-        // $('#findQuote').on('change', () => {
-        //     alert($('#findQuote').val());
-        // })
         $('#find').on('click', () => {
-
-            $('.imagPag').hide();
-            $('.body-quote').show();
-            $('.body-quote-book').hide();
+            this.indexReturnedQuote = 0;
 
             var toFind = '';
             let findby = $('#findBy').val(); ///tag,filter,author
@@ -150,11 +142,13 @@ class EventsHandler {
                 toFind = "";
                 alert("No search criteria specified. Performing random search")
             }
-            this.quotesRepository.getQuotes(toFind);
-            //alert(toFind)
+            this.quotesRepository.getQuotes(toFind)
+                .then(() => {
+                    $('.imagPag').hide();
+                    $('.body-quote').show();
+                    $('.body-quote-book').hide();
+                })
         })
-
-
     }
 
 
@@ -165,13 +159,12 @@ class EventsHandler {
         })
 
         $('.imgClick').click(() => {
-            $('.imagPag').hide();
-            $('.body-quote').show();
-            $('.body-quote-book').hide();
-
             let toFind = "/?filter=" + part
             this.quotesRepository.getQuotes(toFind);
 
+            $('.imagPag').hide();
+            $('.body-quote').show();
+            $('.body-quote-book').hide();
         })
     }
 
@@ -187,19 +180,20 @@ class EventsHandler {
                 let note = [$('#note').val()];
                 myTags.push($('#tag').val());
 
-                this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags).then(() => {
-                    console.log("good job")
-                }).catch(() => { console.log('catch- error in adding Quote function'); });
+                this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags)
+                    .then(() => {
+                        console.log("good job")
+                    })
+                    .catch(() => {
+                        console.log('catch- error in adding Quote function');
+                    });
             } else {
                 alert('To save a quote into your inspirational book, please log into your account');
-                $('#note').val("");
-                $('#tag').val("");
-                $('#modalSave').modal('toggle');
             }
-
-
+            $('#note').val("");
+            $('#tag').val("");
+            $('#modalSave').modal('toggle');
         });
-
     }
 
 
@@ -208,9 +202,10 @@ class EventsHandler {
             let myQuote = this.quotesRepository.user.quotes[this.indexQuote];
             this.quotesRepository.user.quotes.splice(this.indexQuote, 1);
             this.indexQuote--;
-            this.quotesRepository.RemoveQuote(myQuote.tags, myQuote._id);
-            this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
-
+            this.quotesRepository.RemoveQuote(myQuote.tags, myQuote._id)
+                .then(() => {
+                    this.quotesRepository.NextOrPreviousQuoteBook(this.indexQuote);
+                })
         });
     }
 

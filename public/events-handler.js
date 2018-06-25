@@ -74,9 +74,10 @@ class EventsHandler {
                 $('.body-quote').hide();
                 $('.body-quote-book').show();
             } else {
-                
-                $('.myAlert').text('To see your inspirational book, please log into your account');
-                $('#modalAlert').modal('show');            }
+
+                $('.myAlert').text('To see your Inspiration Book, please log into your account');
+                $('#modalAlert').modal('show');
+            }
         })
 
         $('#next-book').on('click', () => {
@@ -194,38 +195,37 @@ class EventsHandler {
         $('#modalSaveOpen').on('click', () => {
             if (localStorage.getItem("login") === null) {
                 $('#modalSave').modal('hide');
-                $('.myAlert').text('To save a quote into your inspirational book, please log into your account');
+                $('.myAlert').text('To save a quote into your Inspiration Book, please log into your account');
                 $('#modalAlert').modal('show');
-            }
-            else{
+            } else {
                 $('#modalSave').modal('show');
             }
         });
-       
+
 
 
         $('#save').on('click', () => {
 
-                let myTags = [];
-                let indexReturnedQuote = this.indexReturnedQuote;
-                let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].text;
-                let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].api_d;
-                let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].api_tags;
-                let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
-                let note = [$('#note').val()];
-                myTags.push($('#tag').val());
+            let myTags = [];
+            let indexReturnedQuote = this.indexReturnedQuote;
+            let quoteBody = this.quotesRepository.returnedQuotes[indexReturnedQuote].text;
+            let quoteId = this.quotesRepository.returnedQuotes[indexReturnedQuote].api_d;
+            let tags = this.quotesRepository.returnedQuotes[indexReturnedQuote].api_tags;
+            let author = this.quotesRepository.returnedQuotes[indexReturnedQuote].author;
+            let note = [$('#note').val()];
+            myTags.push($('#tag').val());
 
-                this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags)
-                    .then(() => {
-                        console.log("good job");
-                        $('#note').val("");
-                        $('#tag').val("");
-                    })
-                    .catch(() => {
-                        console.log('catch- error in adding Quote function');
-                        $('#note').val("");
-                        $('#tag').val("");
-                    });
+            this.quotesRepository.saveQuote(quoteBody, quoteId, tags, author, note, myTags)
+                .then(() => {
+                    console.log("good job");
+                    $('#note').val("");
+                    $('#tag').val("");
+                })
+                .catch(() => {
+                    console.log('catch- error in adding Quote function');
+                    $('#note').val("");
+                    $('#tag').val("");
+                });
 
         });
     }

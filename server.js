@@ -80,6 +80,7 @@ app.post('/saysWho/login', (req, res) => {
 });
 
 
+/* 2) Save quote to user's book                    */
 app.post('/saysWho/quote/save', (req, res) => {
     let apiId = req.body.quote_id;
     let userId = req.body.user;
@@ -170,23 +171,7 @@ app.post('/saysWho/quote/save', (req, res) => {
 });
 
 
-//get qoute from user
-app.post('/quotes1', function(req, res) {
-    User.
-    findOne({ name: "myName" }).
-    populate(). // 
-    exec(function(err, user) {
-        if (err) return handleError(err);
-
-        console.log('The user ', user);
-
-    });
-    res.send('Hello World!');
-});
-
-
-
-/* 4) Delete a quote                                   */
+/* 3) Delete a quote from user's book                */
 app.post('/saysWho/quote/remove', (req, res) => {
 
     let userId = req.body.userId;
@@ -206,7 +191,7 @@ app.post('/saysWho/quote/remove', (req, res) => {
 })
 
 
-/* 5) Add tag(s) to an existing quote                  */
+/* 4) Add a tag and/or note to an existing quote     */
 app.post('/saysWho/tagsAndNote/edit', (req, res) => {
     console.log("stop")
     console.log(req.body.myQuote.tags)
@@ -231,8 +216,11 @@ PORT
 const SERVER_PORT = process.env.PORT || 8080;
 app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
 
-// Dummy data to populate the database
 
+/*=====================================================
+== Dummy data to populate the database
+== Function should only be called once
+=======================================================*/
 let generateDummyData = () => {
     let quote1 = new Quote({
         text: "Man always dies before he is fully born.",

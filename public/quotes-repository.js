@@ -91,7 +91,6 @@ class QuotesRepository {
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-                // self.returnedQuotes = data.quotes;
                 self.returnedQuotes = [];
                 data.quotes.forEach((quote) => {
                     self.returnedQuotes.push({
@@ -103,10 +102,10 @@ class QuotesRepository {
                 });
 
                 self.NextOrPreviousQuote(0);
-                // $('#quoteText').text(self.returnedQuotes[0].text);
-                // $('#author').text(self.returnedQuotes[0].author);
-                // $("#quoteIx").text('Quote 1 of ' + self.returnedQuotes.length);
                 console.log('succes: ' + self.returnedQuotes);
+                $('.imagPag').hide();
+                $('.body-quote').show();
+                $('.body-quote-book').hide();
             }
         });
     }
@@ -159,7 +158,7 @@ class QuotesRepository {
         }
     }
 
-    //saveQuote
+    // Save Quote
     saveQuote(quoteBody, quoteId, tags, author, note, myTags) {
         let self = this;
         let newQuote = {
@@ -191,12 +190,14 @@ class QuotesRepository {
         });
     }
 
+    // Next/previos Quote in result display
     NextOrPreviousQuote(index) {
         $('#quoteText').text(this.returnedQuotes[index].text);
         $('#author').text(this.returnedQuotes[index].author);
         $('#quoteIx').text("Quote " + (index + 1) + " of " + this.returnedQuotes.length);
     }
 
+    // Next/previos Quote in Inspiration Book
     NextOrPreviousQuoteBook(index) {
         if (this.user.quotes.length > 0) {
             $('#quoteText-book').text(this.user.quotes[index].quote.text);
@@ -209,6 +210,7 @@ class QuotesRepository {
         }
     }
 
+    // Edit saved quote
     EditTagsAndNote(myQuote) {
         self = this;
         let infoQuote = {
@@ -224,13 +226,6 @@ class QuotesRepository {
             success: (data_Quote) => {
                 debugger
                 console.log(data_Quote)
-
-                // self.user.quotes[myindex] = data_Quote;
-                // $('#note').val("");
-                // $('#tag').val("");
-                // $('#modalSave').modal('toggle');
-                // console.log("add qoute")
-
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
@@ -239,6 +234,7 @@ class QuotesRepository {
 
     }
 
+    // Remove quote from Inspiration Book
     RemoveQuote(quoteId) {
         let editQuote = {
             quoteId: quoteId,

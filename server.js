@@ -21,18 +21,6 @@ let User = require('./models/UserModel');
 Connect to MongoDB and check the connection
 =======================================================*/
 
-
-//let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
-let myConnection = 'mongodb://localhost/saysWhoDB'
-mongoose.connect(myConnection, { useMongoClient: true })
-    .then(() => {
-        console.log('DB connection established!');
-        // Only generate dummy data on the first time
-        //generateDummyData();
-    })
-    .catch((error) => console.error(error));
-
-
 /*=====================================================
 Express & express handlebars setup
 =======================================================*/
@@ -213,8 +201,30 @@ app.post('/saysWho/tagsAndNote/edit', (req, res) => {
 /*=====================================================
 PORT
 =======================================================*/
-const SERVER_PORT = process.env.PORT || 8080;
-app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
+
+
+
+
+    ////////////////////////////////////////
+    app.listen(process.env.PORT || '8080');
+    mongoose.connect(process.env.CONNECTION_STRING||'mongodb://localhost/saysWhoDB');
+
+
+
+    ////////////////////////////////
+//     let myConnection = process.env.CONNECTION_STRING || 'mongodb://localhost/saysWhoDB'
+// //let myConnection = 'mongodb://localhost/saysWhoDB'
+// mongoose.connect(myConnection, { useMongoClient: true })
+//     .then(() => {
+//         console.log('DB connection established!');
+//         // Only generate dummy data on the first time
+//         //generateDummyData();
+//     })
+//     .catch((error) => console.error(error));
+
+// const SERVER_PORT = process.env.PORT || 8080;
+// app.listen(SERVER_PORT, () => console.log(`Server up and running on port ${SERVER_PORT}...`));
+
 
 
 /*=====================================================
